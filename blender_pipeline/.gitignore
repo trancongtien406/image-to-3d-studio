@@ -2,3 +2,5 @@ assets
 output/*/tt_frames/
 *.blend1
 __pycache__/
+output/*/slice/*.gcode
+output/*/slice/*.secs
