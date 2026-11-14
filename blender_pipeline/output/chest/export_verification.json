@@ -1,80 +1,95 @@
 {
-  "source_total_tris": 38536,
+  "source_total_tris": 48932,
   "formats": {
     "glb": {
-      "file_mb": 7.87,
+      "file_mb": 23.61,
       "objects": [
         "Chest_Body_Metal",
         "Chest_Body_Wood",
+        "Chest_Hinge_Pins",
+        "Chest_Lid_Hasp",
         "Chest_Lid_Lining",
         "Chest_Lid_Metal",
         "Chest_Lid_Wood",
         "Chest_Lining"
       ],
-      "tris": 38536,
+      "tris": 48932,
       "tris_match_source": true,
       "bbox_m": [
-        0.638,
-        0.4595,
-        0.4415
+        0.631,
+        0.4535,
+        0.463
       ],
       "materials": [
-        "Brass_Hammered",
+        "Brass_Aged",
         "Keyhole_Dark",
+        "Lining_Piping",
+        "Lining_Thread",
         "Lining_Velvet",
+        "Wood_EndGrain",
         "Wood_Oak_Aged"
       ],
-      "images": 3
+      "images": 9
     },
     "obj": {
-      "file_mb": 1.95,
+      "file_mb": 2.27,
       "objects": [
         "Chest_Body_Metal",
         "Chest_Body_Wood",
+        "Chest_Hinge_Pins",
+        "Chest_Lid_Hasp",
         "Chest_Lid_Lining",
         "Chest_Lid_Metal",
         "Chest_Lid_Wood",
         "Chest_Lining"
       ],
-      "tris": 38536,
+      "tris": 48932,
       "tris_match_source": true,
       "bbox_m": [
-        0.638,
-        0.4595,
-        0.4415
+        0.631,
+        0.4535,
+        0.463
       ],
       "materials": [
-        "Brass_Hammered",
+        "Brass_Aged",
         "Keyhole_Dark",
+        "Lining_Piping",
+        "Lining_Thread",
         "Lining_Velvet",
+        "Wood_EndGrain",
         "Wood_Oak_Aged"
       ],
-      "images": 1
+      "images": 4
     },
     "fbx": {
-      "file_mb": 2.26,
+      "file_mb": 10.63,
       "objects": [
         "Chest_Body_Metal",
         "Chest_Body_Wood",
+        "Chest_Hinge_Pins",
+        "Chest_Lid_Hasp",
         "Chest_Lid_Lining",
         "Chest_Lid_Metal",
         "Chest_Lid_Wood",
         "Chest_Lining"
       ],
-      "tris": 38536,
+      "tris": 48932,
       "tris_match_source": true,
       "bbox_m": [
-        0.638,
-        0.4595,
-        0.4415
+        0.631,
+        0.4535,
+        0.463
       ],
       "materials": [
-        "Brass_Hammered",
+        "Brass_Aged",
         "Keyhole_Dark",
+        "Lining_Piping",
+        "Lining_Thread",
         "Lining_Velvet",
+        "Wood_EndGrain",
         "Wood_Oak_Aged"
       ],
-      "images": 1
+      "images": 4
     }
   }
 }

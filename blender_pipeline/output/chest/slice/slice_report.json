@@ -1,15 +1,41 @@
 {
   "slicer": "PrusaSlicer 2.8.1 CLI (AppImage, headless)",
   "scale_pct": 25.0,
-  "slice_seconds": 13.7,
+  "slice_seconds": 12.7,
   "gcode": "chest_25pct.gcode",
-  "layers": 706,
-  "segments": 4092055,
+  "layers": 737,
+  "layer_check": {
+    "z_levels_total": 737,
+    "object_layers": 579,
+    "support_only_levels": 158,
+    "object_layer_height_histogram_mm": {
+      "0.2": 578
+    },
+    "first_support_only_z": [
+      0.5,
+      1.1,
+      1.7,
+      2.3,
+      2.9,
+      3.5
+    ],
+    "object_top_z_mm": 115.8,
+    "object_xy_toolpath_mm": [
+      157.22,
+      112.9
+    ],
+    "object_xy_outline_mm": [
+      157.67,
+      113.35
+    ],
+    "explanation": "737 Z levels = 579 object layers x 0.2 mm (top at 115.8 mm) + 158 support-only levels interleaved at offset heights (support is printed on its own layers because of the 0.2 mm contact distance). 737 x 0.2 = 147.4 mm is therefore not the print height; the object height is 115.8 mm."
+  },
+  "segments": 4277240,
   "gcode_stats": {
-    "filament used [mm]": "129767.32",
-    "filament used [cm3]": "312.13",
-    "filament used [g]": "387.04",
-    "estimated printing time (normal mode)": "1d 1h 44m 31s",
+    "filament used [mm]": "136000.03",
+    "filament used [cm3]": "327.12",
+    "filament used [g]": "405.63",
+    "estimated printing time (normal mode)": "1d 3h 5m 24s",
     "fill_density": "15%",
     "layer_height": "0.2",
     "nozzle_diameter": "0.4",

@@ -7,8 +7,10 @@
   "hinge_knuckle_gap": 1.2,
   "hasp_plate_thickness": 4.0,
   "staple_bar": 4.0,
-  "handle_ring_wire_diameter": 9.0,
+  "screw_head_diameter": 8.4,
+  "hasp_pin_diameter": 3.6,
+  "lock_plate_thickness": 5.0,
   "plank_gap": 2.5,
-  "lid_seam": 1.5,
+  "lid_seam": 0.8,
   "keyhole_slot_width": 7.0
 }

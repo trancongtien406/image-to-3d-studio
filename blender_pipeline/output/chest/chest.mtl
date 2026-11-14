@@ -1,8 +1,8 @@
 # Blender 4.2.3 LTS MTL File: 'None'
 # www.blender.org
 
-newmtl Brass_Hammered
-Ns 336.400055
+newmtl Brass_Aged
+Ns 250.000000
 Ka 1.000000 1.000000 1.000000
 Kd 0.620000 0.460000 0.210000
 Ks 0.500000 0.500000 0.500000
@@ -21,18 +21,27 @@ Ni 1.500000
 d 1.000000
 illum 2
 
-newmtl Lining_Velvet
-Ns 10.000005
+newmtl Lining_Piping
+Ns 62.500000
 Ka 1.000000 1.000000 1.000000
-Kd 0.160000 0.012000 0.020000
+Kd 0.110000 0.008000 0.014000
 Ks 0.500000 0.500000 0.500000
 Ke 0.000000 0.000000 0.000000
 Ni 1.500000
 d 1.000000
 illum 2
 
-newmtl Wood_Oak_Aged
+newmtl Lining_Thread
 Ns 159.999985
+Ka 1.000000 1.000000 1.000000
+Kd 0.550000 0.380000 0.200000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+
+newmtl Lining_Velvet
 Ka 1.000000 1.000000 1.000000
 Kd 0.800000 0.800000 0.800000
 Ks 0.500000 0.500000 0.500000
@@ -40,4 +49,27 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.500000
 d 1.000000
 illum 2
-map_Bump -bm 1.000000 chest_wood_nor_gl_2k.jpg
+map_Ns -s 7 7 7 velour_velvet_Rough_2k.jpg
+map_Bump -s 7 7 7 -bm 1.400000 velour_velvet_nor_gl_2k.jpg
+
+newmtl Wood_EndGrain
+Ns 62.500000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Bump -s 2.5 2.5 2.5 -bm 1.600000 chest_woodend_nor_gl_2k.jpg
+
+newmtl Wood_Oak_Aged
+Ns 144.399994
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Bump -bm 2.000000 chest_wood_nor_gl_2k.jpg
