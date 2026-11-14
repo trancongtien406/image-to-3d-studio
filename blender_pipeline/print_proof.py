@@ -25,6 +25,7 @@ if FIX:
             ms.save_current_mesh(path, binary=True); break
         for it in range(6):
             ms.apply_selection_dilatation(); ms.meshing_remove_selected_faces(); ms.meshing_remove_unreferenced_vertices()
+            ms.meshing_repair_non_manifold_edges(); ms.meshing_repair_non_manifold_vertices()   # boolean seams
             ms.meshing_close_holes(maxholesize=300, newfaceselected=False, selfintersection=False)
             ms.meshing_repair_non_manifold_edges(); ms.meshing_repair_non_manifold_vertices()
             ms.compute_selection_by_self_intersections_per_face()
