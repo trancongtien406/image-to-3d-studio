@@ -49,7 +49,7 @@ import common
 common.ASSETS_TEX_OVERRIDE = TEXD
 wood = pbr_material("Wood_Oak_Aged", tex="chest_wood", rough=0.6, normal_strength=1.0)
 wood_end = pbr_material("Wood_EndGrain", tex="chest_woodend", rough=0.7)
-brass = pbr_material("Brass_Hammered", color=(0.78, 0.53, 0.17), rough=0.36, metal=1.0, bump=0.35)
+brass = pbr_material("Brass_Hammered", color=(0.62, 0.46, 0.21), rough=0.42, metal=1.0, bump=0.35)
 dark = pbr_material("Keyhole_Dark", color=(0.02, 0.015, 0.01), rough=0.8)
 velvet = pbr_material("Lining_Velvet", color=(0.16, 0.012, 0.02), rough=0.9, bump=0.15)
 gold = pbr_material("Coin_Gold", color=(0.95, 0.68, 0.25), rough=0.22, metal=1.0, bump=0.1)
@@ -105,16 +105,16 @@ def brass_wear(m):
     L.new(geo.outputs["Pointiness"], pr.inputs["Fac"])
     ao = N.new("ShaderNodeAmbientOcclusion"); ao.inputs["Distance"].default_value = 0.006; ao.samples = 8
     tc = N.new("ShaderNodeTexCoord"); nz = _n(nt, "ShaderNodeTexNoise", Scale=18.0, Detail=6.0); L.new(tc.outputs["Object"], nz.inputs["Vector"])
-    tr = N.new("ShaderNodeValToRGB"); e = tr.color_ramp.elements; e[0].position = 0.38; e[1].position = 0.58
+    tr = N.new("ShaderNodeValToRGB"); e = tr.color_ramp.elements; e[0].position = 0.30; e[1].position = 0.66
     L.new(nz.outputs["Fac"], tr.inputs["Fac"])
     base = N.new("ShaderNodeMix"); base.data_type = "RGBA"; L.new(tr.outputs["Color"], base.inputs["Factor"])
-    base.inputs[6].default_value = (0.26, 0.17, 0.06, 1); base.inputs[7].default_value = (0.56, 0.38, 0.13, 1)   # tarnished / brass
+    base.inputs[6].default_value = (0.19, 0.145, 0.085, 1); base.inputs[7].default_value = (0.52, 0.385, 0.17, 1)   # tarnished / brass
     cav = N.new("ShaderNodeMix"); cav.data_type = "RGBA"; L.new(ao.outputs["AO"], cav.inputs["Factor"])
-    cav.inputs[6].default_value = (0.12, 0.085, 0.04, 1); L.new(base.outputs[2], cav.inputs[7])
+    cav.inputs[6].default_value = (0.07, 0.055, 0.035, 1); L.new(base.outputs[2], cav.inputs[7])
     edge = N.new("ShaderNodeMix"); edge.data_type = "RGBA"; L.new(pr.outputs["Color"], edge.inputs["Factor"])
-    L.new(cav.outputs[2], edge.inputs[6]); edge.inputs[7].default_value = (0.9, 0.7, 0.38, 1)
+    L.new(cav.outputs[2], edge.inputs[6]); edge.inputs[7].default_value = (0.84, 0.68, 0.40, 1)
     L.new(edge.outputs[2], b.inputs["Base Color"])
-    ro = N.new("ShaderNodeMapRange"); ro.inputs["To Min"].default_value = 0.58; ro.inputs["To Max"].default_value = 0.34
+    ro = N.new("ShaderNodeMapRange"); ro.inputs["To Min"].default_value = 0.66; ro.inputs["To Max"].default_value = 0.40
     L.new(tr.outputs["Color"], ro.inputs["Value"])
     re = N.new("ShaderNodeMix"); L.new(pr.outputs["Color"], re.inputs["Factor"]); L.new(ro.outputs["Result"], re.inputs[2]); re.inputs[3].default_value = 0.2
     L.new(re.outputs[0], b.inputs["Roughness"])
@@ -261,7 +261,7 @@ EB = 0.028 / R   # 28 mm along the arc
 for nm, (a0, a1) in (("LidEdgeF", (AMAX - EB, AMAX)), ("LidEdgeB", (-AMAX, -AMAX + EB))):
     o = arc_stave(nm, a0, a1, R - 0.0005, R + BAND_T, -W / 2 - BAND_T, W / 2 + BAND_T, segs=4)
     P(o, brass, bev=0.0015, uv=False)
-    for x in (-0.15, 0.15):
+    for x in ((-0.15, 0.15) if nm == "LidEdgeF" else (-0.085, 0.085)):
         a = (a0 + a1) / 2; rivet(x, -(R + BAND_T) * math.sin(a), ZC + (R + BAND_T) * math.cos(a), (0, -math.sin(a), math.cos(a)), r=0.005)
 GRP[0] = "body"
 
@@ -357,11 +357,11 @@ for x in HINGE_X:
     for z in (HB - 0.03, HB - 0.075, HB - 0.12):
         rivet(x, D / 2 + BAND_T + 0.004, z, (0, 1, 0), r=0.0048)
     # lid leaf: curved strap following the lid arc from the hinge up over the back
-    a0 = -AMAX; a1 = -AMAX + 0.1 / R
-    lf = arc_stave(f"HingeLeafLid{x:+.2f}", a0, a1, R - 0.0005, R + 0.0045, x - LK / 2, x + LK / 2, segs=10)
+    a0 = -AMAX; a1 = -AMAX + 0.11 / R; LR0, LR1 = R + BAND_T - 0.0005, R + BAND_T + 0.0035
+    lf = arc_stave(f"HingeLeafLid{x:+.2f}", a0, a1, LR0, LR1, x - LK / 2, x + LK / 2, segs=10)
     P(lf, brass, bev=0.0012, uv=False, grp="lid"); shade_smooth(lf, 30)
-    for k in (0.35, 0.8):
-        a = a0 + (a1 - a0) * k; rr = R + 0.0045
+    for k in (0.45, 0.85):
+        a = a0 + (a1 - a0) * k; rr = LR1
         rivet(x, -rr * math.sin(a), ZC + rr * math.cos(a), (0, -math.sin(a), math.cos(a)), r=0.0048)
         rivets[-1]["grp"] = "lid"
 
@@ -498,7 +498,7 @@ CAMS = {
     "side": dict(loc=(1.75, 0.0, 0.42), tgt=tgt, lens=55),
     "back": dict(loc=(0.75, 1.6, 0.6), tgt=(0, 0.05, 0.2), lens=55),
     "reference_match": dict(loc=(0.98, -1.52, 0.82), tgt=(0.0, 0.0, 0.21), lens=50, square=True),
-    "open": dict(loc=(-1.05, -1.45, 1.2), tgt=(0, 0.02, 0.3), lens=50, lid=100, coins=True),
+    "open": dict(loc=(-1.3, -1.8, 1.32), tgt=(0, 0.05, 0.36), lens=50, lid=100, coins=True),
     "closeup_latch": dict(loc=(-0.16, -0.62, 0.36), tgt=(0, -0.215, 0.235), lens=90, dof=(0.35, 3.2)),
     "closeup_hinge": dict(loc=(0.42, 0.62, 0.42), tgt=(0.17, 0.215, 0.255), lens=90, dof=(0.48, 3.2)),
 }
