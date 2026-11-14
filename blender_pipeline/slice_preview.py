@@ -46,6 +46,24 @@ for line in open(G):
     if ext and (nx != x or ny != y): segs.append((nz, x, y, nx, ny, typ))
     x, y, z = nx, ny, nz
 zs = sorted({s[0] for s in segs}); zmax = max(zs)
+# layer accounting: PrusaSlicer prints support on its own (thicker, offset) layers; those Z levels are counted in
+# "total layers" / ;LAYER_CHANGE but carry no object extrusion. Height must be checked on object layers only.
+import collections
+_isobj = lambda t_: not t_.startswith(("Support", "Skirt"))
+ztypes = collections.defaultdict(set)
+for s_ in segs: ztypes[round(s_[0], 3)].add(s_[5])
+obj_z = sorted(q for q in ztypes if any(_isobj(t_) for t_ in ztypes[q])); sup_z = sorted(q for q in ztypes if q not in obj_z)
+dz = collections.Counter(round(b - a, 3) for a, b in zip(obj_z, obj_z[1:]))
+oxs = [v for s_ in segs if _isobj(s_[5]) for v in (s_[1], s_[3])]; oys = [v for s_ in segs if _isobj(s_[5]) for v in (s_[2], s_[4])]
+EW = 0.45   # external perimeter extrusion width: toolpath centre lines sit EW/2 inside the true outline
+layer_check = {"z_levels_total": len(zs), "object_layers": len(obj_z), "support_only_levels": len(sup_z),
+               "object_layer_height_histogram_mm": {str(k): v for k, v in dz.most_common()},
+               "first_support_only_z": sup_z[:6], "object_top_z_mm": max(obj_z),
+               "object_xy_toolpath_mm": [round(max(oxs) - min(oxs), 2), round(max(oys) - min(oys), 2)],
+               "object_xy_outline_mm": [round(max(oxs) - min(oxs) + EW, 2), round(max(oys) - min(oys) + EW, 2)],
+               "explanation": ("%d Z levels = %d object layers x 0.2 mm (top at %.1f mm) + %d support-only levels interleaved at offset "
+                               "heights (support is printed on its own layers because of the 0.2 mm contact distance). %d x 0.2 = %.1f mm is "
+                               "therefore not the print height; the object height is %.1f mm." % (len(zs), len(obj_z), max(obj_z), len(sup_z), len(zs), len(zs) * 0.2, max(obj_z)))}
 COL = {"Perimeter": (230, 160, 40), "External perimeter": (240, 110, 40), "Overhang perimeter": (40, 90, 230), "Internal infill": (170, 40, 40),
        "Solid infill": (150, 60, 160), "Top solid infill": (230, 60, 60), "Bridge infill": (70, 130, 200), "Gap fill": (250, 250, 250),
        "Skirt/Brim": (20, 160, 120), "Skirt": (20, 160, 120), "Support material": (40, 200, 60), "Support material interface": (30, 140, 40)}
@@ -87,7 +105,10 @@ for (zz, x0, y0, x1, y1, ty) in segs:
     used.add(ty)
     d.line([(lx + (x0 - X0) * lk, ly + (Y1 - y0) * lk), (lx + (x1 - X0) * lk, ly + (Y1 - y1) * lk)], fill=COL.get(ty, (200, 200, 200)), width=2)
 d.text((40, 30), f"PrusaSlicer {SCALE:g}% scale  -  sliced headless (CLI), toolpaths drawn from the exported G-code", font=fb, fill=(240, 240, 240))
-info = [f"Model: {os.path.basename(STL)} at {SCALE:g}%", f"Layers: {stats.get('total layers count', len(zs))} x {stats.get('layer_height', '0.2')} mm",
+info = [f"Model: {os.path.basename(STL)} at {SCALE:g}% (display / static one-piece print)",
+        f"Object: {layer_check['object_layers']} layers x 0.2 mm = {layer_check['object_top_z_mm']:.1f} mm tall, "
+        f"{layer_check['object_xy_outline_mm'][0]:.1f} x {layer_check['object_xy_outline_mm'][1]:.1f} mm footprint",
+        f"(+{layer_check['support_only_levels']} support-only Z levels -> {len(zs)} G-code layers in total)",
         f"Perimeters {stats.get('perimeters', '3')}, gyroid infill {stats.get('fill_density', '15%')}", f"Print time: {stats.get('estimated printing time (normal mode)', '?')}",
         f"Filament: {stats.get('filament used [g]', '?')} g PLA ({float(stats.get('filament used [mm]', 0)) / 1000:.1f} m)", f"Slicing took {slice_s:.0f} s"]
 for i, l in enumerate(info): d.text((40, 90 + i * 36), l, font=f, fill=(210, 210, 210))
@@ -98,5 +119,5 @@ for i, ty in enumerate(sorted(used)):
 d.text((40, H - 60), "Left: outer walls coloured by height (blue = bed, orange = top). Right: one layer by feature type.", font=f, fill=(170, 170, 170))
 im.save(os.path.join(OUT, "slice_preview.png"))
 rep = {"slicer": "PrusaSlicer 2.8.1 CLI (AppImage, headless)", "scale_pct": SCALE, "slice_seconds": round(slice_s, 1), "gcode": os.path.basename(G),
-       "layers": len(zs), "segments": len(segs), "gcode_stats": stats, "config": cfg}
+       "layers": len(zs), "layer_check": layer_check, "segments": len(segs), "gcode_stats": stats, "config": cfg}
 json.dump(rep, open(os.path.join(OUT, "slice_report.json"), "w"), indent=2); print(json.dumps(rep["gcode_stats"], indent=1))
