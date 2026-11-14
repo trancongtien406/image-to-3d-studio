@@ -1,0 +1,4 @@
+assets
+output/*/tt_frames/
+*.blend1
+__pycache__/

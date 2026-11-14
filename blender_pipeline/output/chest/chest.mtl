@@ -1,0 +1,44 @@
+# Blender 4.2.3 LTS MTL File: 'None'
+# www.blender.org
+
+newmtl Brass_Hammered
+Ns 409.599976
+Ka 1.000000 1.000000 1.000000
+Kd 0.780000 0.530000 0.170000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 3
+
+newmtl Keyhole_Dark
+Ns 39.999996
+Ka 1.000000 1.000000 1.000000
+Kd 0.020000 0.015000 0.010000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+
+newmtl Wood_EndGrain
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd chest_woodend_Diffuse_2k.jpg
+map_Ns chest_woodend_Rough_2k.jpg
+map_Bump -bm 1.000000 chest_woodend_nor_gl_2k.jpg
+
+newmtl Wood_Oak_Aged
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd chest_wood_Diffuse_2k.jpg
+map_Ns chest_wood_Rough_2k.jpg
+map_Bump -bm 1.000000 chest_wood_nor_gl_2k.jpg

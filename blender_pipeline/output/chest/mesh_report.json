@@ -1,0 +1,48 @@
+{
+  "chest.glb": {
+    "unit_in_file": "m",
+    "dimensions_cm_xyz": [
+      63.1,
+      44.2,
+      45.4
+    ],
+    "triangles": 28656,
+    "vertices": 28826,
+    "submeshes": 4,
+    "watertight": false,
+    "winding_consistent": true,
+    "is_volume": false
+  },
+  "chest.obj": {
+    "unit_in_file": "m",
+    "dimensions_cm_xyz": [
+      63.1,
+      44.1,
+      45.4
+    ],
+    "triangles": 28656,
+    "vertices": 28634,
+    "submeshes": 4,
+    "watertight": false,
+    "winding_consistent": false,
+    "is_volume": false
+  },
+  "chest_print_mm.stl": {
+    "unit_in_file": "mm",
+    "dimensions_cm_xyz": [
+      63.1,
+      45.4,
+      44.1
+    ],
+    "triangles": 192736,
+    "vertices": 96366,
+    "submeshes": 1,
+    "watertight": true,
+    "winding_consistent": true,
+    "is_volume": true,
+    "bodies": 1,
+    "all_bodies_watertight": true,
+    "non_manifold_edges": 0,
+    "volume_cm3": 96421.1
+  }
+}
