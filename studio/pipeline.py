@@ -19,7 +19,8 @@ sys.path.insert(0, str(ROOT / "third_party"))  # vendored TripoSR (MIT)
 class Options:
     resolution: int = 256          # marching-cubes grid; 192 = faster, 320 = finer
     foreground_ratio: float = 0.85
-    target_faces: int | None = 40000
+    target_faces: int | None = 30000
+    smooth_iterations: int = 8
     formats: tuple[str, ...] = mesh_tools.FORMATS
     stl_height_mm: float | None = 80.0
     rembg_model: str = "isnet-general-use"
@@ -63,6 +64,7 @@ class ImageTo3D:
         mesh = self.model.extract_mesh(codes, True, resolution=self.opts.resolution)[0]
         mesh = mesh_tools.orient_y_up(mesh)
         mesh = mesh_tools.clean(mesh)
+        mesh = mesh_tools.smooth(mesh, self.opts.smooth_iterations)
         mesh = mesh_tools.decimate(mesh, self.opts.target_faces)
         mesh = mesh_tools.normalize(mesh)
         files = mesh_tools.export_all(mesh, out_dir, name, self.opts.formats, self.opts.stl_height_mm)

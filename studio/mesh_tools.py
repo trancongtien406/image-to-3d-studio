@@ -54,6 +54,13 @@ def clean(mesh: trimesh.Trimesh, keep_largest: bool = True) -> trimesh.Trimesh:
     return mesh
 
 
+def smooth(mesh: trimesh.Trimesh, iterations: int = 8) -> trimesh.Trimesh:
+    """Taubin smoothing: removes marching-cubes stair-stepping without shrinking the volume."""
+    if iterations > 0:
+        trimesh.smoothing.filter_taubin(mesh, lamb=0.5, nu=-0.53, iterations=iterations)
+    return mesh
+
+
 def decimate(mesh: trimesh.Trimesh, target_faces: int | None) -> trimesh.Trimesh:
     if not target_faces or len(mesh.faces) <= target_faces:
         return mesh
@@ -72,6 +79,19 @@ def stats(mesh: trimesh.Trimesh) -> MeshStats:
                      round(float(ext[0]), 4), round(float(ext[1]), 4), round(float(ext[2]), 4))
 
 
+def srgb_to_linear(colors: np.ndarray) -> np.ndarray:
+    """Convert uint8 sRGB(A) vertex colors to uint8 linear RGB(A).
+
+    glTF stores COLOR_0 in linear space; writing the sRGB values TripoSR predicts makes models look washed out.
+    """
+    c = colors.astype(np.float64) / 255.0
+    rgb = c[:, :3]
+    lin = np.where(rgb <= 0.04045, rgb / 12.92, ((rgb + 0.055) / 1.055) ** 2.4)
+    out = c.copy()
+    out[:, :3] = lin
+    return np.clip(np.round(out * 255), 0, 255).astype(np.uint8)
+
+
 def export_all(mesh: trimesh.Trimesh, out_dir: Path, name: str, formats=FORMATS, stl_height_mm: float | None = None) -> dict:
     out_dir.mkdir(parents=True, exist_ok=True)
     files = {}
@@ -80,6 +100,9 @@ def export_all(mesh: trimesh.Trimesh, out_dir: Path, name: str, formats=FORMATS,
             raise ValueError(f"unsupported format {fmt!r}, choose from {FORMATS}")
         path = out_dir / f"{name}.{fmt}"
         m = mesh
+        if fmt == "glb" and getattr(mesh.visual, "kind", None) == "vertex":
+            m = mesh.copy()
+            m.visual.vertex_colors = srgb_to_linear(np.asarray(mesh.visual.vertex_colors))
         if fmt == "stl" and stl_height_mm:
             m = mesh.copy()
             m.apply_scale(stl_height_mm / float(mesh.extents[1]))

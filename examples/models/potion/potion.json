@@ -1,0 +1,19 @@
+{
+  "name": "potion",
+  "source": "potion.jpg",
+  "seconds": 12.7,
+  "files": {
+    "glb": "potion.glb",
+    "obj": "potion.obj",
+    "stl": "potion.stl",
+    "input": "potion_input.png"
+  },
+  "stats": {
+    "vertices": 14979,
+    "faces": 30000,
+    "watertight": false,
+    "width": 0.6827,
+    "height": 1.0,
+    "depth": 0.6859
+  }
+}

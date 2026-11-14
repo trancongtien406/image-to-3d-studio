@@ -32,7 +32,8 @@ def main(argv=None):
     c.add_argument("images", nargs="+", type=Path)
     c.add_argument("-o", "--out", type=Path, default=ROOT / "outputs")
     c.add_argument("--resolution", type=int, default=256)
-    c.add_argument("--faces", type=int, default=40000, help="target face count after decimation (0 = keep all)")
+    c.add_argument("--faces", type=int, default=30000, help="target face count after decimation (0 = keep all)")
+    c.add_argument("--smooth", type=int, default=8, help="Taubin smoothing iterations (0 = off)")
     c.add_argument("--formats", default="glb,obj,stl")
     c.add_argument("--stl-height-mm", type=float, default=80.0)
     c.add_argument("--device", default="auto")
@@ -43,7 +44,7 @@ def main(argv=None):
     if args.cmd == "gallery":
         print(build_gallery(args.dir.resolve()))
         return
-    opts = Options(resolution=args.resolution, target_faces=args.faces or None,
+    opts = Options(resolution=args.resolution, target_faces=args.faces or None, smooth_iterations=args.smooth,
                    formats=tuple(args.formats.split(",")), stl_height_mm=args.stl_height_mm, device=args.device)
     engine = ImageTo3D(opts)
     print(f"device: {engine.device}")

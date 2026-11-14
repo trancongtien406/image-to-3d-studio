@@ -1,0 +1,19 @@
+{
+  "name": "chest",
+  "source": "chest.jpg",
+  "seconds": 13.1,
+  "files": {
+    "glb": "chest.glb",
+    "obj": "chest.obj",
+    "stl": "chest.stl",
+    "input": "chest_input.png"
+  },
+  "stats": {
+    "vertices": 15000,
+    "faces": 30000,
+    "watertight": false,
+    "width": 1.1484,
+    "height": 1.0,
+    "depth": 1.1315
+  }
+}

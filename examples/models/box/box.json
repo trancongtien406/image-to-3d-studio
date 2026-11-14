@@ -1,0 +1,19 @@
+{
+  "name": "box",
+  "source": "box.jpg",
+  "seconds": 14.2,
+  "files": {
+    "glb": "box.glb",
+    "obj": "box.obj",
+    "stl": "box.stl",
+    "input": "box_input.png"
+  },
+  "stats": {
+    "vertices": 15002,
+    "faces": 30000,
+    "watertight": true,
+    "width": 1.109,
+    "height": 1.0,
+    "depth": 1.1503
+  }
+}

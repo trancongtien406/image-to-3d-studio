@@ -1,7 +1,7 @@
 {
   "name": "sneaker",
   "source": "sneaker.jpg",
-  "seconds": 19.2,
+  "seconds": 11.0,
   "files": {
     "glb": "sneaker.glb",
     "obj": "sneaker.obj",
@@ -9,11 +9,11 @@
     "input": "sneaker_input.png"
   },
   "stats": {
-    "vertices": 20002,
-    "faces": 40000,
+    "vertices": 15002,
+    "faces": 30000,
     "watertight": true,
-    "width": 1.9634,
+    "width": 1.9693,
     "height": 1.0,
-    "depth": 1.3236
+    "depth": 1.3256
   }
 }

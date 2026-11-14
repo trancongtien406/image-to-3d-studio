@@ -1,0 +1,19 @@
+{
+  "name": "vase",
+  "source": "vase.jpg",
+  "seconds": 12.9,
+  "files": {
+    "glb": "vase.glb",
+    "obj": "vase.obj",
+    "stl": "vase.stl",
+    "input": "vase_input.png"
+  },
+  "stats": {
+    "vertices": 15003,
+    "faces": 30000,
+    "watertight": true,
+    "width": 0.9001,
+    "height": 1.0,
+    "depth": 0.8847
+  }
+}

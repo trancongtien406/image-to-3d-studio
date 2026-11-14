@@ -32,7 +32,11 @@
   .card .t { font-weight:600; font-size:14px; text-transform:capitalize; }
   .card .s { font-size:12px; color:var(--muted); margin-top:2px; }
   .stage { position:relative; overflow:hidden; }
-  model-viewer { width:100%; height:100%; --poster-color:transparent; background:radial-gradient(circle at 50% 60%, #222842 0%, #10131b 70%); }
+  model-viewer { width:100%; height:100%; --poster-color:transparent; background:radial-gradient(ellipse 80% 70% at 50% 38%, #3b4260 0%, #232839 45%, #12151d 100%); }
+  .modes { position:absolute; top:16px; right:16px; display:flex; gap:4px; background:#0b0d12cc; border:1px solid var(--line); padding:4px; border-radius:12px; backdrop-filter:blur(10px); }
+  .modes button { background:transparent; color:var(--muted); border:0; padding:7px 12px; border-radius:9px; font:600 12px Inter; cursor:pointer; }
+  .modes button.on { background:var(--accent); color:white; }
+  .badge { position:absolute; left:16px; top:190px; font-size:11px; color:var(--muted); background:#0b0d12aa; border:1px solid var(--line); padding:5px 10px; border-radius:999px; }
   .toolbar { position:absolute; left:50%; bottom:18px; transform:translateX(-50%); display:flex; gap:6px; background:#0b0d12cc; border:1px solid var(--line); padding:6px; border-radius:14px; backdrop-filter:blur(10px); }
   .toolbar button { background:transparent; color:var(--text); border:0; padding:8px 12px; border-radius:10px; font:500 13px Inter; cursor:pointer; white-space:nowrap; }
   .toolbar button.on, .toolbar button:hover { background:var(--panel2); }
@@ -66,7 +70,7 @@
 <body>
 <header>
   <div class="brand"><div class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 2 3 7v10l9 5 9-5V7z"/><path d="M3 7l9 5 9-5M12 12v10"/></svg></div>Image&nbsp;to&nbsp;3D&nbsp;Studio</div>
-  <div class="pill" id="engine">TripoSR · CPU-friendly · <b>●</b> ready</div>
+  <div class="pill" id="engine">Fast AI Reconstruction · TripoSR · CPU · <b>●</b> ready</div>
 </header>
 <main>
   <aside>
@@ -76,15 +80,23 @@
     <div id="list"></div>
   </aside>
   <section class="stage">
-    <model-viewer id="mv" camera-controls auto-rotate auto-rotate-delay="0" rotation-per-second="24deg" shadow-intensity="1.1" shadow-softness="0.9"
-      exposure="1.05" environment-image="neutral" tone-mapping="aces" camera-orbit="20deg 75deg 110%" interaction-prompt="none" ar ar-modes="webxr scene-viewer quick-look"></model-viewer>
+    <model-viewer id="mv" camera-controls auto-rotate auto-rotate-delay="0" rotation-per-second="24deg" shadow-intensity="1.4" shadow-softness="0.55"
+      exposure="1.0" environment-image="neutral" tone-mapping="neutral" camera-orbit="25deg 74deg 145%" max-camera-orbit="Infinity 180deg 300%" interaction-prompt="none" ar ar-modes="webxr scene-viewer quick-look"></model-viewer>
     <div class="compare"><img id="inputImg" alt="input" /><span>Input image</span></div>
+    <div class="modes" id="modes">
+      <button data-m="textured" class="on">Textured</button>
+      <button data-m="clay">Clay</button>
+      <button data-m="wireframe">Wireframe</button>
+    </div>
+    <div class="badge">Fast AI Reconstruction · TripoSR</div>
     <div class="toolbar">
       <button id="rot" class="on">Auto-rotate</button>
+      <button id="q34">3/4</button>
       <button id="front">Front</button>
       <button id="side">Side</button>
+      <button id="back">Back</button>
       <button id="top">Top</button>
-      <button id="env">Studio light</button>
+      <button id="env" class="on">Studio light</button>
     </div>
     <div class="progress" id="progress"><div><div class="spinner"></div>Reconstructing 3D model…</div></div>
   </section>
@@ -100,8 +112,8 @@
     <h3>Downloads</h3>
     <div class="dl" id="dl"></div>
     <h3>View</h3>
-    <label class="range">Exposure</label><input type="range" id="exp" min="0.4" max="2" step="0.05" value="1.05" />
-    <label class="range">Shadow</label><input type="range" id="sh" min="0" max="2" step="0.05" value="1.1" />
+    <label class="range">Exposure</label><input type="range" id="exp" min="0.4" max="2" step="0.05" value="1.0" />
+    <label class="range">Contact shadow</label><input type="range" id="sh" min="0" max="2" step="0.05" value="1.4" />
   </section>
 </main>
 <footer>Built by Tran Cong Tien · fiverr.com/optimus2003</footer>
@@ -110,7 +122,7 @@ const $ = (id) => document.getElementById(id);
 const mv = $('mv');
 let items = [];
 const fmt = (n) => n.toLocaleString('en-US');
-const sizes = { glb: 'Web, AR, games', obj: 'Blender, Maya, C4D', stl: '3D printing (mm)' };
+const sizes = { glb: 'Web, AR, games', obj: 'Blender, Maya, C4D', stl: 'Print prototype (mm)' };
 
 function select(i) {
   const it = items[i];
@@ -143,10 +155,42 @@ fetch('models.json').then((r) => r.json()).then((data) => {
 
 $('rot').onclick = (e) => { mv.autoRotate = !mv.autoRotate; e.target.classList.toggle('on', mv.autoRotate); };
 const orbit = (o) => { mv.autoRotate = false; $('rot').classList.remove('on'); mv.cameraOrbit = o; };
-$('front').onclick = () => orbit('0deg 80deg 110%');
-$('side').onclick = () => orbit('90deg 80deg 110%');
-$('top').onclick = () => orbit('0deg 8deg 110%');
-$('env').onclick = (e) => { const on = mv.environmentImage === 'neutral'; mv.environmentImage = on ? 'legacy' : 'neutral'; e.target.classList.toggle('on', on); };
+$('q34').onclick = () => orbit('25deg 74deg 145%');
+$('front').onclick = () => orbit('0deg 78deg 145%');
+$('side').onclick = () => orbit('90deg 78deg 145%');
+$('back').onclick = () => orbit('180deg 78deg 145%');
+$('top').onclick = () => orbit('0deg 10deg 145%');
+$('env').onclick = (e) => { const studio = mv.environmentImage !== 'neutral'; mv.environmentImage = studio ? 'neutral' : 'legacy'; e.target.classList.toggle('on', studio); };
+
+// Render modes: swap three.js materials inside model-viewer (textured / clay / wireframe)
+let mode = 'textured';
+function threeScene() {
+  const sym = Object.getOwnPropertySymbols(mv).find((s) => s.description === 'scene');
+  return sym ? mv[sym] : null;
+}
+function applyMode(m) {
+  mode = m;
+  document.querySelectorAll('#modes button').forEach((b) => b.classList.toggle('on', b.dataset.m === m));
+  const scene = threeScene();
+  if (!scene) return;
+  scene.traverse((o) => {
+    if (!o.isMesh || !(o.userData.orig || o.material).isMeshStandardMaterial) return;
+    if (!o.userData.orig) o.userData.orig = o.material;
+    const orig = o.userData.orig;
+    if (m === 'textured') { o.material = orig; return; }
+    const mat = orig.clone();
+    mat.vertexColors = false; mat.map = null; mat.metalness = 0;
+    if (m === 'clay') { mat.color.setRGB(0.20, 0.19, 0.18); mat.roughness = 0.9; mat.wireframe = false; }
+    else { mat.color.setRGB(0.55, 0.62, 1.0); mat.roughness = 0.6; mat.wireframe = true; mat.emissive && mat.emissive.setRGB(0.18, 0.2, 0.45); }
+    mat.needsUpdate = true;
+    o.material = mat;
+  });
+  scene.queueRender && scene.queueRender();
+  mv.dataset.mode = m;
+}
+document.querySelectorAll('#modes button').forEach((b) => b.onclick = () => applyMode(b.dataset.m));
+mv.addEventListener('load', () => applyMode(mode));
+window.applyMode = applyMode;
 $('exp').oninput = (e) => mv.exposure = e.target.value;
 $('sh').oninput = (e) => mv.shadowIntensity = e.target.value;
 

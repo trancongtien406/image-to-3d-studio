@@ -57,3 +57,23 @@ def test_export_all_and_report(tmp_path):
 def test_export_rejects_unknown_format(tmp_path):
     with pytest.raises(ValueError):
         mesh_tools.export_all(colored_box(), tmp_path, "x", formats=("fbx",))
+
+
+def test_smooth_reduces_noise_but_keeps_volume():
+    m = trimesh.creation.icosphere(subdivisions=4)
+    rng = np.random.default_rng(0)
+    m.vertices += rng.normal(0, 0.02, m.vertices.shape)
+    rough = np.std(np.linalg.norm(m.vertices, axis=1))
+    vol = m.volume
+    mesh_tools.smooth(m, 10)
+    assert np.std(np.linalg.norm(m.vertices, axis=1)) < rough
+    assert m.volume == pytest.approx(vol, rel=0.05)
+
+
+def test_srgb_to_linear_darkens_midtones_and_keeps_extremes():
+    import numpy as np
+    from studio.mesh_tools import srgb_to_linear
+    c = np.array([[0, 0, 0, 255], [255, 255, 255, 255], [128, 128, 128, 200]], dtype=np.uint8)
+    out = srgb_to_linear(c)
+    assert out[0, :3].tolist() == [0, 0, 0] and out[1, :3].tolist() == [255, 255, 255]
+    assert 50 <= out[2, 0] <= 56 and out[2, 3] == 200
