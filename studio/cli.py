@@ -37,10 +37,24 @@ def main(argv=None):
     c.add_argument("--formats", default="glb,obj,stl")
     c.add_argument("--stl-height-mm", type=float, default=80.0)
     c.add_argument("--device", default="auto")
+    d = sub.add_parser("deliver", help="repair for print, real-world size report, PLY / optional FBX for model folders")
+    d.add_argument("dirs", nargs="+", type=Path)
+    d.add_argument("--height-mm", type=float, default=120.0, help="real-world height of the printed/placed object")
+    d.add_argument("--fbx", action="store_true", help="also export FBX (needs Blender on PATH or $BLENDER)")
+    d.add_argument("--voxels", type=int, default=128, help="voxel remesh resolution along the longest side")
     g = sub.add_parser("gallery", help="rebuild viewer/models.json from a models folder")
     g.add_argument("dir", type=Path, nargs="?", default=ROOT / "examples" / "models")
     args = p.parse_args(argv)
 
+    if args.cmd == "deliver":
+        from .deliver import deliver
+        for folder in args.dirs:
+            r = deliver(folder, args.height_mm, args.fbx, args.voxels)
+            pr = r["print"]
+            print(f"{r['name']}: {pr['method']} -> watertight={pr['after']['watertight']}, "
+                  f"{pr['size']['width_mm']}x{pr['size']['height_mm']}x{pr['size']['depth_mm']} mm, "
+                  f"{pr['size']['volume_cm3']} cm3, files={sorted(r['files'])}")
+        return
     if args.cmd == "gallery":
         print(build_gallery(args.dir.resolve()))
         return

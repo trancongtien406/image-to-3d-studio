@@ -46,7 +46,7 @@ def test_decimate_keeps_colors():
 def test_export_all_and_report(tmp_path):
     m = mesh_tools.normalize(colored_box())
     files = mesh_tools.export_all(m, tmp_path, "box", stl_height_mm=50)
-    assert set(files) == {"glb", "obj", "stl"}
+    assert set(files) == {"glb", "obj", "stl", "ply"}
     stl = trimesh.load(tmp_path / "box.stl")
     assert stl.extents[1] == pytest.approx(50, rel=1e-3)
     st = mesh_tools.stats(m)
@@ -77,3 +77,21 @@ def test_srgb_to_linear_darkens_midtones_and_keeps_extremes():
     out = srgb_to_linear(c)
     assert out[0, :3].tolist() == [0, 0, 0] and out[1, :3].tolist() == [255, 255, 255]
     assert 50 <= out[2, 0] <= 56 and out[2, 3] == 200
+
+
+def test_repair_for_print_closes_open_mesh():
+    m = trimesh.creation.icosphere(subdivisions=3)
+    m.update_faces(np.arange(len(m.faces)) > 40)  # punch a big hole
+    m.remove_unreferenced_vertices()
+    assert not m.is_watertight
+    fixed, method = mesh_tools.repair_for_print(m, resolution=64, target_faces=None)
+    rep = mesh_tools.edge_report(fixed)
+    assert rep["watertight"] and rep["open_edges"] == 0 and rep["non_manifold_edges"] == 0
+    assert method in ("hole-fill", "voxel-remesh")
+
+
+def test_real_world_scales_volume_cubically():
+    box = trimesh.creation.box(extents=(1.0, 1.0, 1.0))
+    r = mesh_tools.real_world(box, 100.0)
+    assert r["height_mm"] == pytest.approx(100.0)
+    assert r["volume_cm3"] == pytest.approx(1000.0, rel=1e-3)

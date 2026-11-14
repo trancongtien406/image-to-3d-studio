@@ -32,7 +32,45 @@
   .card .t { font-weight:600; font-size:14px; text-transform:capitalize; }
   .card .s { font-size:12px; color:var(--muted); margin-top:2px; }
   .stage { position:relative; overflow:hidden; }
-  model-viewer { width:100%; height:100%; --poster-color:transparent; background:radial-gradient(ellipse 80% 70% at 50% 38%, #3b4260 0%, #232839 45%, #12151d 100%); }
+  model-viewer { width:100%; height:100%; --poster-color:transparent; background:radial-gradient(ellipse 85% 75% at 50% 40%, #8790b4 0%, #4d5577 42%, #22273a 100%); }
+  .tabs { position:absolute; bottom:70px; left:50%; transform:translateX(-50%); display:flex; gap:4px; background:#0b0d12cc; border:1px solid var(--line); padding:4px; border-radius:12px; backdrop-filter:blur(10px); z-index:5; }
+  .tabs button { background:transparent; color:var(--muted); border:0; padding:7px 14px; border-radius:9px; font:600 12px Inter; cursor:pointer; }
+  .tabs button.on { background:#ffffff; color:#111; }
+  .ba { position:absolute; inset:0; display:none; z-index:2; }
+  .ba.show { display:block; }
+  .ba .photo { position:absolute; inset:0; background:#7f7f7f center/contain no-repeat; clip-path:inset(0 50% 0 0); }
+  .ba .handle { position:absolute; top:0; bottom:0; left:50%; width:3px; background:#fff; box-shadow:0 0 12px #0008; cursor:ew-resize; }
+  .ba .handle::after { content:'⇆'; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:38px; height:38px; border-radius:50%; background:#fff; color:#111; display:grid; place-items:center; font-weight:800; }
+  .ba .lab { position:absolute; bottom:80px; font:700 12px Inter; letter-spacing:.08em; text-transform:uppercase; background:#0b0d12cc; padding:6px 10px; border-radius:8px; }
+  .views { position:absolute; inset:0; display:none; z-index:3; background:#1a1e2b; padding:70px 18px 18px; gap:12px; grid-template-columns:repeat(3,1fr); align-content:center; }
+  .views.show { display:grid; }
+  .views figure { background:radial-gradient(ellipse at 50% 40%, #8790b4, #3a4160); border:1px solid var(--line); border-radius:14px; overflow:hidden; position:relative; }
+  .views img { width:100%; display:block; aspect-ratio:1; object-fit:contain; }
+  .views figcaption { position:absolute; left:10px; top:10px; font:700 11px Inter; letter-spacing:.1em; text-transform:uppercase; background:#0b0d12cc; padding:5px 9px; border-radius:7px; }
+  .views .ref { position:absolute; right:8px; bottom:8px; width:34%; border-radius:10px; border:2px solid #fff; background:#eee; display:none; }
+  .views .refbtn { position:absolute; right:10px; top:10px; font:600 11px Inter; color:var(--text); background:#0b0d12cc; border:1px dashed #5b6377; padding:5px 9px; border-radius:7px; cursor:pointer; }
+  .card2 { background:var(--panel2); border:1px solid var(--line); border-radius:14px; padding:14px; margin-bottom:18px; }
+  .row { display:flex; justify-content:space-between; font-size:13px; padding:5px 0; border-bottom:1px dashed #262b3a; }
+  .row:last-child { border:0; } .row span { color:var(--muted); } .row b { font-weight:600; text-align:right; max-width:68%; } .row span { white-space:nowrap; padding-right:10px; }
+  .scale { display:flex; gap:8px; align-items:center; margin-bottom:10px; }
+  .scale input, .scale select { background:#0b0d12; border:1px solid var(--line); color:var(--text); border-radius:9px; padding:8px 10px; font:600 13px Inter; width:100%; }
+  .scale select { width:auto; }
+  .chip { display:inline-block; font:700 11px Inter; padding:3px 8px; border-radius:999px; }
+  .chip.bad { background:#f8717122; color:#fca5a5; } .chip.good { background:#34d39922; color:#6ee7b7; }
+  .actions { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:18px; }
+  .actions button { background:var(--panel2); color:var(--text); border:1px solid var(--line); border-radius:12px; padding:11px; font:600 13px Inter; cursor:pointer; }
+  .actions button:hover { border-color:var(--accent2); }
+  .modal { position:fixed; inset:0; background:#000a; display:none; place-items:center; z-index:50; }
+  .modal.show { display:grid; }
+  .modal .box { background:var(--panel); border:1px solid var(--line); border-radius:18px; padding:22px; width:min(560px,92vw); }
+  .modal h2 { font-size:18px; margin-bottom:4px; } .modal p { color:var(--muted); font-size:13px; margin-bottom:14px; }
+  .qrwrap { display:flex; gap:18px; align-items:center; }
+  .qrwrap img { width:170px; height:170px; background:#fff; border-radius:12px; padding:8px; }
+  .modal textarea, .modal input { width:100%; background:#0b0d12; color:#cbd5e1; border:1px solid var(--line); border-radius:10px; padding:10px; font:12px ui-monospace,monospace; }
+  .modal textarea { height:92px; margin-top:12px; }
+  .modal .close { float:right; background:none; border:0; color:var(--muted); font-size:20px; cursor:pointer; }
+  .rec { position:absolute; top:62px; left:50%; transform:translateX(-50%); background:#ef4444; color:#fff; font:700 12px Inter; padding:6px 12px; border-radius:999px; display:none; z-index:6; }
+  .rec.show { display:block; }
   .modes { position:absolute; top:16px; right:16px; display:flex; gap:4px; background:#0b0d12cc; border:1px solid var(--line); padding:4px; border-radius:12px; backdrop-filter:blur(10px); }
   .modes button { background:transparent; color:var(--muted); border:0; padding:7px 12px; border-radius:9px; font:600 12px Inter; cursor:pointer; }
   .modes button.on { background:var(--accent); color:white; }
@@ -80,9 +118,13 @@
     <div id="list"></div>
   </aside>
   <section class="stage">
-    <model-viewer id="mv" camera-controls auto-rotate auto-rotate-delay="0" rotation-per-second="24deg" shadow-intensity="1.4" shadow-softness="0.55"
-      exposure="1.0" environment-image="neutral" tone-mapping="neutral" camera-orbit="25deg 74deg 145%" max-camera-orbit="Infinity 180deg 300%" interaction-prompt="none" ar ar-modes="webxr scene-viewer quick-look"></model-viewer>
+    <model-viewer id="mv" camera-controls auto-rotate auto-rotate-delay="0" rotation-per-second="24deg" shadow-intensity="1.0" shadow-softness="0.7"
+      exposure="1.3" environment-image="neutral" tone-mapping="neutral" camera-orbit="25deg 74deg 145%" max-camera-orbit="Infinity 180deg 300%" interaction-prompt="none" ar ar-modes="webxr scene-viewer quick-look"></model-viewer>
     <div class="compare"><img id="inputImg" alt="input" /><span>Input image</span></div>
+    <div class="tabs" id="tabs"><button data-t="3d" class="on">3D model</button><button data-t="ba">Before / After</button><button data-t="views">Front · Side · Back</button></div>
+    <div class="rec" id="recBadge">● Recording 360°…</div>
+    <div class="ba" id="ba"><div class="photo" id="baPhoto"></div><div class="lab" style="left:16px">Input photo</div><div class="lab" style="right:16px">3D model</div><div class="handle" id="baHandle"></div></div>
+    <div class="views" id="views"></div>
     <div class="modes" id="modes">
       <button data-m="textured" class="on">Textured</button>
       <button data-m="clay">Clay</button>
@@ -106,23 +148,43 @@
     <div class="grid">
       <div class="stat"><div class="k">Vertices</div><div class="v" id="sv">—</div></div>
       <div class="stat"><div class="k">Triangles</div><div class="v" id="sf">—</div></div>
-      <div class="stat"><div class="k">Watertight</div><div class="v" id="sw">—</div></div>
+      <div class="stat"><div class="k">Watertight (raw)</div><div class="v" id="sw">—</div></div>
       <div class="stat"><div class="k">Time (CPU)</div><div class="v" id="st">—</div></div>
+    </div>
+    <h3>Real-world size &amp; 3D print</h3>
+    <div class="card2">
+      <div class="scale"><input id="hIn" type="number" min="1" step="1" value="120" title="real-world height" /><select id="unit"><option value="mm">mm</option><option value="cm">cm</option><option value="in">in</option></select><span style="font-size:12px;color:var(--muted);white-space:nowrap">tall</span></div>
+      <div class="row"><span>Size W × H × D</span><b id="pSize">—</b></div>
+      <div class="row"><span>Volume (print STL)</span><b id="pVol">—</b></div>
+      <div class="row"><span>Surface area</span><b id="pArea">—</b></div>
+      <div class="row"><span>Raw mesh</span><b id="pBefore">—</b></div>
+      <div class="row"><span>Print STL</span><b id="pAfter">—</b></div>
+      <div class="row"><span>Repair</span><b id="pMethod">—</b></div>
     </div>
     <h3>Downloads</h3>
     <div class="dl" id="dl"></div>
+    <h3>Deliver</h3>
+    <div class="actions"><button id="recBtn">● Record 360° video</button><button id="shareBtn">Share · AR · QR</button></div>
     <h3>View</h3>
-    <label class="range">Exposure</label><input type="range" id="exp" min="0.4" max="2" step="0.05" value="1.0" />
-    <label class="range">Contact shadow</label><input type="range" id="sh" min="0" max="2" step="0.05" value="1.4" />
+    <label class="range">Exposure</label><input type="range" id="exp" min="0.4" max="2.4" step="0.05" value="1.3" />
+    <label class="range">Contact shadow</label><input type="range" id="sh" min="0" max="2" step="0.05" value="1.0" />
   </section>
 </main>
+<div class="modal" id="modal"><div class="box"><button class="close" id="mClose">×</button>
+  <h2>Share this model</h2><p>Web viewer link for the client + QR code: scanning it on a phone opens the model with the <b>View in AR</b> button (Android Scene Viewer / iOS Quick Look, needs the page on HTTPS).</p>
+  <div class="qrwrap"><img id="qr" alt="QR code" /><div style="flex:1"><input id="shareUrl" readonly /><p style="margin:10px 0 0">Embed on Shopify / WooCommerce / any site:</p></div></div>
+  <textarea id="embed" readonly></textarea></div></div>
 <footer>Built by Tran Cong Tien · fiverr.com/optimus2003</footer>
+<script src="vendor/qrcode.js"></script>
 <script>
 const $ = (id) => document.getElementById(id);
 const mv = $('mv');
 let items = [];
 const fmt = (n) => n.toLocaleString('en-US');
-const sizes = { glb: 'Web, AR, games', obj: 'Blender, Maya, C4D', stl: 'Print prototype (mm)' };
+const sizes = { glb: 'Web, AR, games', fbx: 'Unity, Unreal, Maya', obj: 'Blender, C4D, any DCC', ply: 'MeshLab, CloudCompare',
+  stl: 'Raw mesh, 80 mm', print_stl: 'Watertight, scaled to size' };
+const label = { glb: 'GLB', fbx: 'FBX', obj: 'OBJ', ply: 'PLY', stl: 'STL', print_stl: 'Print STL' };
+let cur = null;
 
 function select(i) {
   const it = items[i];
@@ -136,8 +198,14 @@ function select(i) {
   $('sw').textContent = it.stats.watertight ? 'Yes' : 'No';
   $('sw').className = 'v' + (it.stats.watertight ? ' ok' : '');
   $('st').textContent = it.seconds + ' s';
-  $('dl').innerHTML = ['glb', 'obj', 'stl'].filter((f) => it.files[f]).map((f, k) =>
-    `<a class="${k === 0 ? 'primary' : ''}" href="${it.base + it.files[f]}" download>${f.toUpperCase()} <small>${sizes[f]}</small></a>`).join('');
+  cur = it;
+  $('dl').innerHTML = ['glb', 'fbx', 'obj', 'ply', 'print_stl'].filter((f) => it.files[f]).map((f, k) =>
+    `<a class="${k === 0 ? 'primary' : ''}" data-f="${f}" href="${it.base + it.files[f]}" download>${label[f]} <small>${sizes[f]}</small></a>`).join('');
+  const ps = $('dl').querySelector('[data-f=print_stl]');
+  if (ps) ps.onclick = (e) => { e.preventDefault(); downloadScaledStl(it); };
+  $('baPhoto').style.backgroundImage = `url(${it.base + it.files.input})`;
+  updatePrint();
+  if (tab === 'views') renderViews();
   history.replaceState(null, '', '#' + it.name);
 }
 
@@ -177,7 +245,7 @@ function applyMode(m) {
     if (!o.isMesh || !(o.userData.orig || o.material).isMeshStandardMaterial) return;
     if (!o.userData.orig) o.userData.orig = o.material;
     const orig = o.userData.orig;
-    if (m === 'textured') { o.material = orig; return; }
+    if (m === 'textured') { orig.metalness = 0; orig.roughness = Math.min(orig.roughness, 0.62); orig.needsUpdate = true; o.material = orig; return; }
     const mat = orig.clone();
     mat.vertexColors = false; mat.map = null; mat.metalness = 0;
     if (m === 'clay') { mat.color.setRGB(0.20, 0.19, 0.18); mat.roughness = 0.9; mat.wireframe = false; }
@@ -191,6 +259,109 @@ function applyMode(m) {
 document.querySelectorAll('#modes button').forEach((b) => b.onclick = () => applyMode(b.dataset.m));
 mv.addEventListener('load', () => applyMode(mode));
 window.applyMode = applyMode;
+// ---------- real-world size & print panel ----------
+const MM = { mm: 1, cm: 10, in: 25.4 };
+function heightMm() { return Math.max(1, +$('hIn').value || 1) * MM[$('unit').value]; }
+function fmtLen(mm) { const u = $('unit').value; const v = mm / MM[u]; return v.toFixed(u === 'mm' ? 0 : 1); }
+function edgeText(r) {
+  const ok = r.watertight && r.non_manifold_edges === 0 && r.open_edges === 0;
+  const parts = [`${r.shells} shell${r.shells > 1 ? 's' : ''}`];
+  if (r.open_edges) parts.push(`${r.open_edges} open edges`);
+  if (r.non_manifold_edges) parts.push(`${r.non_manifold_edges} non-manifold`);
+  return `<span class="chip ${ok ? 'good' : 'bad'}">${ok ? 'watertight' : 'not watertight'}</span> ${parts.join(' · ')}`;
+}
+function updatePrint() {
+  const it = cur; if (!it) return;
+  const pr = it.print, h = heightMm();
+  const u = $('unit').value;
+  if (!pr) { ['pSize','pVol','pArea','pBefore','pAfter','pMethod'].forEach((k) => $(k).textContent = '—');
+    $('pSize').textContent = `${fmtLen(it.stats.width * h)} × ${fmtLen(h)} × ${fmtLen(it.stats.depth * h)} ${u}`; return; }
+  const k = h / pr.height_mm, s = pr.size;
+  $('pSize').textContent = `${fmtLen(s.width_mm * k)} × ${fmtLen(s.height_mm * k)} × ${fmtLen(s.depth_mm * k)} ${u}`;
+  const vol = s.volume_cm3 * k ** 3;
+  $('pVol').textContent = u === 'in' ? `${(vol / 16.387).toFixed(1)} in³` : `${vol.toFixed(1)} cm³`;
+  $('pArea').textContent = u === 'in' ? `${(s.area_cm2 * k * k / 6.4516).toFixed(1)} in²` : `${(s.area_cm2 * k * k).toFixed(1)} cm²`;
+  $('pBefore').innerHTML = edgeText(pr.before);
+  $('pAfter').innerHTML = edgeText(pr.after);
+  $('pMethod').textContent = pr.method === 'voxel-remesh' ? 'Voxel remesh (holes closed, shells fused)' : 'Hole fill + normal fix';
+}
+$('hIn').oninput = updatePrint;
+$('unit').onchange = () => { const mm = heightMm(); updatePrint(); };
+// Scale the binary print STL in the browser so the client gets the exact height they typed
+async function downloadScaledStl(it) {
+  const buf = await (await fetch(it.base + it.files.print_stl)).arrayBuffer();
+  const dv = new DataView(buf), n = dv.getUint32(80, true);
+  let minY = Infinity, maxY = -Infinity;
+  for (let i = 0; i < n; i++) for (let v = 0; v < 3; v++) { const y = dv.getFloat32(84 + i * 50 + 12 + v * 12 + 4, true); minY = Math.min(minY, y); maxY = Math.max(maxY, y); }
+  const k = heightMm() / (maxY - minY);
+  for (let i = 0; i < n; i++) for (let c = 0; c < 9; c++) { const o = 84 + i * 50 + 12 + c * 4; dv.setFloat32(o, dv.getFloat32(o, true) * k, true); }
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([buf], { type: 'model/stl' }));
+  a.download = `${it.name}_print_${Math.round(heightMm())}mm.stl`; a.click();
+}
+
+// ---------- stage tabs: 3D / before-after slider / front-side-back ----------
+let tab = '3d';
+function setTab(t) {
+  tab = t;
+  document.querySelectorAll('#tabs button').forEach((b) => b.classList.toggle('on', b.dataset.t === t));
+  $('ba').classList.toggle('show', t === 'ba');
+  $('views').classList.toggle('show', t === 'views');
+  document.querySelector('.toolbar').style.display = t === '3d' ? '' : 'none';
+  document.querySelector('.compare').style.display = t === '3d' ? '' : 'none';
+  if (t === 'ba') orbit('0deg 80deg 145%');
+  if (t === 'views') renderViews();
+}
+document.querySelectorAll('#tabs button').forEach((b) => b.onclick = () => setTab(b.dataset.t));
+function setSplit(x) { $('baPhoto').style.clipPath = `inset(0 ${100 - x}% 0 0)`; $('baHandle').style.left = x + '%'; }
+let dragging = false;
+$('baHandle').onpointerdown = (e) => { dragging = true; e.target.setPointerCapture(e.pointerId); };
+$('baHandle').onpointerup = () => dragging = false;
+$('baHandle').onpointermove = (e) => { if (!dragging) return; const r = $('ba').getBoundingClientRect(); setSplit(Math.min(98, Math.max(2, (e.clientX - r.left) / r.width * 100))); };
+window.setSplit = setSplit;
+const VIEWS = [['Front', '0deg 80deg 145%'], ['Side', '90deg 80deg 145%'], ['Back', '180deg 80deg 145%']];
+const refs = {};
+async function snap(o) { mv.cameraOrbit = o; mv.jumpCameraToGoal(); await new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(() => setTimeout(r, 120)))); return mv.toDataURL('image/png'); }
+async function renderViews() {
+  const keep = mv.cameraOrbit, rot = mv.autoRotate; mv.autoRotate = false;
+  const shots = [];
+  for (const [, o] of VIEWS) shots.push(await snap(o));
+  mv.cameraOrbit = keep; mv.autoRotate = rot;
+  $('views').innerHTML = VIEWS.map(([n], i) => `<figure><img src="${shots[i]}" alt="${n}"><figcaption>${n}</figcaption>
+    <label class="refbtn">+ ${n.toLowerCase()} photo<input type="file" accept="image/*" hidden data-v="${n}"></label><img class="ref" id="ref-${n}" alt="${n} reference"></figure>`).join('');
+  $('views').querySelectorAll('input[type=file]').forEach((inp) => inp.onchange = () => { const f = inp.files[0]; if (!f) return; refs[inp.dataset.v] = URL.createObjectURL(f); showRefs(); });
+  showRefs();
+  $('views').dataset.ready = '1';
+}
+function showRefs() { for (const [n] of VIEWS) { const el = $('ref-' + n); if (el && refs[n]) { el.src = refs[n]; el.style.display = 'block'; } } }
+window.renderViews = renderViews; window.setTab = setTab;
+
+// ---------- 360° recording (WebM, in the browser) ----------
+$('recBtn').onclick = async () => {
+  const canvas = mv.shadowRoot.querySelector('canvas');
+  if (!canvas || !window.MediaRecorder) return alert('Recording needs a browser with MediaRecorder (Chrome, Edge, Firefox).');
+  const stream = canvas.captureStream(30), chunks = [];
+  const rec = new MediaRecorder(stream, { mimeType: MediaRecorder.isTypeSupported('video/webm;codecs=vp9') ? 'video/webm;codecs=vp9' : 'video/webm', videoBitsPerSecond: 8e6 });
+  rec.ondataavailable = (e) => e.data.size && chunks.push(e.data);
+  rec.onstop = () => { const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(chunks, { type: 'video/webm' })); a.download = `${cur.name}-turntable.webm`; a.click(); $('recBadge').classList.remove('show'); };
+  mv.autoRotate = false; $('recBadge').classList.add('show'); rec.start();
+  const t0 = performance.now(), dur = 6000;
+  (function step(t) { const p = Math.min(1, (t - t0) / dur); mv.cameraOrbit = `${p * 360}deg 74deg 145%`; mv.jumpCameraToGoal();
+    if (p < 1) requestAnimationFrame(step); else setTimeout(() => rec.stop(), 150); })(t0);
+};
+
+// ---------- share link + QR + embed snippet ----------
+function shareUrl(it) { return new URL(`share.html?src=${encodeURIComponent(it.base + it.files.glb)}&name=${encodeURIComponent(it.name)}`, location.href).href; }
+function qrDataUrl(text) { const q = qrcode(0, 'M'); q.addData(text); q.make(); return q.createDataURL(6, 2); }
+window.qrDataUrl = qrDataUrl;
+$('shareBtn').onclick = () => {
+  const url = shareUrl(cur), glb = new URL(cur.base + cur.files.glb, location.href).href;
+  $('shareUrl').value = url; $('qr').src = qrDataUrl(url);
+  $('embed').value = `<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/4.0.0/model-viewer.min.js"><\/script>\n<model-viewer src="${glb}" ar ar-modes="webxr scene-viewer quick-look" camera-controls auto-rotate shadow-intensity="1" exposure="1.3" style="width:100%;height:480px"></model-viewer>`;
+  $('modal').classList.add('show');
+};
+$('mClose').onclick = () => $('modal').classList.remove('show');
+
 $('exp').oninput = (e) => mv.exposure = e.target.value;
 $('sh').oninput = (e) => mv.shadowIntensity = e.target.value;
 

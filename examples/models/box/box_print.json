@@ -1,0 +1,29 @@
+{
+  "height_mm": 120.0,
+  "method": "hole-fill",
+  "before": {
+    "open_edges": 0,
+    "non_manifold_edges": 0,
+    "shells": 1,
+    "watertight": true,
+    "winding_consistent": true,
+    "faces": 30000
+  },
+  "after": {
+    "open_edges": 0,
+    "non_manifold_edges": 0,
+    "shells": 1,
+    "watertight": true,
+    "winding_consistent": true,
+    "faces": 30000
+  },
+  "size": {
+    "height_mm": 120.0,
+    "width_mm": 133.1,
+    "depth_mm": 138.0,
+    "area_cm2": 462.5,
+    "scale_mm_per_unit": 120.0,
+    "volume_cm3": 677.4
+  },
+  "seconds": 0.3
+}

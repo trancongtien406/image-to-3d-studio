@@ -6,7 +6,10 @@
     "glb": "chest.glb",
     "obj": "chest.obj",
     "stl": "chest.stl",
-    "input": "chest_input.png"
+    "input": "chest_input.png",
+    "print_stl": "chest_print.stl",
+    "ply": "chest.ply",
+    "fbx": "chest.fbx"
   },
   "stats": {
     "vertices": 15000,
@@ -15,5 +18,49 @@
     "width": 1.1484,
     "height": 1.0,
     "depth": 1.1315
+  },
+  "print": {
+    "height_mm": 120.0,
+    "method": "voxel-remesh",
+    "before": {
+      "open_edges": 0,
+      "non_manifold_edges": 5,
+      "shells": 5,
+      "watertight": false,
+      "winding_consistent": true,
+      "faces": 30000
+    },
+    "after": {
+      "open_edges": 0,
+      "non_manifold_edges": 0,
+      "shells": 1,
+      "watertight": true,
+      "winding_consistent": true,
+      "faces": 60000
+    },
+    "size": {
+      "height_mm": 120.0,
+      "width_mm": 138.1,
+      "depth_mm": 135.9,
+      "area_cm2": 473.6,
+      "scale_mm_per_unit": 119.5353,
+      "volume_cm3": 666.4
+    },
+    "seconds": 3.1
+  },
+  "analysis": {
+    "open_edges": 0,
+    "non_manifold_edges": 5,
+    "shells": 5,
+    "watertight": false,
+    "winding_consistent": true,
+    "size_at_120mm": {
+      "height_mm": 120.0,
+      "width_mm": 137.8,
+      "depth_mm": 135.8,
+      "area_cm2": 477.7,
+      "scale_mm_per_unit": 120.0,
+      "volume_cm3": null
+    }
   }
 }

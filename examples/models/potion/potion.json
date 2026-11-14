@@ -6,7 +6,10 @@
     "glb": "potion.glb",
     "obj": "potion.obj",
     "stl": "potion.stl",
-    "input": "potion_input.png"
+    "input": "potion_input.png",
+    "print_stl": "potion_print.stl",
+    "ply": "potion.ply",
+    "fbx": "potion.fbx"
   },
   "stats": {
     "vertices": 14979,
@@ -15,5 +18,49 @@
     "width": 0.6827,
     "height": 1.0,
     "depth": 0.6859
+  },
+  "print": {
+    "height_mm": 120.0,
+    "method": "voxel-remesh",
+    "before": {
+      "open_edges": 0,
+      "non_manifold_edges": 18,
+      "shells": 13,
+      "watertight": false,
+      "winding_consistent": true,
+      "faces": 30000
+    },
+    "after": {
+      "open_edges": 0,
+      "non_manifold_edges": 0,
+      "shells": 1,
+      "watertight": true,
+      "winding_consistent": true,
+      "faces": 96474
+    },
+    "size": {
+      "height_mm": 120.0,
+      "width_mm": 82.7,
+      "depth_mm": 82.9,
+      "area_cm2": 275.8,
+      "scale_mm_per_unit": 119.2595,
+      "volume_cm3": 313.9
+    },
+    "seconds": 2.1
+  },
+  "analysis": {
+    "open_edges": 0,
+    "non_manifold_edges": 18,
+    "shells": 13,
+    "watertight": false,
+    "winding_consistent": true,
+    "size_at_120mm": {
+      "height_mm": 120.0,
+      "width_mm": 81.9,
+      "depth_mm": 82.3,
+      "area_cm2": 278.0,
+      "scale_mm_per_unit": 120.0,
+      "volume_cm3": null
+    }
   }
 }

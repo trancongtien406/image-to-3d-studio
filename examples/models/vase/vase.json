@@ -6,7 +6,10 @@
     "glb": "vase.glb",
     "obj": "vase.obj",
     "stl": "vase.stl",
-    "input": "vase_input.png"
+    "input": "vase_input.png",
+    "print_stl": "vase_print.stl",
+    "ply": "vase.ply",
+    "fbx": "vase.fbx"
   },
   "stats": {
     "vertices": 15003,
@@ -15,5 +18,49 @@
     "width": 0.9001,
     "height": 1.0,
     "depth": 0.8847
+  },
+  "print": {
+    "height_mm": 120.0,
+    "method": "voxel-remesh",
+    "before": {
+      "open_edges": 0,
+      "non_manifold_edges": 0,
+      "shells": 2,
+      "watertight": true,
+      "winding_consistent": true,
+      "faces": 30000
+    },
+    "after": {
+      "open_edges": 0,
+      "non_manifold_edges": 0,
+      "shells": 1,
+      "watertight": true,
+      "winding_consistent": true,
+      "faces": 60000
+    },
+    "size": {
+      "height_mm": 120.0,
+      "width_mm": 108.7,
+      "depth_mm": 106.9,
+      "area_cm2": 376.0,
+      "scale_mm_per_unit": 119.089,
+      "volume_cm3": 625.3
+    },
+    "seconds": 3.4
+  },
+  "analysis": {
+    "open_edges": 0,
+    "non_manifold_edges": 0,
+    "shells": 2,
+    "watertight": true,
+    "winding_consistent": true,
+    "size_at_120mm": {
+      "height_mm": 120.0,
+      "width_mm": 108.0,
+      "depth_mm": 106.2,
+      "area_cm2": 374.3,
+      "scale_mm_per_unit": 120.0,
+      "volume_cm3": 616.8
+    }
   }
 }

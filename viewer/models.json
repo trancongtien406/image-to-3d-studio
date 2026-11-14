@@ -7,7 +7,10 @@
       "glb": "box.glb",
       "obj": "box.obj",
       "stl": "box.stl",
-      "input": "box_input.png"
+      "input": "box_input.png",
+      "print_stl": "box_print.stl",
+      "ply": "box.ply",
+      "fbx": "box.fbx"
     },
     "stats": {
       "vertices": 15002,
@@ -16,6 +19,50 @@
       "width": 1.109,
       "height": 1.0,
       "depth": 1.1503
+    },
+    "print": {
+      "height_mm": 120.0,
+      "method": "hole-fill",
+      "before": {
+        "open_edges": 0,
+        "non_manifold_edges": 0,
+        "shells": 1,
+        "watertight": true,
+        "winding_consistent": true,
+        "faces": 30000
+      },
+      "after": {
+        "open_edges": 0,
+        "non_manifold_edges": 0,
+        "shells": 1,
+        "watertight": true,
+        "winding_consistent": true,
+        "faces": 30000
+      },
+      "size": {
+        "height_mm": 120.0,
+        "width_mm": 133.1,
+        "depth_mm": 138.0,
+        "area_cm2": 462.5,
+        "scale_mm_per_unit": 120.0,
+        "volume_cm3": 677.4
+      },
+      "seconds": 0.3
+    },
+    "analysis": {
+      "open_edges": 0,
+      "non_manifold_edges": 0,
+      "shells": 1,
+      "watertight": true,
+      "winding_consistent": true,
+      "size_at_120mm": {
+        "height_mm": 120.0,
+        "width_mm": 133.1,
+        "depth_mm": 138.0,
+        "area_cm2": 462.5,
+        "scale_mm_per_unit": 120.0,
+        "volume_cm3": 677.4
+      }
     },
     "base": "../examples/models/box/"
   },
@@ -27,7 +74,10 @@
       "glb": "chest.glb",
       "obj": "chest.obj",
       "stl": "chest.stl",
-      "input": "chest_input.png"
+      "input": "chest_input.png",
+      "print_stl": "chest_print.stl",
+      "ply": "chest.ply",
+      "fbx": "chest.fbx"
     },
     "stats": {
       "vertices": 15000,
@@ -36,6 +86,50 @@
       "width": 1.1484,
       "height": 1.0,
       "depth": 1.1315
+    },
+    "print": {
+      "height_mm": 120.0,
+      "method": "voxel-remesh",
+      "before": {
+        "open_edges": 0,
+        "non_manifold_edges": 5,
+        "shells": 5,
+        "watertight": false,
+        "winding_consistent": true,
+        "faces": 30000
+      },
+      "after": {
+        "open_edges": 0,
+        "non_manifold_edges": 0,
+        "shells": 1,
+        "watertight": true,
+        "winding_consistent": true,
+        "faces": 60000
+      },
+      "size": {
+        "height_mm": 120.0,
+        "width_mm": 138.1,
+        "depth_mm": 135.9,
+        "area_cm2": 473.6,
+        "scale_mm_per_unit": 119.5353,
+        "volume_cm3": 666.4
+      },
+      "seconds": 3.1
+    },
+    "analysis": {
+      "open_edges": 0,
+      "non_manifold_edges": 5,
+      "shells": 5,
+      "watertight": false,
+      "winding_consistent": true,
+      "size_at_120mm": {
+        "height_mm": 120.0,
+        "width_mm": 137.8,
+        "depth_mm": 135.8,
+        "area_cm2": 477.7,
+        "scale_mm_per_unit": 120.0,
+        "volume_cm3": null
+      }
     },
     "base": "../examples/models/chest/"
   },
@@ -47,7 +141,10 @@
       "glb": "potion.glb",
       "obj": "potion.obj",
       "stl": "potion.stl",
-      "input": "potion_input.png"
+      "input": "potion_input.png",
+      "print_stl": "potion_print.stl",
+      "ply": "potion.ply",
+      "fbx": "potion.fbx"
     },
     "stats": {
       "vertices": 14979,
@@ -56,6 +153,50 @@
       "width": 0.6827,
       "height": 1.0,
       "depth": 0.6859
+    },
+    "print": {
+      "height_mm": 120.0,
+      "method": "voxel-remesh",
+      "before": {
+        "open_edges": 0,
+        "non_manifold_edges": 18,
+        "shells": 13,
+        "watertight": false,
+        "winding_consistent": true,
+        "faces": 30000
+      },
+      "after": {
+        "open_edges": 0,
+        "non_manifold_edges": 0,
+        "shells": 1,
+        "watertight": true,
+        "winding_consistent": true,
+        "faces": 96474
+      },
+      "size": {
+        "height_mm": 120.0,
+        "width_mm": 82.7,
+        "depth_mm": 82.9,
+        "area_cm2": 275.8,
+        "scale_mm_per_unit": 119.2595,
+        "volume_cm3": 313.9
+      },
+      "seconds": 2.1
+    },
+    "analysis": {
+      "open_edges": 0,
+      "non_manifold_edges": 18,
+      "shells": 13,
+      "watertight": false,
+      "winding_consistent": true,
+      "size_at_120mm": {
+        "height_mm": 120.0,
+        "width_mm": 81.9,
+        "depth_mm": 82.3,
+        "area_cm2": 278.0,
+        "scale_mm_per_unit": 120.0,
+        "volume_cm3": null
+      }
     },
     "base": "../examples/models/potion/"
   },
@@ -67,7 +208,10 @@
       "glb": "sneaker.glb",
       "obj": "sneaker.obj",
       "stl": "sneaker.stl",
-      "input": "sneaker_input.png"
+      "input": "sneaker_input.png",
+      "print_stl": "sneaker_print.stl",
+      "ply": "sneaker.ply",
+      "fbx": "sneaker.fbx"
     },
     "stats": {
       "vertices": 15002,
@@ -76,6 +220,50 @@
       "width": 1.9693,
       "height": 1.0,
       "depth": 1.3256
+    },
+    "print": {
+      "height_mm": 120.0,
+      "method": "hole-fill",
+      "before": {
+        "open_edges": 0,
+        "non_manifold_edges": 0,
+        "shells": 1,
+        "watertight": true,
+        "winding_consistent": true,
+        "faces": 30000
+      },
+      "after": {
+        "open_edges": 0,
+        "non_manifold_edges": 0,
+        "shells": 1,
+        "watertight": true,
+        "winding_consistent": true,
+        "faces": 30000
+      },
+      "size": {
+        "height_mm": 120.0,
+        "width_mm": 236.3,
+        "depth_mm": 159.1,
+        "area_cm2": 717.4,
+        "scale_mm_per_unit": 120.0,
+        "volume_cm3": 1127.8
+      },
+      "seconds": 0.3
+    },
+    "analysis": {
+      "open_edges": 0,
+      "non_manifold_edges": 0,
+      "shells": 1,
+      "watertight": true,
+      "winding_consistent": true,
+      "size_at_120mm": {
+        "height_mm": 120.0,
+        "width_mm": 236.3,
+        "depth_mm": 159.1,
+        "area_cm2": 717.4,
+        "scale_mm_per_unit": 120.0,
+        "volume_cm3": 1127.8
+      }
     },
     "base": "../examples/models/sneaker/"
   },
@@ -87,7 +275,10 @@
       "glb": "vase.glb",
       "obj": "vase.obj",
       "stl": "vase.stl",
-      "input": "vase_input.png"
+      "input": "vase_input.png",
+      "print_stl": "vase_print.stl",
+      "ply": "vase.ply",
+      "fbx": "vase.fbx"
     },
     "stats": {
       "vertices": 15003,
@@ -96,6 +287,50 @@
       "width": 0.9001,
       "height": 1.0,
       "depth": 0.8847
+    },
+    "print": {
+      "height_mm": 120.0,
+      "method": "voxel-remesh",
+      "before": {
+        "open_edges": 0,
+        "non_manifold_edges": 0,
+        "shells": 2,
+        "watertight": true,
+        "winding_consistent": true,
+        "faces": 30000
+      },
+      "after": {
+        "open_edges": 0,
+        "non_manifold_edges": 0,
+        "shells": 1,
+        "watertight": true,
+        "winding_consistent": true,
+        "faces": 60000
+      },
+      "size": {
+        "height_mm": 120.0,
+        "width_mm": 108.7,
+        "depth_mm": 106.9,
+        "area_cm2": 376.0,
+        "scale_mm_per_unit": 119.089,
+        "volume_cm3": 625.3
+      },
+      "seconds": 3.4
+    },
+    "analysis": {
+      "open_edges": 0,
+      "non_manifold_edges": 0,
+      "shells": 2,
+      "watertight": true,
+      "winding_consistent": true,
+      "size_at_120mm": {
+        "height_mm": 120.0,
+        "width_mm": 108.0,
+        "depth_mm": 106.2,
+        "area_cm2": 374.3,
+        "scale_mm_per_unit": 120.0,
+        "volume_cm3": 616.8
+      }
     },
     "base": "../examples/models/vase/"
   }

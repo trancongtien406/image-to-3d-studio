@@ -8,7 +8,7 @@ from pathlib import Path
 import numpy as np
 import trimesh
 
-FORMATS = ("glb", "obj", "stl")
+FORMATS = ("glb", "obj", "stl", "ply")
 
 
 @dataclass
@@ -116,3 +116,89 @@ def write_report(out_dir: Path, name: str, source: str, mesh_stats: MeshStats, f
     path = out_dir / f"{name}.json"
     path.write_text(json.dumps(report, indent=2))
     return path
+
+
+# ---------------------------------------------------------------------------------------------------------------
+# 3D-print analysis and repair
+# ---------------------------------------------------------------------------------------------------------------
+
+def edge_report(mesh: trimesh.Trimesh) -> dict:
+    """Count open (boundary) edges and non-manifold edges after merging coincident vertices."""
+    m = mesh.copy()
+    m.merge_vertices()
+    _, counts = np.unique(m.edges_sorted, axis=0, return_counts=True)
+    return {
+        "open_edges": int((counts == 1).sum()),
+        "non_manifold_edges": int((counts > 2).sum()),
+        "shells": int(len(m.split(only_watertight=False))),
+        "watertight": bool(m.is_watertight),
+        "winding_consistent": bool(m.is_winding_consistent),
+    }
+
+
+def real_world(mesh: trimesh.Trimesh, height_mm: float) -> dict:
+    """Dimensions / area / volume once the model is scaled so its height is `height_mm`."""
+    k = height_mm / float(mesh.extents[1] or 1.0)
+    w, h, d = (float(x) * k for x in mesh.extents)
+    out = {"height_mm": round(h, 1), "width_mm": round(w, 1), "depth_mm": round(d, 1),
+           "area_cm2": round(float(mesh.area) * k * k / 100.0, 1), "scale_mm_per_unit": round(k, 4)}
+    out["volume_cm3"] = round(float(abs(mesh.volume)) * k ** 3 / 1000.0, 1) if mesh.is_watertight else None
+    return out
+
+
+def transfer_colors(src: trimesh.Trimesh, dst: trimesh.Trimesh) -> trimesh.Trimesh:
+    """Copy vertex colours from the nearest vertex of `src` (used after remeshing)."""
+    if getattr(src.visual, "kind", None) == "vertex" and len(dst.vertices):
+        _, idx = trimesh.proximity.ProximityQuery(src).vertex(dst.vertices)
+        dst.visual.vertex_colors = np.asarray(src.visual.vertex_colors)[idx]
+    return dst
+
+
+def repair_for_print(mesh: trimesh.Trimesh, resolution: int = 160, target_faces: int | None = 60000):
+    """Return (watertight_mesh, method).
+
+    1. merge vertices + fill small holes + fix normals; if that is already a closed 2-manifold, keep it.
+    2. otherwise voxel remesh: voxelize at `resolution` cells along the longest side, flood-fill the inside,
+       marching cubes back to a single closed shell, Taubin-smooth, decimate and re-sample the colours.
+       This closes holes, fuses overlapping shells and removes non-manifold edges (fine detail below one
+       voxel is softened - 160 cells on a 120 mm model is ~0.75 mm).
+    """
+    m = mesh.copy()
+    m.merge_vertices()
+    trimesh.repair.fill_holes(m)
+    trimesh.repair.fix_normals(m)
+    if m.is_watertight and len(m.split(only_watertight=False)) == 1:
+        return m, "hole-fill"
+    pitch = float(mesh.extents.max()) / resolution
+    vox = mesh.voxelized(pitch).fill()
+    out = vox.marching_cubes
+    out.apply_transform(vox.transform)
+    out = trimesh.Trimesh(out.vertices, out.faces, process=True)
+    # marching cubes may produce a few tiny internal bubbles; keep the main closed shell(s)
+    parts = [p for p in out.split(only_watertight=False)]
+    if len(parts) > 1:
+        big = max(parts, key=lambda p: len(p.faces))
+        out = trimesh.util.concatenate([p for p in parts if len(p.faces) >= 0.05 * len(big.faces)])
+    trimesh.smoothing.filter_taubin(out, lamb=0.5, nu=-0.53, iterations=6)
+    trimesh.repair.fix_normals(out)
+    if target_faces and len(out.faces) > target_faces:
+        # quadric decimation can pinch edges; only keep the lighter mesh if it is still a closed manifold
+        lighter = out.simplify_quadric_decimation(face_count=target_faces)
+        lighter.merge_vertices()
+        if lighter.is_watertight and edge_report(lighter)["non_manifold_edges"] == 0:
+            trimesh.repair.fix_normals(lighter)
+            out = lighter
+    # keep the original placement (centred, resting on the ground)
+    out.apply_translation([0, mesh.bounds[0][1] - out.bounds[0][1], 0])
+    transfer_colors(mesh, out)
+    return out, "voxel-remesh"
+
+
+def print_report(original: trimesh.Trimesh, repaired: trimesh.Trimesh, method: str, height_mm: float) -> dict:
+    return {
+        "height_mm": height_mm,
+        "method": method,
+        "before": {**edge_report(original), "faces": int(len(original.faces))},
+        "after": {**edge_report(repaired), "faces": int(len(repaired.faces))},
+        "size": real_world(repaired, height_mm),
+    }

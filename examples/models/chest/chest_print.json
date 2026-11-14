@@ -1,0 +1,29 @@
+{
+  "height_mm": 120.0,
+  "method": "voxel-remesh",
+  "before": {
+    "open_edges": 0,
+    "non_manifold_edges": 5,
+    "shells": 5,
+    "watertight": false,
+    "winding_consistent": true,
+    "faces": 30000
+  },
+  "after": {
+    "open_edges": 0,
+    "non_manifold_edges": 0,
+    "shells": 1,
+    "watertight": true,
+    "winding_consistent": true,
+    "faces": 60000
+  },
+  "size": {
+    "height_mm": 120.0,
+    "width_mm": 138.1,
+    "depth_mm": 135.9,
+    "area_cm2": 473.6,
+    "scale_mm_per_unit": 119.5353,
+    "volume_cm3": 666.4
+  },
+  "seconds": 3.1
+}

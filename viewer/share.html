@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>3D model preview</title>
+<script type="module" src="vendor/model-viewer.min.js"></script>
+<script src="vendor/qrcode.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html, body { height:100%; font-family:Inter,system-ui,sans-serif; color:#111827; background:#f3f4f8; }
+  model-viewer { width:100%; height:100%; background:radial-gradient(ellipse 80% 70% at 50% 42%, #ffffff 0%, #eef0f6 55%, #d9dde8 100%); --poster-color:transparent; }
+  .top { position:fixed; top:16px; left:16px; right:16px; display:flex; justify-content:space-between; align-items:center; pointer-events:none; }
+  .name { pointer-events:auto; background:#ffffffd9; backdrop-filter:blur(10px); border:1px solid #e5e7eb; padding:10px 16px; border-radius:14px; font-weight:800; text-transform:capitalize; box-shadow:0 6px 24px #0f172a14; }
+  .name small { display:block; font-weight:600; font-size:11px; color:#6b7280; text-transform:none; margin-top:2px; }
+  .qr { pointer-events:auto; background:#fff; border:1px solid #e5e7eb; border-radius:16px; padding:12px; text-align:center; box-shadow:0 6px 24px #0f172a14; font-size:12px; color:#4b5563; width:170px; }
+  .qr img { width:146px; height:146px; display:block; margin:0 auto 6px; }
+  .ar { position:absolute; left:50%; bottom:28px; transform:translateX(-50%); background:#111827; color:#fff; border:0; border-radius:999px; padding:14px 22px; font:700 15px Inter; box-shadow:0 10px 30px #11182740; cursor:pointer; }
+  .hint { position:fixed; bottom:30px; left:24px; font-size:12px; color:#6b7280; }
+  @media (max-width: 700px) { .qr { display:none; } .hint { display:none; } }
+</style>
+</head>
+<body>
+<model-viewer id="mv" camera-controls auto-rotate rotation-per-second="20deg" ar ar-modes="webxr scene-viewer quick-look" ar-scale="auto"
+  shadow-intensity="1" shadow-softness="0.8" exposure="1.25" environment-image="neutral" tone-mapping="neutral" camera-orbit="25deg 74deg 145%">
+  <button slot="ar-button" class="ar">View in your room (AR)</button>
+</model-viewer>
+<div class="top">
+  <div class="name" id="name">3D model<small>Drag to rotate · scroll to zoom</small></div>
+  <div class="qr"><img id="qr" alt="QR code to open on phone" />Scan to view in AR on your phone</div>
+</div>
+<div class="hint">Made with Image to 3D Studio · fiverr.com/optimus2003</div>
+<script>
+const q = new URLSearchParams(location.search);
+const mv = document.getElementById('mv');
+mv.src = q.get('src') || '../examples/models/vase/vase.glb';
+const name = (q.get('name') || 'vase').replace(/[-_]/g, ' ');
+document.getElementById('name').firstChild.textContent = name;
+document.title = name + ' · 3D preview';
+const code = qrcode(0, 'M'); code.addData(location.href); code.make();
+document.getElementById('qr').src = code.createDataURL(6, 2);
+</script>
+</body>
+</html>

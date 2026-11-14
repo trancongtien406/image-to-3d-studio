@@ -10,26 +10,57 @@ GLB / OBJ / STL → a studio-lit web viewer with textured, clay and wireframe mo
 
 [![Watch the narrated demo video](docs/demo-video-poster.jpg)](docs/demo-video.mp4)
 
-**Demo video** (1920×1080, ~50 s, English voice-over and captions): [`docs/demo-video.mp4`](docs/demo-video.mp4)
+**Demo video** (1920×1080, ~55 s, English voice-over and captions): [`docs/demo-video.mp4`](docs/demo-video.mp4)
+
+**Before / after slider** — the input photo and the live 3D model in the same frame, drag the handle to compare:
+
+![before/after slider](docs/before-after-slider.png)
+
+**Real-world size & 3D-print check** — type the real height (mm / cm / in), get W × H × D, volume and surface area,
+raw-mesh problems (open edges, non-manifold edges, loose shells) and a repaired, watertight print STL:
+
+![print panel](docs/studio-print-panel.png)
+
+| Front · side · back renders (+ optional reference photos per view) | Share link · QR code to AR · embed snippet |
+| --- | --- |
+| ![three views](docs/three-views.png) | ![share modal](docs/share-qr-embed.png) |
+
+| Client share page (QR → phone → "View in your room" AR) | Same GLB opened and rendered in Blender 4.2 (Cycles, CPU) |
+| --- | --- |
+| ![share page](docs/share-page-sneaker.png) | ![blender render](docs/blender-render-chest.png) |
+
+**360° turntables** for every model — MP4 + GIF in [`docs/turntables/`](docs/turntables/) (also recordable as WebM from the viewer):
+
+<p align="center"><img src="docs/turntables/chest.gif" width="240" /> <img src="docs/turntables/sneaker.gif" width="240" /> <img src="docs/turntables/potion.gif" width="240" /></p>
 
 | Input photo → generated model (game prop) | Input photo → generated model (game prop) |
 | --- | --- |
 | ![chest before/after](docs/before-after-chest.png) | ![potion before/after](docs/before-after-potion.png) |
 
-**Web viewer** — studio lighting, contact shadow, gradient stage, 3/4 camera, textured / clay / wireframe toggle:
-
 | Textured | Clay | Wireframe |
 | --- | --- | --- |
 | ![](docs/viewer-chest.png) | ![](docs/viewer-chest-clay.png) | ![](docs/viewer-chest-wireframe.png) |
 
-**Multi-angle views** (front · 3/4 · side · back):
+**Multi-angle sheets** (front · 3/4 · side · back):
 
 ![chest angles](docs/angles-chest.png)
-![vase angles](docs/angles-vase.png)
 
-More: [box angles](docs/angles-box.png) · [potion angles](docs/angles-potion.png) · [sneaker angles](docs/angles-sneaker.png) ·
-[vase viewer](docs/viewer-vase.png) · [sneaker viewer](docs/viewer-sneaker.png) · [upload in progress](docs/upload-processing.png) ·
-[upload result](docs/upload-result.png) · [turntable MP4](docs/turntable.mp4)
+More: [box](docs/angles-box.png) · [potion](docs/angles-potion.png) · [sneaker](docs/angles-sneaker.png) · [vase](docs/angles-vase.png) ·
+[upload in progress](docs/upload-processing.png) · [upload result](docs/upload-result.png) · [5-model turntable MP4](docs/turntable.mp4)
+
+## What a client receives (deliverables)
+
+| Deliverable | File / where | Notes |
+| --- | --- | --- |
+| Web / AR model | `name.glb` | glTF binary, vertex colours in linear space, ~0.6 MB at 30k triangles |
+| Game engine / DCC model | `name.fbx` | Binary FBX via Blender (vertex colours wired to a material), Y-up |
+| Editable mesh | `name.obj`, `name.ply` | OBJ for Blender / C4D, coloured PLY for MeshLab / CloudCompare |
+| 3D-print file | `name_print.stl` | Watertight single shell, scaled to the real height you choose (default 120 mm) |
+| Mesh & print report | `name_print.json` + viewer panel | Triangles, open / non-manifold edges, shells, watertight before → after, W × H × D (mm), volume (cm³), area |
+| Preview renders | front · side · back PNGs, before/after image | From the viewer or `tools/capture.py` |
+| 360° turntable | `turntables/name.mp4` + `.gif` | 72 frames, 24 fps; WebM recording also available in the browser |
+| Share page + AR QR | `viewer/share.html?src=…` | `<model-viewer>` with AR (Scene Viewer / Quick Look) – needs HTTPS hosting for phones |
+| Store embed snippet | copy from the Share dialog | Paste-ready `<model-viewer>` tag for Shopify / WooCommerce / any site |
 
 ## The business problem
 
@@ -54,10 +85,22 @@ gets a usable first model from a single photo in seconds, and gives a clear path
 - **Automatic cut-out** — rembg (`isnet-general-use`) when the image has no alpha channel
 - **Mesh cleanup** — removes floating fragments, degenerate faces and duplicate vertices; Taubin smoothing (no shrinking); quadric decimation to a target triangle count (default 30k) with vertex colours re-sampled
 - **Correct colours** — vertex colours converted from sRGB to linear for glTF, so models don't look washed out
-- **Exports** — `GLB` (web/AR/games), `OBJ` (Blender, Maya, C4D), `STL` scaled to millimetres, JSON report (vertices, faces, watertight, size, time)
-- **Web viewer** — `<model-viewer>` with studio environment light, contact shadow, gradient background, 3/4 default camera, preset angles (3/4, front, side, back, top), textured / clay / wireframe modes, exposure & shadow sliders, AR (WebXR / Scene Viewer / Quick Look), downloads
+- **Multi-format export** — GLB, OBJ, PLY, STL, plus **FBX** when Blender is installed (`python -m studio deliver … --fbx`)
+- **3D-print repair** — hole fill + normal fix, falling back to a voxel remesh (flood-filled, marching cubes, Taubin smoothed) that closes holes, fuses overlapping shells and removes non-manifold edges; only keeps a decimated version if it is still a closed manifold
+- **Real-world scale** — enter the target height in mm / cm / inches: dimensions, volume and area update live, and the print STL downloads scaled to that exact size (scaled in the browser)
+- **Before / after slider**, **front · side · back** renders with optional per-view reference photos for side-by-side QA
+- **360° turntable** — MP4 + GIF per model (`tools/capture.py`) or a 6-second WebM straight from the viewer
+- **Share page + QR to AR** — `share.html` with `<model-viewer ar>`, QR code (vendored `qrcode-generator`, MIT) and an embed snippet
+- **Blender check render** — `tools/blender_render.py` opens the delivered GLB in Blender and renders a Cycles product shot
+- **Web viewer** — studio environment light (brighter default exposure 1.3), contact shadow, preset angles, textured / clay / wireframe, exposure & shadow sliders, AR, downloads
 - **Local web app** — drag-and-drop an image, get a model back (`python -m studio.server`)
-- **Media script** — Playwright + FFmpeg renders screenshots, multi-angle sheets, before/after images and the 360° turntable
+
+### Multi-image input (front / side / back) — not implemented, on purpose
+
+TripoSR reconstructs from **one** image. Real multi-view fusion needs a multi-view model (e.g. InstantMesh / Zero123++ style
+pipelines) that wants a GPU with ~12–24 GB VRAM and minutes per object, so it is not part of this CPU-first repo. What the
+viewer *does* support is loading your side / back photos next to the matching renders for a visual check, so hidden-side
+guesses are obvious before delivery. On paid work, a wrong back side is fixed by hand in Blender (the "Refined Asset" tier).
 
 ## Results
 
@@ -83,11 +126,15 @@ photo ──► rembg cut-out ──► TripoSR (triplane NeRF) ──► marchi
 
 studio/pipeline.py    rembg + TripoSR + post-processing (ImageTo3D class)
 studio/mesh_tools.py  orientation, cleanup, smoothing, decimation, colour space, export, stats (unit-tested)
+studio/deliver.py     delivery pack: print repair, real-world size report, PLY, optional FBX (Blender)
 studio/server.py      FastAPI upload API + static viewer
 studio/cli.py         `python -m studio convert|gallery`
 viewer/               web UI (vendored model-viewer, BSD-3-Clause)
 third_party/tsr/      TripoSR model code (MIT), marching cubes patched to scikit-image
-tools/capture.py      renders README media (screenshots, angles, before/after, turntable)
+tools/capture.py      renders README media (screenshots, angles, before/after, per-model turntables)
+tools/capture_features.py  screenshots of the slider, 3 views, print panel, share dialog and share page
+tools/blender_*.py    headless Blender helpers: GLB -> FBX, GLB check render
+viewer/share.html     client share page with AR button + QR code
 ```
 
 ## Quick start & tests
@@ -100,6 +147,9 @@ pip install -r requirements.txt
 # CLI (TripoSR weights ~1.7 GB download from Hugging Face on first run)
 python -m studio convert examples/inputs/chest.jpg -o outputs/
 python -m studio convert photos/*.png --faces 20000 --smooth 8 --formats glb,stl --stl-height-mm 120
+
+# Delivery pack for existing model folders: print STL (watertight, real size), PLY, report, optional FBX
+python -m studio deliver examples/models/* --height-mm 120 --fbx     # FBX needs Blender (PATH or $BLENDER)
 
 # Web app with upload -> http://127.0.0.1:8000
 python -m studio.server
@@ -119,7 +169,10 @@ pip install -r requirements-dev.txt && pytest -q
 - Single-view reconstruction: hidden sides are guessed; glossy, transparent and thin parts (cables, straps) are hard
 - Vertex colours, not UV textures — fine for viewing, not for texture editing
 - STL output is a starting point for prototypes, not a guaranteed print-ready part
-- Roadmap: multi-view input (front + back photos), UV unwrap + texture bake, automatic hole filling / solidify for printing, GPU batch mode, Shopify / WooCommerce 3D embed snippet
+- The voxel-remesh print repair softens detail below one voxel (~0.9 mm on a 120 mm part at the default 128 voxels; raise `--voxels`)
+- AR on phones needs the share page served over HTTPS (any static host); on `127.0.0.1` the QR only works on the same machine
+- FBX export depends on a local Blender install (tested with Blender 4.2 LTS)
+- Roadmap: multi-view input on GPU, UV unwrap + texture bake, GPU batch mode
 
 ## Credits & license
 

@@ -89,6 +89,11 @@ def main():
             mp4 = out / f"turntable-{n}.mp4"
             ff("-framerate", "24", "-i", str(fdir / "%03d.png"), "-c:v", "libx264", "-pix_fmt", "yuv420p", "-crf", "20", str(mp4))
             tiles.append(mp4)
+            # per-model client deliverable: 360 turntable MP4 (1080p-ready 720x720) + lightweight GIF
+            (docs / "turntables").mkdir(exist_ok=True)
+            ff("-i", str(mp4), "-c", "copy", str(docs / "turntables" / f"{n}.mp4"))
+            ff("-i", str(mp4), "-vf", "fps=12,scale=360:-1:flags=lanczos,split[a][b];[a]palettegen=max_colors=96[p];[b][p]paletteuse",
+               str(docs / "turntables" / f"{n}.gif"))
         b.close()
     inputs = sum((["-i", str(t)] for t in tiles), [])
     stack = "".join(f"[{i}:v]scale=360:360[v{i}];" for i in range(len(tiles))) + \

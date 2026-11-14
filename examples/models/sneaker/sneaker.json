@@ -6,7 +6,10 @@
     "glb": "sneaker.glb",
     "obj": "sneaker.obj",
     "stl": "sneaker.stl",
-    "input": "sneaker_input.png"
+    "input": "sneaker_input.png",
+    "print_stl": "sneaker_print.stl",
+    "ply": "sneaker.ply",
+    "fbx": "sneaker.fbx"
   },
   "stats": {
     "vertices": 15002,
@@ -15,5 +18,49 @@
     "width": 1.9693,
     "height": 1.0,
     "depth": 1.3256
+  },
+  "print": {
+    "height_mm": 120.0,
+    "method": "hole-fill",
+    "before": {
+      "open_edges": 0,
+      "non_manifold_edges": 0,
+      "shells": 1,
+      "watertight": true,
+      "winding_consistent": true,
+      "faces": 30000
+    },
+    "after": {
+      "open_edges": 0,
+      "non_manifold_edges": 0,
+      "shells": 1,
+      "watertight": true,
+      "winding_consistent": true,
+      "faces": 30000
+    },
+    "size": {
+      "height_mm": 120.0,
+      "width_mm": 236.3,
+      "depth_mm": 159.1,
+      "area_cm2": 717.4,
+      "scale_mm_per_unit": 120.0,
+      "volume_cm3": 1127.8
+    },
+    "seconds": 0.3
+  },
+  "analysis": {
+    "open_edges": 0,
+    "non_manifold_edges": 0,
+    "shells": 1,
+    "watertight": true,
+    "winding_consistent": true,
+    "size_at_120mm": {
+      "height_mm": 120.0,
+      "width_mm": 236.3,
+      "depth_mm": 159.1,
+      "area_cm2": 717.4,
+      "scale_mm_per_unit": 120.0,
+      "volume_cm3": 1127.8
+    }
   }
 }
