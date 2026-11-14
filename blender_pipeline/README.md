@@ -29,6 +29,39 @@ Headless `bpy` scripts are what a render server needs. For interactive sessions 
 from an AI client through [MCP for Blender](https://github.com/ahujasid/mcp-for-blender) (Blender GUI addon +
 `uvx mcp-for-blender`); it is optional here.
 
+## Round 4: hardware accuracy, clean junctions, topology and print evidence
+
+| | |
+|---|---|
+| ![](renders/round4/gallery_1_reference_to_3d.jpg) | ![](renders/round4/gallery_2_open_lid.jpg) |
+| ![](renders/round4/gallery_3_reference_vs_result.jpg) | ![](renders/round4/chest_closeup_latch.jpg) |
+| ![](renders/round4/chest_closeup_corner.jpg) | ![](renders/round4/chest_closeup_hinge.jpg) |
+
+* **Latch.** A conventional hasp: a fixed leaf on the lid edge band with 2 knuckles, a Ø3.6 mm pivot pin with caps, and a swinging hasp plate
+  with a 10×26 mm slot. The slot drops over a U-staple on a 5 mm shield lock plate, which carries a centred keyhole cylinder, a rose and 5 slotted screws.
+* **Junctions.** Layer 1 (7 mm) is the bands and flush vertical straps; nothing overlaps or is coplanar.
+  Layer 2 (4 mm) is triangular corner caps on all 8 body corners. The lid edge band now wraps the lid ends (lid side bands), which removes the protruding tab.
+  The seam is an even 0.8 mm, and the lid is rounder (rise 0.18 m).
+* **Reference fidelity.** Wooden batten under the lock; aged rough brass with tarnish, patina and edge wear; stronger wood normals (2.0) with per-plank tone and roughness;
+  procedural end grain with growth rings (`make_endgrain.py`). The side ring handles are not in the reference,
+  so they are now only a hidden `Variation_Side_Handles` group (`renders/round4/chest_variation_handles.jpg`) and are not exported.
+* **Interior.** Textured velvet (CC0 velour normal/roughness maps plus sheen), piping cords, a stitch line, a wooden inner border,
+  screws on the hinge leaves, and render-only folding lid stays.
+* **Topology.** `renders/round4/chest_topology_sheet.jpg` shows wireframe-over-clay views (full model, lid curve, corner, hinge, latch, open lid),
+  per-object triangle counts (48,932 in total) and the UV layouts. The wood uses tiling box-projected UVs, so islands span several 0-1 tiles.
+* **Exports.** GLB, FBX and OBJ all load back with 48,932 triangles and a 0.631 × 0.4535 × 0.463 m bbox (`export_verification.json`).
+* **Print.** `chest_print_mm.stl` is the **display/static** one-piece print (lid fused shut). It is watertight, one body, with 0 non-manifold edges.
+  Optional **articulated set** for 25 % scale: `chest_print_artic_body_mm.stl` and `chest_print_artic_lid_mm.stl` (each watertight), joined by
+  two 1.75 mm filament pins. The body knuckles are bored 1.85 mm (press fit); the lid knuckles are bored 2.15 mm (0.2 mm radial clearance).
+  `chest_print_artic_hasp_mm.stl` is a glue-on part, because a hasp fused to the lid could not pass the staple (`print_variants.json`).
+* **Slicer numbers reconciled.** The G-code has 737 Z levels: 579 object layers × 0.2 mm (top at 115.8 mm) plus
+  158 support-only levels. PrusaSlicer prints support on its own offset layers because of the 0.2 mm contact distance. So the layer count × 0.2
+  is not the height. 25 % of 630.8 × 453.4 × 462.9 mm is 157.7 × 113.4 × 115.7 mm. The G-code measures 157.7 × 113.35 mm (toolpath plus one
+  0.45 mm extrusion width) × 115.8 mm (`slice_report.json → layer_check`). In round 3 the same accounting gave 706 = 552 + 154 levels: 110.4 mm,
+  which is exactly 25 % of 441.4 mm.
+* **Turntable.** `renders/round4/chest_turntable_360.mp4` (72 frames, 1280×720, 6 s).
+* **Render times.** 8 vCPU shared, no GPU, Cycles 64 spp, 1920×1080: 114-185 s per still, 102-121 s per wireframe view, 21.7 min for the turntable.
+
 ## Round 3: hardware, open lid, print proof
 
 ![open](renders/round3/chest_open.jpg)
