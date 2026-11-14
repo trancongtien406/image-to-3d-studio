@@ -8,6 +8,10 @@ GLB / OBJ / STL → a studio-lit web viewer with textured, clay and wireframe mo
 
 ## Demo
 
+[![Watch the narrated demo video](docs/demo-video-poster.jpg)](docs/demo-video.mp4)
+
+**Demo video** (1920×1080, ~50 s, English voice-over and captions): [`docs/demo-video.mp4`](docs/demo-video.mp4)
+
 | Input photo → generated model (game prop) | Input photo → generated model (game prop) |
 | --- | --- |
 | ![chest before/after](docs/before-after-chest.png) | ![potion before/after](docs/before-after-potion.png) |
