@@ -1,0 +1,16 @@
+{
+  "display_static": "chest_print_mm.stl - one piece, lid fused shut, for display / static prints at any scale",
+  "articulated_set_scale": 0.25,
+  "articulated_parts": [
+    "chest_print_artic_body_mm.stl",
+    "chest_print_artic_lid_mm.stl",
+    "chest_print_artic_hasp_mm.stl"
+  ],
+  "pin": "1.75 mm filament (PLA) cut to 18.0 mm, two pins",
+  "body_knuckle_bore_mm_at_scale": 1.85,
+  "lid_knuckle_bore_mm_at_scale": 2.15,
+  "radial_clearance_lid_mm_at_scale": 0.2,
+  "knuckle_axial_gap_mm_at_scale": 0.3,
+  "lid_seam_mm_at_scale": 0.2,
+  "notes": "Print body and lid upright; lid rests on the body planks; hasp glued in the closed position (decorative)."
+}

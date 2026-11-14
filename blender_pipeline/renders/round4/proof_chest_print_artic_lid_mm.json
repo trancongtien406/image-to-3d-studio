@@ -1,0 +1,126 @@
+{
+  "file": "output/chest/chest_print_artic_lid_mm.stl",
+  "units": "mm",
+  "triangles": 221084,
+  "vertices": 110528,
+  "bbox_mm": [
+    622.78,
+    440.39,
+    200.94
+  ],
+  "watertight": true,
+  "winding_consistent": true,
+  "bodies": 1,
+  "euler_number": -14,
+  "self_intersection_fix_passes": [
+    0
+  ],
+  "volume_cm3": 34418.4,
+  "meshlab": {
+    "non_two_manifold_edges": 0,
+    "non_two_manifold_vertices": 0,
+    "boundary_edges": 0,
+    "connected_components_number": 1,
+    "genus": 8,
+    "self_intersecting_faces_as_loaded": 0,
+    "self_intersecting_faces_after_weld": 0
+  },
+  "wall_thickness_mm_1to1": {
+    "samples": 6000,
+    "min": 10.66,
+    "p1": 47.13,
+    "p5": 96.75,
+    "p50": 294.95
+  },
+  "note": "The print model is a solid (lid closed, cores filled), so there are no thin shell walls; the ray-cast 'thickness' above is the solid depth. What limits small prints is relief / feature size (rivet heads, strap projection, hinge gaps), listed per scale below against FDM 0.4 mm nozzle limits (>=0.8 mm walls, >=0.4 mm relief) and resin (>=0.3 mm).",
+  "scales": {
+    "1": {
+      "size_mm": [
+        622.8,
+        440.4,
+        200.9
+      ],
+      "features_mm": {
+        "strap_projection": 7.0,
+        "strap_width": 50.0,
+        "rivet_head_height": 4.5,
+        "rivet_head_diameter": 12.4,
+        "hinge_knuckle_diameter": 17.0,
+        "hinge_knuckle_gap": 1.2,
+        "hasp_plate_thickness": 4.0,
+        "staple_bar": 4.0,
+        "screw_head_diameter": 8.4,
+        "hasp_pin_diameter": 3.6,
+        "lock_plate_thickness": 5.0,
+        "plank_gap": 2.5,
+        "lid_seam": 0.8,
+        "keyhole_slot_width": 7.0
+      },
+      "below_0.8mm": [],
+      "verdict": "FDM 0.4 mm nozzle: all features print"
+    },
+    "0.25": {
+      "size_mm": [
+        155.7,
+        110.1,
+        50.2
+      ],
+      "features_mm": {
+        "strap_projection": 1.75,
+        "strap_width": 12.5,
+        "rivet_head_height": 1.12,
+        "rivet_head_diameter": 3.1,
+        "hinge_knuckle_diameter": 4.25,
+        "hinge_knuckle_gap": 0.3,
+        "hasp_plate_thickness": 1.0,
+        "staple_bar": 1.0,
+        "screw_head_diameter": 2.1,
+        "hasp_pin_diameter": 0.9,
+        "lock_plate_thickness": 1.25,
+        "plank_gap": 0.62,
+        "lid_seam": 0.2,
+        "keyhole_slot_width": 1.75
+      },
+      "below_0.8mm": [
+        "hinge_knuckle_gap",
+        "plank_gap",
+        "lid_seam"
+      ],
+      "verdict": "FDM: hinge_knuckle_gap, plank_gap, lid_seam below 0.8 mm (use 0.2-0.25 mm nozzle or resin)"
+    },
+    "0.15": {
+      "size_mm": [
+        93.4,
+        66.1,
+        30.1
+      ],
+      "features_mm": {
+        "strap_projection": 1.05,
+        "strap_width": 7.5,
+        "rivet_head_height": 0.67,
+        "rivet_head_diameter": 1.86,
+        "hinge_knuckle_diameter": 2.55,
+        "hinge_knuckle_gap": 0.18,
+        "hasp_plate_thickness": 0.6,
+        "staple_bar": 0.6,
+        "screw_head_diameter": 1.26,
+        "hasp_pin_diameter": 0.54,
+        "lock_plate_thickness": 0.75,
+        "plank_gap": 0.38,
+        "lid_seam": 0.12,
+        "keyhole_slot_width": 1.05
+      },
+      "below_0.8mm": [
+        "rivet_head_height",
+        "hinge_knuckle_gap",
+        "hasp_plate_thickness",
+        "staple_bar",
+        "hasp_pin_diameter",
+        "lock_plate_thickness",
+        "plank_gap",
+        "lid_seam"
+      ],
+      "verdict": "FDM: rivet_head_height, hinge_knuckle_gap, hasp_plate_thickness, staple_bar, hasp_pin_diameter, lock_plate_thickness, plank_gap, lid_seam below 0.8 mm (use 0.2-0.25 mm nozzle or resin)"
+    }
+  }
+}
