@@ -1,0 +1,35 @@
+{
+  "objects": {
+    "Chest_Body_Wood": {
+      "tris": 2700,
+      "verts": 1400
+    },
+    "Chest_Body_Metal": {
+      "tris": 19164,
+      "verts": 9766
+    },
+    "Chest_Lid_Wood": {
+      "tris": 2420,
+      "verts": 1232
+    },
+    "Chest_Lid_Metal": {
+      "tris": 12652,
+      "verts": 6420
+    },
+    "Chest_Lining": {
+      "tris": 940,
+      "verts": 480
+    },
+    "Chest_Lid_Lining": {
+      "tris": 660,
+      "verts": 332
+    }
+  },
+  "total_tris": 38536,
+  "hinge_axis_m": [
+    0,
+    0.21450000000000002,
+    0.2705
+  ],
+  "lid_pivot": "Chest_Lid_* origins sit on the hinge axis; rotate -X to open"
+}

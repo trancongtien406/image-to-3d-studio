@@ -1,0 +1,14 @@
+{
+  "strap_projection": 7.0,
+  "strap_width": 50.0,
+  "rivet_head_height": 4.5,
+  "rivet_head_diameter": 12.4,
+  "hinge_knuckle_diameter": 17.0,
+  "hinge_knuckle_gap": 1.2,
+  "hasp_plate_thickness": 4.0,
+  "staple_bar": 4.0,
+  "handle_ring_wire_diameter": 9.0,
+  "plank_gap": 2.5,
+  "lid_seam": 1.5,
+  "keyhole_slot_width": 7.0
+}

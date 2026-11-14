@@ -1,0 +1,80 @@
+{
+  "source_total_tris": 38536,
+  "formats": {
+    "glb": {
+      "file_mb": 7.87,
+      "objects": [
+        "Chest_Body_Metal",
+        "Chest_Body_Wood",
+        "Chest_Lid_Lining",
+        "Chest_Lid_Metal",
+        "Chest_Lid_Wood",
+        "Chest_Lining"
+      ],
+      "tris": 38536,
+      "tris_match_source": true,
+      "bbox_m": [
+        0.638,
+        0.4595,
+        0.4415
+      ],
+      "materials": [
+        "Brass_Hammered",
+        "Keyhole_Dark",
+        "Lining_Velvet",
+        "Wood_Oak_Aged"
+      ],
+      "images": 3
+    },
+    "obj": {
+      "file_mb": 1.95,
+      "objects": [
+        "Chest_Body_Metal",
+        "Chest_Body_Wood",
+        "Chest_Lid_Lining",
+        "Chest_Lid_Metal",
+        "Chest_Lid_Wood",
+        "Chest_Lining"
+      ],
+      "tris": 38536,
+      "tris_match_source": true,
+      "bbox_m": [
+        0.638,
+        0.4595,
+        0.4415
+      ],
+      "materials": [
+        "Brass_Hammered",
+        "Keyhole_Dark",
+        "Lining_Velvet",
+        "Wood_Oak_Aged"
+      ],
+      "images": 1
+    },
+    "fbx": {
+      "file_mb": 2.26,
+      "objects": [
+        "Chest_Body_Metal",
+        "Chest_Body_Wood",
+        "Chest_Lid_Lining",
+        "Chest_Lid_Metal",
+        "Chest_Lid_Wood",
+        "Chest_Lining"
+      ],
+      "tris": 38536,
+      "tris_match_source": true,
+      "bbox_m": [
+        0.638,
+        0.4595,
+        0.4415
+      ],
+      "materials": [
+        "Brass_Hammered",
+        "Keyhole_Dark",
+        "Lining_Velvet",
+        "Wood_Oak_Aged"
+      ],
+      "images": 1
+    }
+  }
+}
