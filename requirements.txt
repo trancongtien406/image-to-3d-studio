@@ -1,0 +1,18 @@
+# Install PyTorch first (CPU wheel shown; use the CUDA wheel on a GPU box):
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu
+torch>=2.1
+transformers>=4.35,<5
+einops>=0.7
+omegaconf>=2.3
+trimesh>=4.0
+fast_simplification>=0.1
+scikit-image>=0.22
+rembg[cpu]>=2.0.50
+onnxruntime>=1.16
+huggingface_hub>=0.20
+pillow>=10.0
+imageio>=2.31
+numpy>=1.24
+fastapi>=0.110
+uvicorn[standard]>=0.27
+python-multipart>=0.0.9

@@ -1,0 +1,19 @@
+{
+  "name": "robot",
+  "source": "robot.jpg",
+  "seconds": 20.9,
+  "files": {
+    "glb": "robot.glb",
+    "obj": "robot.obj",
+    "stl": "robot.stl",
+    "input": "robot_input.png"
+  },
+  "stats": {
+    "vertices": 20000,
+    "faces": 40000,
+    "watertight": true,
+    "width": 0.6383,
+    "height": 1.0,
+    "depth": 0.5169
+  }
+}

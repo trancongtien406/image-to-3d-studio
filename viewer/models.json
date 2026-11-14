@@ -1,0 +1,62 @@
+[
+  {
+    "name": "mug",
+    "source": "mug.jpg",
+    "seconds": 11.2,
+    "files": {
+      "glb": "mug.glb",
+      "obj": "mug.obj",
+      "stl": "mug.stl",
+      "input": "mug_input.png"
+    },
+    "stats": {
+      "vertices": 20000,
+      "faces": 40000,
+      "watertight": true,
+      "width": 1.0362,
+      "height": 1.0,
+      "depth": 0.9536
+    },
+    "base": "../examples/models/mug/"
+  },
+  {
+    "name": "robot",
+    "source": "robot.jpg",
+    "seconds": 20.9,
+    "files": {
+      "glb": "robot.glb",
+      "obj": "robot.obj",
+      "stl": "robot.stl",
+      "input": "robot_input.png"
+    },
+    "stats": {
+      "vertices": 20000,
+      "faces": 40000,
+      "watertight": true,
+      "width": 0.6383,
+      "height": 1.0,
+      "depth": 0.5169
+    },
+    "base": "../examples/models/robot/"
+  },
+  {
+    "name": "sneaker",
+    "source": "sneaker.jpg",
+    "seconds": 19.2,
+    "files": {
+      "glb": "sneaker.glb",
+      "obj": "sneaker.obj",
+      "stl": "sneaker.stl",
+      "input": "sneaker_input.png"
+    },
+    "stats": {
+      "vertices": 20002,
+      "faces": 40000,
+      "watertight": true,
+      "width": 1.9634,
+      "height": 1.0,
+      "depth": 1.3236
+    },
+    "base": "../examples/models/sneaker/"
+  }
+]

@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Image to 3D Studio</title>
+<script type="module" src="vendor/model-viewer.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root { --bg:#0b0d12; --panel:#12151d; --panel2:#181c26; --line:#232837; --text:#e8ebf2; --muted:#8b93a7;
+          --accent:#7c5cff; --accent2:#22d3ee; --ok:#34d399; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:Inter,system-ui,sans-serif; background:radial-gradient(1200px 600px at 70% -10%, #1d1640 0%, var(--bg) 55%); color:var(--text); min-height:100vh; }
+  header { display:flex; align-items:center; justify-content:space-between; padding:18px 28px; border-bottom:1px solid var(--line); backdrop-filter:blur(8px); }
+  .brand { display:flex; gap:12px; align-items:center; font-weight:800; letter-spacing:-.02em; font-size:18px; }
+  .logo { width:34px; height:34px; border-radius:10px; background:conic-gradient(from 200deg, var(--accent), var(--accent2), var(--accent)); display:grid; place-items:center; box-shadow:0 0 24px #7c5cff66; }
+  .logo svg { width:18px; height:18px; }
+  .pill { font-size:12px; color:var(--muted); border:1px solid var(--line); padding:6px 12px; border-radius:999px; }
+  .pill b { color:var(--ok); }
+  main { display:grid; grid-template-columns:300px 1fr 300px; gap:20px; padding:22px 28px; height:calc(100vh - 71px); }
+  aside, .stage, .info { background:linear-gradient(180deg, var(--panel), #0f1218); border:1px solid var(--line); border-radius:18px; }
+  aside { padding:16px; overflow:auto; }
+  h3 { font-size:11px; text-transform:uppercase; letter-spacing:.12em; color:var(--muted); margin:6px 4px 12px; }
+  .drop { border:1.5px dashed #3a4157; border-radius:14px; padding:18px; text-align:center; color:var(--muted); font-size:13px; margin-bottom:18px; cursor:pointer; transition:.2s; }
+  .drop:hover, .drop.drag { border-color:var(--accent); color:var(--text); background:#7c5cff12; }
+  .drop strong { display:block; color:var(--text); font-size:14px; margin-bottom:4px; }
+  .card { display:flex; gap:12px; align-items:center; padding:10px; border-radius:14px; border:1px solid transparent; cursor:pointer; transition:.2s; margin-bottom:8px; }
+  .card:hover { background:var(--panel2); }
+  .card.active { background:var(--panel2); border-color:#7c5cff88; box-shadow:0 0 0 3px #7c5cff22; }
+  .card img { width:56px; height:56px; border-radius:10px; object-fit:cover; background:#808080; }
+  .card .t { font-weight:600; font-size:14px; text-transform:capitalize; }
+  .card .s { font-size:12px; color:var(--muted); margin-top:2px; }
+  .stage { position:relative; overflow:hidden; }
+  model-viewer { width:100%; height:100%; --poster-color:transparent; background:radial-gradient(circle at 50% 60%, #222842 0%, #10131b 70%); }
+  .toolbar { position:absolute; left:50%; bottom:18px; transform:translateX(-50%); display:flex; gap:6px; background:#0b0d12cc; border:1px solid var(--line); padding:6px; border-radius:14px; backdrop-filter:blur(10px); }
+  .toolbar button { background:transparent; color:var(--text); border:0; padding:8px 12px; border-radius:10px; font:500 13px Inter; cursor:pointer; white-space:nowrap; }
+  .toolbar button.on, .toolbar button:hover { background:var(--panel2); }
+  .compare { position:absolute; top:16px; left:16px; width:132px; border-radius:14px; overflow:hidden; border:1px solid var(--line); background:#0b0d12cc; }
+  .compare img { width:100%; display:block; background:#808080; }
+  .compare span { display:block; font-size:11px; color:var(--muted); padding:6px 10px; }
+  .info { padding:18px; overflow:auto; }
+  .title { font-size:22px; font-weight:800; text-transform:capitalize; letter-spacing:-.02em; }
+  .sub { color:var(--muted); font-size:13px; margin:4px 0 18px; }
+  .grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:18px; }
+  .stat { background:var(--panel2); border:1px solid var(--line); border-radius:12px; padding:12px; }
+  .stat .k { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; }
+  .stat .v { font-size:18px; font-weight:700; margin-top:4px; }
+  .v.ok { color:var(--ok); }
+  .dl { display:flex; flex-direction:column; gap:8px; margin-bottom:18px; }
+  .dl a { display:flex; justify-content:space-between; align-items:center; text-decoration:none; color:var(--text); background:var(--panel2); border:1px solid var(--line); padding:12px 14px; border-radius:12px; font-weight:600; font-size:14px; transition:.2s; }
+  .dl a:hover { border-color:var(--accent); }
+  .dl a small { color:var(--muted); font-weight:500; }
+  .dl a.primary { background:linear-gradient(135deg, var(--accent), #5b8cff); border:0; }
+  .dl a.primary small { color:#e6e1ff; }
+  label.range { display:block; font-size:12px; color:var(--muted); margin:10px 0 6px; }
+  input[type=range] { width:100%; accent-color:var(--accent); }
+  .progress { position:absolute; inset:0; display:none; place-items:center; background:#0b0d12bb; font-weight:600; }
+  .progress.show { display:grid; }
+  .spinner { width:42px; height:42px; border-radius:50%; border:3px solid #ffffff22; border-top-color:var(--accent2); animation:spin 1s linear infinite; margin:0 auto 12px; }
+  @keyframes spin { to { transform:rotate(360deg); } }
+  footer { position:fixed; right:28px; bottom:10px; font-size:11px; color:#5b6377; }
+  @media (max-width: 1100px) { main { grid-template-columns:1fr; height:auto; } .stage { height:70vh; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><div class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M12 2 3 7v10l9 5 9-5V7z"/><path d="M3 7l9 5 9-5M12 12v10"/></svg></div>Image&nbsp;to&nbsp;3D&nbsp;Studio</div>
+  <div class="pill" id="engine">TripoSR · CPU-friendly · <b>●</b> ready</div>
+</header>
+<main>
+  <aside>
+    <div class="drop" id="drop"><strong>Drop an image to convert</strong>PNG / JPG of a single object · needs <code>python -m studio.server</code>
+      <input type="file" id="file" accept="image/*" hidden /></div>
+    <h3>Gallery</h3>
+    <div id="list"></div>
+  </aside>
+  <section class="stage">
+    <model-viewer id="mv" camera-controls auto-rotate auto-rotate-delay="0" rotation-per-second="24deg" shadow-intensity="1.1" shadow-softness="0.9"
+      exposure="1.05" environment-image="neutral" tone-mapping="aces" camera-orbit="20deg 75deg 110%" interaction-prompt="none" ar ar-modes="webxr scene-viewer quick-look"></model-viewer>
+    <div class="compare"><img id="inputImg" alt="input" /><span>Input image</span></div>
+    <div class="toolbar">
+      <button id="rot" class="on">Auto-rotate</button>
+      <button id="front">Front</button>
+      <button id="side">Side</button>
+      <button id="top">Top</button>
+      <button id="env">Studio light</button>
+    </div>
+    <div class="progress" id="progress"><div><div class="spinner"></div>Reconstructing 3D model…</div></div>
+  </section>
+  <section class="info">
+    <div class="title" id="name">—</div>
+    <div class="sub" id="meta">Single-image reconstruction</div>
+    <div class="grid">
+      <div class="stat"><div class="k">Vertices</div><div class="v" id="sv">—</div></div>
+      <div class="stat"><div class="k">Triangles</div><div class="v" id="sf">—</div></div>
+      <div class="stat"><div class="k">Watertight</div><div class="v" id="sw">—</div></div>
+      <div class="stat"><div class="k">Time (CPU)</div><div class="v" id="st">—</div></div>
+    </div>
+    <h3>Downloads</h3>
+    <div class="dl" id="dl"></div>
+    <h3>View</h3>
+    <label class="range">Exposure</label><input type="range" id="exp" min="0.4" max="2" step="0.05" value="1.05" />
+    <label class="range">Shadow</label><input type="range" id="sh" min="0" max="2" step="0.05" value="1.1" />
+  </section>
+</main>
+<footer>Built by Tran Cong Tien · fiverr.com/optimus2003</footer>
+<script>
+const $ = (id) => document.getElementById(id);
+const mv = $('mv');
+let items = [];
+const fmt = (n) => n.toLocaleString('en-US');
+const sizes = { glb: 'Web, AR, games', obj: 'Blender, Maya, C4D', stl: '3D printing (mm)' };
+
+function select(i) {
+  const it = items[i];
+  document.querySelectorAll('.card').forEach((c, j) => c.classList.toggle('active', i === j));
+  mv.src = it.base + it.files.glb;
+  $('inputImg').src = it.base + it.files.input;
+  $('name').textContent = it.name.replace(/[-_]/g, ' ');
+  $('meta').textContent = `From ${it.source} · ${it.stats.height.toFixed(2)} × ${it.stats.width.toFixed(2)} × ${it.stats.depth.toFixed(2)} units`;
+  $('sv').textContent = fmt(it.stats.vertices);
+  $('sf').textContent = fmt(it.stats.faces);
+  $('sw').textContent = it.stats.watertight ? 'Yes' : 'No';
+  $('sw').className = 'v' + (it.stats.watertight ? ' ok' : '');
+  $('st').textContent = it.seconds + ' s';
+  $('dl').innerHTML = ['glb', 'obj', 'stl'].filter((f) => it.files[f]).map((f, k) =>
+    `<a class="${k === 0 ? 'primary' : ''}" href="${it.base + it.files[f]}" download>${f.toUpperCase()} <small>${sizes[f]}</small></a>`).join('');
+  history.replaceState(null, '', '#' + it.name);
+}
+
+function render() {
+  $('list').innerHTML = items.map((it, i) => `<div class="card" data-i="${i}"><img src="${it.base + it.files.input}" alt="">
+    <div><div class="t">${it.name.replace(/[-_]/g, ' ')}</div><div class="s">${fmt(it.stats.faces)} tris · ${it.seconds}s</div></div></div>`).join('');
+  document.querySelectorAll('.card').forEach((c) => c.onclick = () => select(+c.dataset.i));
+}
+
+fetch('models.json').then((r) => r.json()).then((data) => {
+  items = data; render();
+  const start = Math.max(0, items.findIndex((x) => '#' + x.name === location.hash));
+  if (items.length) select(start);
+});
+
+$('rot').onclick = (e) => { mv.autoRotate = !mv.autoRotate; e.target.classList.toggle('on', mv.autoRotate); };
+const orbit = (o) => { mv.autoRotate = false; $('rot').classList.remove('on'); mv.cameraOrbit = o; };
+$('front').onclick = () => orbit('0deg 80deg 110%');
+$('side').onclick = () => orbit('90deg 80deg 110%');
+$('top').onclick = () => orbit('0deg 8deg 110%');
+$('env').onclick = (e) => { const on = mv.environmentImage === 'neutral'; mv.environmentImage = on ? 'legacy' : 'neutral'; e.target.classList.toggle('on', on); };
+$('exp').oninput = (e) => mv.exposure = e.target.value;
+$('sh').oninput = (e) => mv.shadowIntensity = e.target.value;
+
+// upload (works when served by `python -m studio.server`)
+const drop = $('drop');
+drop.onclick = () => $('file').click();
+['dragover', 'dragenter'].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.add('drag'); }));
+['dragleave', 'drop'].forEach((ev) => drop.addEventListener(ev, () => drop.classList.remove('drag')));
+drop.addEventListener('drop', (e) => { e.preventDefault(); if (e.dataTransfer.files[0]) upload(e.dataTransfer.files[0]); });
+$('file').onchange = (e) => e.target.files[0] && upload(e.target.files[0]);
+async function upload(file) {
+  $('progress').classList.add('show');
+  try {
+    const body = new FormData(); body.append('image', file);
+    const r = await fetch('/api/convert', { method: 'POST', body });
+    if (!r.ok) throw new Error(await r.text());
+    const it = await r.json();
+    items.unshift(it); render(); select(0);
+  } catch (err) { alert('Conversion needs the local server (python -m studio.server).\n' + err.message); }
+  finally { $('progress').classList.remove('show'); }
+}
+</script>
+</body>
+</html>
