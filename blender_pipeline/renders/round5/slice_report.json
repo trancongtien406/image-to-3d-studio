@@ -1,0 +1,81 @@
+{
+  "slicer": "PrusaSlicer 2.8.1 CLI (AppImage, headless)",
+  "scale_pct": 25.0,
+  "slice_seconds": 14.4,
+  "gcode": "chest_25pct.gcode",
+  "layers": 734,
+  "layer_check": {
+    "z_levels_total": 734,
+    "object_layers": 579,
+    "support_only_levels": 155,
+    "object_layer_height_histogram_mm": {
+      "0.2": 578
+    },
+    "first_support_only_z": [
+      0.5,
+      1.1,
+      1.7,
+      2.3,
+      2.9,
+      3.5
+    ],
+    "object_top_z_mm": 115.8,
+    "object_xy_toolpath_mm": [
+      157.22,
+      112.9
+    ],
+    "object_xy_outline_mm": [
+      157.67,
+      113.35
+    ],
+    "explanation": "734 Z levels = 579 object layers x 0.2 mm (top at 115.8 mm) + 155 support-only levels interleaved at offset heights (support is printed on its own layers because of the 0.2 mm contact distance). 734 x 0.2 = 146.8 mm is therefore not the print height; the object height is 115.8 mm."
+  },
+  "segments": 4292574,
+  "gcode_stats": {
+    "filament used [mm]": "136849.95",
+    "filament used [cm3]": "329.16",
+    "filament used [g]": "408.16",
+    "estimated printing time (normal mode)": "1d 3h 18m 9s",
+    "fill_density": "15%",
+    "layer_height": "0.2",
+    "nozzle_diameter": "0.4",
+    "perimeters": "3",
+    "support_material": "1"
+  },
+  "config": [
+    "--layer-height",
+    "0.2",
+    "--first-layer-height",
+    "0.2",
+    "--nozzle-diameter",
+    "0.4",
+    "--filament-diameter",
+    "1.75",
+    "--bed-shape",
+    "0x0,250x0,250x210,0x210",
+    "--max-print-height",
+    "210",
+    "--center",
+    "125,105",
+    "--perimeters",
+    "3",
+    "--fill-density",
+    "15%",
+    "--fill-pattern",
+    "gyroid",
+    "--temperature",
+    "215",
+    "--bed-temperature",
+    "60",
+    "--support-material",
+    "--support-material-threshold",
+    "50",
+    "--support-material-buildplate-only",
+    "--skirts",
+    "1",
+    "--filament-type",
+    "PLA",
+    "--filament-density",
+    "1.24"
+  ]
+}

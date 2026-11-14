@@ -29,6 +29,27 @@ Headless `bpy` scripts are what a render server needs. For interactive sessions 
 from an AI client through [MCP for Blender](https://github.com/ahujasid/mcp-for-blender) (Blender GUI addon +
 `uvx mcp-for-blender`); it is optional here.
 
+## Round 5: final presentation polish
+
+| | |
+|---|---|
+| ![](renders/round5/gallery_1_reference_to_3d.jpg) | ![](renders/round5/gallery_2_open_lid.jpg) |
+| ![](renders/round5/gallery_3_reference_vs_result.jpg) | ![](renders/round5/chest_closeup_staple.jpg) |
+
+* **Galleries.** Headlines sit in a separate header strip, so they never cover the model. Gallery 1, "FROM REFERENCE TO DETAILED 3D MODEL",
+  is zoomed out about 9 % with roughly 45 px of padding, and the 225 px reference inset no longer overlaps the chest. The gallery 2 open-lid camera is wider
+  (lens 43 → 38, higher target), so the whole lid and body are in frame with at least 25-30 px of padding.
+* **Velvet.** Micro-fibre sheen (weight 1.0, roughness 0.32), a finer velour normal, darker and thicker piping cords, and a lighter, larger stitch line.
+  The coins (render only) form one natural heap near the middle of the floor.
+* **Side locks.** Both short sides now have a small hasp and keyhole plate, as in the reference, so gallery 3 is a like-for-like comparison.
+* **Close-up.** `chest_closeup_staple.jpg` shows the hasp slot dropped over the U-staple.
+* **Sheets.** The topology sheet is titled "TOPOLOGY, POLYCOUNT & WOOD UVs" and notes that brass, velvet and coins are procedural. The texture sheet text is wrapped
+  with 45 px padding and carries the Poly Haven CC0 attribution.
+* **Numbers (round-5 model, 50,500 tris).** All three export formats re-verified, all print STLs are watertight. PrusaSlicer at 25 %:
+  **734 Z levels = 579 object layers × 0.2 mm (top at 115.8 mm) + 155 support-only levels**, 157.7 × 113.35 mm footprint, ~408 g PLA, ~1 d 3 h 18 min.
+  Older figures are from earlier runs of earlier geometry: round 4 had 737 = 579 + 158, and round 3 had 706 = 552 + 154.
+* The turntable MP4 is still the round-4 one (`renders/round4/chest_turntable_360.mp4`, before the side locks).
+
 ## Round 4: hardware accuracy, clean junctions, topology and print evidence
 
 | | |
@@ -54,7 +75,7 @@ from an AI client through [MCP for Blender](https://github.com/ahujasid/mcp-for-
   Optional **articulated set** for 25 % scale: `chest_print_artic_body_mm.stl` and `chest_print_artic_lid_mm.stl` (each watertight), joined by
   two 1.75 mm filament pins. The body knuckles are bored 1.85 mm (press fit); the lid knuckles are bored 2.15 mm (0.2 mm radial clearance).
   `chest_print_artic_hasp_mm.stl` is a glue-on part, because a hasp fused to the lid could not pass the staple (`print_variants.json`).
-* **Slicer numbers reconciled.** The G-code has 737 Z levels: 579 object layers × 0.2 mm (top at 115.8 mm) plus
+* **Slicer numbers reconciled (round-4 run).** The round-4 G-code had 737 Z levels: 579 object layers × 0.2 mm (top at 115.8 mm) plus
   158 support-only levels. PrusaSlicer prints support on its own offset layers because of the 0.2 mm contact distance. So the layer count × 0.2
   is not the height. 25 % of 630.8 × 453.4 × 462.9 mm is 157.7 × 113.4 × 115.7 mm. The G-code measures 157.7 × 113.35 mm (toolpath plus one
   0.45 mm extrusion width) × 115.8 mm (`slice_report.json → layer_check`). In round 3 the same accounting gave 706 = 552 + 154 levels: 110.4 mm,
@@ -74,7 +95,7 @@ from an AI client through [MCP for Blender](https://github.com/ahujasid/mcp-for-
 | Materials | Per-plank tone and roughness variation, fine scratches. Aged brass: tarnish patches, dark grime in cavities (AO), polished convex edges (pointiness) |
 | Exports | `chest.glb` / `.fbx` / `.obj`: 6 named objects (Body/Lid × Wood/Metal/Lining), 38,536 tris, re-imported and verified (`export_verification.json`: tri count and bbox 0.638 × 0.4595 × 0.4415 m match the source in all three formats). The `.blend` has packed textures |
 | Print STL | `chest_print_mm.stl`: closed and solid, mm, Z up. After the pymeshlab self-intersection repair it is watertight, a single body, with 0 non-manifold edges/vertices, 0 boundary edges and 0 self-intersecting faces (`print_proof.json`). The minimum ray-cast thickness is 3.8 mm at 1:1. Feature sizes are listed per scale: at 1:1 every feature clears FDM 0.4 mm. At 25% (16 × 11.5 × 11 cm) the knuckle gap, plank gaps and lid seam fall below 0.8 mm, so use a 0.25 mm nozzle or resin. At 1:1 (64 cm) the model must be split for any common printer bed |
-| Slicer | PrusaSlicer 2.8.1 CLI, headless, 25% scale: 706 layers, ~387 g PLA, ~1 d 1 h 45 min at 0.2 mm, 15% infill, with supports. The toolpath preview is drawn from the exported G-code (`renders/round3/slice_preview.jpg`). This shows a successful slice only; it has **not** been physically print-tested |
+| Slicer | PrusaSlicer 2.8.1 CLI, headless, 25% scale (round-3 run, superseded): 706 layers, ~387 g PLA, ~1 d 1 h 45 min at 0.2 mm, 15% infill, with supports. The toolpath preview is drawn from the exported G-code (`renders/round3/slice_preview.jpg`). This shows a successful slice only; it has **not** been physically print-tested |
 
 Renders (Cycles, 64 spp + OIDN, CPU): 3/4 132 s, open 272 s, latch close-up 452 s, hinge close-up 186 s, back 254 s,
 front 236 s, reference match 125 s, clay 109 s, topology 105 s. All are in `renders/round3/`: hinge and latch close-ups,

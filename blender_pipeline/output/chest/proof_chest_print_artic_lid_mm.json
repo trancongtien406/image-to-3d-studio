@@ -1,21 +1,22 @@
 {
   "file": "output/chest/chest_print_artic_lid_mm.stl",
   "units": "mm",
-  "triangles": 221084,
-  "vertices": 110528,
+  "triangles": 222706,
+  "vertices": 111339,
   "bbox_mm": [
-    622.78,
+    626.4,
     440.39,
-    200.94
+    238.0
   ],
   "watertight": true,
   "winding_consistent": true,
   "bodies": 1,
   "euler_number": -14,
   "self_intersection_fix_passes": [
+    14,
     0
   ],
-  "volume_cm3": 34418.4,
+  "volume_cm3": 34437.7,
   "meshlab": {
     "non_two_manifold_edges": 0,
     "non_two_manifold_vertices": 0,
@@ -27,18 +28,18 @@
   },
   "wall_thickness_mm_1to1": {
     "samples": 6000,
-    "min": 10.66,
-    "p1": 47.13,
-    "p5": 96.75,
-    "p50": 294.95
+    "min": 7.82,
+    "p1": 48.21,
+    "p5": 98.61,
+    "p50": 293.71
   },
   "note": "The print model is a solid (lid closed, cores filled), so there are no thin shell walls; the ray-cast 'thickness' above is the solid depth. What limits small prints is relief / feature size (rivet heads, strap projection, hinge gaps), listed per scale below against FDM 0.4 mm nozzle limits (>=0.8 mm walls, >=0.4 mm relief) and resin (>=0.3 mm).",
   "scales": {
     "1": {
       "size_mm": [
-        622.8,
+        626.4,
         440.4,
-        200.9
+        238.0
       ],
       "features_mm": {
         "strap_projection": 7.0,
@@ -61,9 +62,9 @@
     },
     "0.25": {
       "size_mm": [
-        155.7,
+        156.6,
         110.1,
-        50.2
+        59.5
       ],
       "features_mm": {
         "strap_projection": 1.75,
@@ -90,9 +91,9 @@
     },
     "0.15": {
       "size_mm": [
-        93.4,
+        94.0,
         66.1,
-        30.1
+        35.7
       ],
       "features_mm": {
         "strap_projection": 1.05,

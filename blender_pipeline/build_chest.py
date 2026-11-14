@@ -57,13 +57,14 @@ wood = pbr_material("Wood_Oak_Aged", tex="chest_wood", rough=0.62, normal_streng
 wood_end = pbr_material("Wood_EndGrain", tex="chest_woodend", rough=0.75, normal_strength=1.6, scale=2.5)
 brass = pbr_material("Brass_Aged", color=(0.62, 0.46, 0.21), rough=0.5, metal=1.0, bump=0.5)
 dark = pbr_material("Keyhole_Dark", color=(0.02, 0.015, 0.01), rough=0.8)
-velvet = pbr_material("Lining_Velvet", tex="velour_velvet", mapping="OBJ", scale=7.0, hsv=(0.5, 0.0, 1.0),
-                      tint=(0.42, 0.03, 0.05), rough=0.9, normal_strength=1.4)
+velvet = pbr_material("Lining_Velvet", tex="velour_velvet", mapping="OBJ", scale=11.0, hsv=(0.5, 0.0, 1.0),
+                      tint=(0.42, 0.03, 0.05), rough=0.8, normal_strength=2.2, rough_mul=1.1)
 _vb = velvet.node_tree.nodes["Principled BSDF"]
 if "Sheen Weight" in _vb.inputs:
-    _vb.inputs["Sheen Weight"].default_value = 0.8; _vb.inputs["Sheen Tint"].default_value = (0.9, 0.35, 0.4, 1)
-piping = pbr_material("Lining_Piping", color=(0.11, 0.008, 0.014), rough=0.75, bump=0.2)
-thread = pbr_material("Lining_Thread", color=(0.55, 0.38, 0.2), rough=0.6)
+    _vb.inputs["Sheen Weight"].default_value = 1.0; _vb.inputs["Sheen Tint"].default_value = (0.95, 0.45, 0.5, 1)   # micro-fibre sheen
+    if "Sheen Roughness" in _vb.inputs: _vb.inputs["Sheen Roughness"].default_value = 0.32
+piping = pbr_material("Lining_Piping", color=(0.06, 0.004, 0.008), rough=0.55, bump=0.3)
+thread = pbr_material("Lining_Thread", color=(0.80, 0.62, 0.36), rough=0.5)
 gold = pbr_material("Coin_Gold", color=(0.95, 0.68, 0.25), rough=0.22, metal=1.0, bump=0.1)
 
 
@@ -407,6 +408,15 @@ P(cylinder("HaspPin", 0.0018, 0.058, (0, PY, PZ), segs=12, axis="X"), brass, bev
 for sx in (-1, 1):
     cp = dome(f"HaspPinCap{sx}", 0.0032, 0.0018, (0, 0, 0), segs=14, rings=3)
     cp.rotation_euler = Vector((sx, 0, 0)).to_track_quat("Z", "Y").to_euler(); cp.location = (sx * 0.029, PY, PZ); P(cp, brass, bev=0, uv=False)
+# side locks (reference): small hasp plate hanging from the lid side band over the rim band, keyhole + 2 rivets
+for sx in (-1, 1):
+    xo = sx * (W / 2 + BAND_T + 0.0023)
+    P(box(f"SideHasp{sx}", (0.004, 0.036, 0.06), (xo, 0, HB - 0.006)), brass, bev=0.0012, uv=False)
+    P(box(f"SideHaspTip{sx}", (0.004, 0.022, 0.012), (xo, 0, HB - 0.039)), brass, bev=0.0015, uv=False)
+    P(cylinder(f"SideKeyTop{sx}", 0.0026, 0.002, (xo + sx * 0.0021, 0, HB - 0.012), segs=16, axis="X"), dark, bev=0, uv=False)
+    P(box(f"SideKeySlot{sx}", (0.002, 0.0022, 0.007), (xo + sx * 0.0021, 0, HB - 0.0175)), dark, bev=0, uv=False)
+    for z in (HB + 0.016, HB - 0.03):
+        rivet(xo + sx * 0.002, 0, z, (sx, 0, 0), r=0.0034, h=0.002)
 GRP[0] = "hasp"     # the swinging hasp (separate part: hinged on the pin)
 kn = cylinder("HaspKnuckleMove", 0.0045, 0.0158, (0, PY, PZ), segs=24, axis="X"); P(kn, brass, bev=0.0006, uv=False); shade_smooth(kn, 50)
 HP_Y = LF - 0.0006 - 0.002                     # hasp plate centre plane, 0.6 mm in front of the lock plate
@@ -482,16 +492,16 @@ for nm, sz, loc in (("LinF", (W - 2 * T - 0.002, LT, ih), (0, -D / 2 + T + LT / 
 LZ0 = T + 0.008; LX, LY = W / 2 - T - LT - 0.001, D / 2 - T - LT - 0.001
 for nm, (ln, loc, ax) in {"PipeF": (2 * LX, (0, -LY, LZ0), "X"), "PipeB": (2 * LX, (0, LY, LZ0), "X"),
                           "PipeL": (2 * LY, (-LX, 0, LZ0), "Y"), "PipeR": (2 * LY, (LX, 0, LZ0), "Y")}.items():
-    o = cylinder(nm, 0.0028, ln, loc, segs=12, axis=ax); P(o, piping, bev=0, uv=False); shade_smooth(o, 60)
+    o = cylinder(nm, 0.0036, ln, loc, segs=14, axis=ax); P(o, piping, bev=0, uv=False); shade_smooth(o, 60)
 for sx in (-1, 1):
     for sy in (-1, 1):
-        o = cylinder(f"PipeV{sx}{sy}", 0.0026, HB - 0.018 - LZ0, (sx * LX, sy * LY, (LZ0 + HB - 0.018) / 2), segs=12); P(o, piping, bev=0, uv=False); shade_smooth(o, 60)
+        o = cylinder(f"PipeV{sx}{sy}", 0.0033, HB - 0.018 - LZ0, (sx * LX, sy * LY, (LZ0 + HB - 0.018) / 2), segs=12); P(o, piping, bev=0, uv=False); shade_smooth(o, 60)
 SI = 0.016; st_ = 0.0055
 for (x0, y0, x1, y1) in ((-LX + SI, -LY + SI, LX - SI, -LY + SI), (LX - SI, -LY + SI, LX - SI, LY - SI), (LX - SI, LY - SI, -LX + SI, LY - SI), (-LX + SI, LY - SI, -LX + SI, -LY + SI)):
     L_ = math.hypot(x1 - x0, y1 - y0); n_ = int(L_ / st_)
     for k in range(0, n_, 2):
         t0 = (k + 0.5) / n_; xm, ym = x0 + (x1 - x0) * t0, y0 + (y1 - y0) * t0
-        sz_ = (st_ * 0.8, 0.0009, 0.0006) if abs(y1 - y0) < 1e-6 else (0.0009, st_ * 0.8, 0.0006)
+        sz_ = (st_ * 0.8, 0.0014, 0.0010) if abs(y1 - y0) < 1e-6 else (0.0014, st_ * 0.8, 0.0010)
         P(box(f"Stitch{k}_{x0:.2f}{y0:.2f}", sz_, (xm, ym, T + 0.0082)), thread, bev=0, uv=False)
 P(arc_stave("LinLid", -AMAX + 0.03, AMAX - 0.03, R - T - LT - 0.0008, R - T - 0.0008, -W / 2 + T + 0.001, W / 2 - T - 0.001, segs=24), velvet, bev=0.0015, uv=False, grp="lining_lid")
 # wooden inner border (fillet) capping the lining along the top inner edge of the walls
@@ -522,9 +532,9 @@ for sx in (-1, 1):
 
 # pile of coins on the lining
 crnd = random.Random(3)
-for i in range(90):
-    a = crnd.uniform(0, 2 * math.pi); r_ = abs(crnd.gauss(0, 0.055)); x, y = -0.07 + r_ * math.cos(a) * 1.5, 0.02 + r_ * math.sin(a)
-    z = T + 0.0105 + 0.04 * math.exp(-(r_ / 0.05) ** 2) * crnd.uniform(0.6, 1.0)
+for i in range(120):   # one natural heap near the centre of the floor
+    a = crnd.uniform(0, 2 * math.pi); r_ = abs(crnd.gauss(0, 0.042)); x, y = 0.01 + r_ * math.cos(a) * 1.3, 0.06 + r_ * math.sin(a)
+    z = T + 0.0105 + 0.05 * math.exp(-(r_ / 0.04) ** 2) * crnd.uniform(0.7, 1.0)
     cn = cylinder(f"Coin{i}", 0.0125, 0.0022, (x, y, z), segs=28)
     cn.rotation_euler = (crnd.uniform(-0.35, 0.35), crnd.uniform(-0.35, 0.35), crnd.uniform(0, 6.3))
     P(cn, gold, bev=0.0005, uv=False, grp="coins")
@@ -676,14 +686,15 @@ cycles(sc, samples=SAMPLES, res=(1920, 1080), pct=PCT)
 tgt = (0, 0, 0.2)
 CAMS = {
     "front": dict(loc=(0, -1.75, 0.42), tgt=tgt, lens=55),
-    "three_quarter": dict(loc=(-1.25, -1.3, 0.75), tgt=tgt, lens=55),
+    "three_quarter": dict(loc=(-1.25, -1.3, 0.75), tgt=tgt, lens=50),
     "side": dict(loc=(1.75, 0.0, 0.42), tgt=tgt, lens=55),
     "back": dict(loc=(0.75, 1.6, 0.6), tgt=(0, 0.05, 0.2), lens=55),
     "reference_match": dict(loc=(0.98, -1.52, 0.82), tgt=(0.0, 0.0, 0.21), lens=50, square=True),
-    "open": dict(loc=(-0.95, -1.45, 1.62), tgt=(0, 0.06, 0.24), lens=50, lid=100, coins=True),
+    "open": dict(loc=(-0.95, -1.45, 1.62), tgt=(0, 0.06, 0.33), lens=38, lid=100, coins=True),
     "closeup_latch": dict(loc=(-0.20, -0.66, 0.38), tgt=(0, -0.215, 0.205), lens=55, dof=(0.35, 8.0)),
     "closeup_hinge": dict(loc=(0.40, 0.66, 0.44), tgt=(0.17, 0.215, 0.25), lens=80, dof=(0.48, 8.0)),
     "closeup_corner": dict(loc=(0.70, -0.66, 0.46), tgt=(0.29, -0.2, 0.2), lens=70, dof=(0.5, 8.0)),
+    "closeup_staple": dict(loc=(0.24, -0.47, 0.31), tgt=(0, -0.222, 0.238), lens=70, dof=(0.35, 8.0)),
     "variation_handles": dict(loc=(-1.25, -1.3, 0.75), tgt=tgt, lens=55, handles=True),
 }
 VIEWS = arg("--views", "three_quarter,front,back,side,reference_match,open,closeup_latch,closeup_hinge,closeup_corner,variation_handles,topology").split(",")

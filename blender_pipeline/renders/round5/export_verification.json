@@ -1,0 +1,95 @@
+{
+  "source_total_tris": 50500,
+  "formats": {
+    "glb": {
+      "file_mb": 23.66,
+      "objects": [
+        "Chest_Body_Metal",
+        "Chest_Body_Wood",
+        "Chest_Hinge_Pins",
+        "Chest_Lid_Hasp",
+        "Chest_Lid_Lining",
+        "Chest_Lid_Metal",
+        "Chest_Lid_Wood",
+        "Chest_Lining"
+      ],
+      "tris": 50500,
+      "tris_match_source": true,
+      "bbox_m": [
+        0.631,
+        0.4535,
+        0.463
+      ],
+      "materials": [
+        "Brass_Aged",
+        "Keyhole_Dark",
+        "Lining_Piping",
+        "Lining_Thread",
+        "Lining_Velvet",
+        "Wood_EndGrain",
+        "Wood_Oak_Aged"
+      ],
+      "images": 9
+    },
+    "obj": {
+      "file_mb": 2.35,
+      "objects": [
+        "Chest_Body_Metal",
+        "Chest_Body_Wood",
+        "Chest_Hinge_Pins",
+        "Chest_Lid_Hasp",
+        "Chest_Lid_Lining",
+        "Chest_Lid_Metal",
+        "Chest_Lid_Wood",
+        "Chest_Lining"
+      ],
+      "tris": 50500,
+      "tris_match_source": true,
+      "bbox_m": [
+        0.631,
+        0.4535,
+        0.463
+      ],
+      "materials": [
+        "Brass_Aged",
+        "Keyhole_Dark",
+        "Lining_Piping",
+        "Lining_Thread",
+        "Lining_Velvet",
+        "Wood_EndGrain",
+        "Wood_Oak_Aged"
+      ],
+      "images": 3
+    },
+    "fbx": {
+      "file_mb": 6.76,
+      "objects": [
+        "Chest_Body_Metal",
+        "Chest_Body_Wood",
+        "Chest_Hinge_Pins",
+        "Chest_Lid_Hasp",
+        "Chest_Lid_Lining",
+        "Chest_Lid_Metal",
+        "Chest_Lid_Wood",
+        "Chest_Lining"
+      ],
+      "tris": 50500,
+      "tris_match_source": true,
+      "bbox_m": [
+        0.631,
+        0.4535,
+        0.463
+      ],
+      "materials": [
+        "Brass_Aged",
+        "Keyhole_Dark",
+        "Lining_Piping",
+        "Lining_Thread",
+        "Lining_Velvet",
+        "Wood_EndGrain",
+        "Wood_Oak_Aged"
+      ],
+      "images": 3
+    }
+  }
+}

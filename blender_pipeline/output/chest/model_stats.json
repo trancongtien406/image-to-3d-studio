@@ -17,23 +17,23 @@
       "verts": 1232
     },
     "Chest_Lid_Metal": {
-      "tris": 14348,
-      "verts": 7306
+      "tris": 15884,
+      "verts": 8098
     },
     "Chest_Lid_Hasp": {
       "tris": 1412,
       "verts": 724
     },
     "Chest_Lining": {
-      "tris": 3116,
-      "verts": 1888
+      "tris": 3148,
+      "verts": 1904
     },
     "Chest_Lid_Lining": {
       "tris": 660,
       "verts": 332
     }
   },
-  "total_tris": 48932,
+  "total_tris": 50500,
   "hinge_axis_m": [
     0,
     0.21450000000000002,

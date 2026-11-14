@@ -1,8 +1,8 @@
 {
-  "source_total_tris": 48932,
+  "source_total_tris": 50500,
   "formats": {
     "glb": {
-      "file_mb": 23.61,
+      "file_mb": 23.66,
       "objects": [
         "Chest_Body_Metal",
         "Chest_Body_Wood",
@@ -13,7 +13,7 @@
         "Chest_Lid_Wood",
         "Chest_Lining"
       ],
-      "tris": 48932,
+      "tris": 50500,
       "tris_match_source": true,
       "bbox_m": [
         0.631,
@@ -32,7 +32,7 @@
       "images": 9
     },
     "obj": {
-      "file_mb": 2.27,
+      "file_mb": 2.35,
       "objects": [
         "Chest_Body_Metal",
         "Chest_Body_Wood",
@@ -43,7 +43,7 @@
         "Chest_Lid_Wood",
         "Chest_Lining"
       ],
-      "tris": 48932,
+      "tris": 50500,
       "tris_match_source": true,
       "bbox_m": [
         0.631,
@@ -59,10 +59,10 @@
         "Wood_EndGrain",
         "Wood_Oak_Aged"
       ],
-      "images": 4
+      "images": 3
     },
     "fbx": {
-      "file_mb": 10.63,
+      "file_mb": 6.76,
       "objects": [
         "Chest_Body_Metal",
         "Chest_Body_Wood",
@@ -73,7 +73,7 @@
         "Chest_Lid_Wood",
         "Chest_Lining"
       ],
-      "tris": 48932,
+      "tris": 50500,
       "tris_match_source": true,
       "bbox_m": [
         0.631,
@@ -89,7 +89,7 @@
         "Wood_EndGrain",
         "Wood_Oak_Aged"
       ],
-      "images": 4
+      "images": 3
     }
   }
 }
