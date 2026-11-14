@@ -117,18 +117,23 @@ def brass_wear(m):
     L.new(geo.outputs["Pointiness"], pr.inputs["Fac"])
     ao = N.new("ShaderNodeAmbientOcclusion"); ao.inputs["Distance"].default_value = 0.006; ao.samples = 8
     tc = N.new("ShaderNodeTexCoord"); nz = _n(nt, "ShaderNodeTexNoise", Scale=18.0, Detail=6.0); L.new(tc.outputs["Object"], nz.inputs["Vector"])
-    tr = N.new("ShaderNodeValToRGB"); e = tr.color_ramp.elements; e[0].position = 0.30; e[1].position = 0.66
+    tr = N.new("ShaderNodeValToRGB"); e = tr.color_ramp.elements; e[0].position = 0.40; e[1].position = 0.86
     L.new(nz.outputs["Fac"], tr.inputs["Fac"])
     base = N.new("ShaderNodeMix"); base.data_type = "RGBA"; L.new(tr.outputs["Color"], base.inputs["Factor"])
-    base.inputs[6].default_value = (0.19, 0.145, 0.085, 1); base.inputs[7].default_value = (0.52, 0.385, 0.17, 1)   # tarnished / brass
+    base.inputs[6].default_value = (0.085, 0.06, 0.03, 1); base.inputs[7].default_value = (0.34, 0.235, 0.095, 1)   # aged tarnish / dull brass
     cav = N.new("ShaderNodeMix"); cav.data_type = "RGBA"; L.new(ao.outputs["AO"], cav.inputs["Factor"])
-    cav.inputs[6].default_value = (0.07, 0.055, 0.035, 1); L.new(base.outputs[2], cav.inputs[7])
+    cav.inputs[6].default_value = (0.045, 0.035, 0.022, 1); L.new(base.outputs[2], cav.inputs[7])
     edge = N.new("ShaderNodeMix"); edge.data_type = "RGBA"; L.new(pr.outputs["Color"], edge.inputs["Factor"])
-    L.new(cav.outputs[2], edge.inputs[6]); edge.inputs[7].default_value = (0.84, 0.68, 0.40, 1)
-    L.new(edge.outputs[2], b.inputs["Base Color"])
-    ro = N.new("ShaderNodeMapRange"); ro.inputs["To Min"].default_value = 0.66; ro.inputs["To Max"].default_value = 0.40
+    L.new(cav.outputs[2], edge.inputs[6]); edge.inputs[7].default_value = (0.62, 0.47, 0.25, 1)
+    nz2 = _n(nt, "ShaderNodeTexNoise", Scale=3.0, Detail=4.0); L.new(tc.outputs["Object"], nz2.inputs["Vector"])
+    bl = N.new("ShaderNodeMapRange"); bl.inputs["From Min"].default_value = 0.35; bl.inputs["From Max"].default_value = 0.65
+    bl.inputs["To Min"].default_value = 0.62; bl.inputs["To Max"].default_value = 1.0; L.new(nz2.outputs["Fac"], bl.inputs["Value"])
+    dk = N.new("ShaderNodeMix"); dk.data_type = "RGBA"; dk.blend_type = "MULTIPLY"; dk.inputs["Factor"].default_value = 1.0
+    L.new(edge.outputs[2], dk.inputs[6]); L.new(bl.outputs["Result"], dk.inputs[7])
+    L.new(dk.outputs[2], b.inputs["Base Color"])
+    ro = N.new("ShaderNodeMapRange"); ro.inputs["To Min"].default_value = 0.74; ro.inputs["To Max"].default_value = 0.52
     L.new(tr.outputs["Color"], ro.inputs["Value"])
-    re = N.new("ShaderNodeMix"); L.new(pr.outputs["Color"], re.inputs["Factor"]); L.new(ro.outputs["Result"], re.inputs[2]); re.inputs[3].default_value = 0.2
+    re = N.new("ShaderNodeMix"); L.new(pr.outputs["Color"], re.inputs["Factor"]); L.new(ro.outputs["Result"], re.inputs[2]); re.inputs[3].default_value = 0.34
     L.new(re.outputs[0], b.inputs["Roughness"])
     m.cycles.displacement_method = "BUMP"
 parts = []
@@ -675,8 +680,8 @@ CAMS = {
     "side": dict(loc=(1.75, 0.0, 0.42), tgt=tgt, lens=55),
     "back": dict(loc=(0.75, 1.6, 0.6), tgt=(0, 0.05, 0.2), lens=55),
     "reference_match": dict(loc=(0.98, -1.52, 0.82), tgt=(0.0, 0.0, 0.21), lens=50, square=True),
-    "open": dict(loc=(-1.3, -1.8, 1.32), tgt=(0, 0.05, 0.36), lens=50, lid=100, coins=True),
-    "closeup_latch": dict(loc=(-0.20, -0.66, 0.40), tgt=(0, -0.215, 0.215), lens=80, dof=(0.35, 8.0)),
+    "open": dict(loc=(-0.95, -1.45, 1.62), tgt=(0, 0.06, 0.24), lens=50, lid=100, coins=True),
+    "closeup_latch": dict(loc=(-0.20, -0.66, 0.38), tgt=(0, -0.215, 0.205), lens=55, dof=(0.35, 8.0)),
     "closeup_hinge": dict(loc=(0.40, 0.66, 0.44), tgt=(0.17, 0.215, 0.25), lens=80, dof=(0.48, 8.0)),
     "closeup_corner": dict(loc=(0.70, -0.66, 0.46), tgt=(0.29, -0.2, 0.2), lens=70, dof=(0.5, 8.0)),
     "variation_handles": dict(loc=(-1.25, -1.3, 0.75), tgt=tgt, lens=55, handles=True),
