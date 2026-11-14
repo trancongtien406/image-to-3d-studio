@@ -95,7 +95,7 @@ for (zz, x0, y0, x1, y1, ty) in shell:
     shade = 0.75 + 0.25 * math.cos(math.atan2(y1 - y0, x1 - x0) - az)
     d.line([(ox + a[0] * k, oy - a[1] * k), (ox + b[0] * k, oy - b[1] * k)], fill=tuple(int(ci * shade) for ci in c), width=2)
 # single layer at ~45 % height, top-down, coloured by feature
-zl = min(zs, key=lambda q: abs(q - zmax * 0.45))
+zl = min(obj_z, key=lambda q: abs(q - zmax * 0.45))   # an object layer, not a support-only level
 X0, Y1 = min(xs), max(ys)
 lk = 1000 / max(max(xs) - min(xs), max(ys) - min(ys)); lx, ly = 1560, 260
 d.rectangle([lx - 20, ly - 20, lx + 980, ly + 1000 * (max(ys) - min(ys)) / max(max(xs) - min(xs), max(ys) - min(ys)) + 20], fill=(24, 25, 28))

@@ -10,23 +10,28 @@ from PIL import Image, ImageDraw, ImageFont
 ref, ren, out = sys.argv[1:4]
 GAL = sys.argv[sys.argv.index("--gallery") + 1] if "--gallery" in sys.argv else None
 
-def bbox(im, thr=38):
+def bbox(im, thr=60):
     a = np.asarray(im.convert("RGB")).astype(np.int16)
     border = np.concatenate([a[:8].reshape(-1, 3), a[-8:].reshape(-1, 3), a[:, :8].reshape(-1, 3), a[:, -8:].reshape(-1, 3)])
     bg = np.median(border, axis=0)
-    m = np.abs(a - bg).sum(axis=2) > thr
+    # per-row background (studio sweeps are vertical gradients): median of the 24 px at both ends of each row
+    rowbg = np.median(np.concatenate([a[:, :24], a[:, -24:]], axis=1), axis=1)[:, None, :]
+    # object mask = saturated pixels (wood / brass) - both backdrops are neutral grey sweeps
+    mx, mn = a.max(axis=2).astype(np.float32), a.min(axis=2).astype(np.float32)
+    m = ((mx - mn) / np.maximum(mx, 1) > 0.28) & (mx > 40)
     # ignore isolated noise: keep rows/cols with a meaningful fraction of object pixels
     rows = np.where(m.sum(axis=1) > m.shape[1] * 0.01)[0]; cols = np.where(m.sum(axis=0) > m.shape[0] * 0.01)[0]
     return cols[0], rows[0], cols[-1], rows[-1], tuple(int(c) for c in bg)
 
 def normalised(path, S, obj_h, bgfill):
+    """Square crop of the ORIGINAL image centred on the object, sized so the object is obj_h/S of the panel height
+    (no pasted rectangles; background stays continuous)."""
     im = Image.open(path).convert("RGB"); x0, y0, x1, y1, bg = bbox(im)
-    crop = im.crop((x0, y0, x1 + 1, y1 + 1)); k = obj_h / crop.height
-    crop = crop.resize((max(1, int(crop.width * k)), int(obj_h)), Image.LANCZOS)
-    if crop.width > S * 0.92:   # very wide object: fit width instead
-        k2 = S * 0.92 / crop.width; crop = crop.resize((int(crop.width * k2), int(crop.height * k2)), Image.LANCZOS)
-    pan = Image.new("RGB", (S, S), bg); pan.paste(crop, ((S - crop.width) // 2, (S - crop.height) // 2))
-    return pan, (x1 - x0, y1 - y0)
+    w, h = x1 - x0, y1 - y0; side = max(h * S / obj_h, w / 0.92)
+    cx, cy = (x0 + x1) / 2, (y0 + y1) / 2
+    side = min(side, im.width, im.height)
+    l = min(max(cx - side / 2, 0), im.width - side); t = min(max(cy - side / 2, 0), im.height - side)
+    return im.crop((int(l), int(t), int(l + side), int(t + side))).resize((S, S), Image.LANCZOS), (w, h)
 
 S = 1200
 a, ba = normalised(ref, S, S * 0.70, None); b, bb = normalised(ren, S, S * 0.70, None)

@@ -6,7 +6,7 @@ import os, sys
 from PIL import Image, ImageDraw, ImageFont
 src, out = sys.argv[1], sys.argv[2]
 F = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf", 24); FB = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 34)
-rows = [("chest_wood", "Wood (planks, staves)"), ("chest_woodend", "End grain: growth rings (plank ends, cores)")]
+rows = [("chest_wood", "Wood (planks, staves)"), ("chest_woodend", "End grain (rings)")]
 kinds = [("Diffuse", "Base colour (graded, baked)"), ("nor_gl", "Normal (OpenGL)"), ("Rough", "Roughness")]
 T = 560; pad = 40; W = pad + len(kinds) * (T + pad) + 520; H = 130 + len(rows) * (T + 110)
 im = Image.new("RGB", (W, H), (30, 31, 34)); d = ImageDraw.Draw(im)

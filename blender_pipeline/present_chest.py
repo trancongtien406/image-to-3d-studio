@@ -30,7 +30,7 @@ d.text((GW - 285, GH - 325), "Reference", font=F("Medium", 22), fill=(242, 236, 
 g.save(os.path.join(OUT, "gallery_1_reference_to_3d.jpg"), quality=92)
 # 2) open lid
 g = cover(Image.open(os.path.join(REN, "chest_open.png")).convert("RGB"), GW, GH, 0.5, 0.5)
-title_bar(g, "OPEN LID, FULLY MODELLED INTERIOR")
+title_bar(g, "OPEN LID, FULLY MODELLED INTERIOR", y=GH - 92)
 g.save(os.path.join(OUT, "gallery_2_open_lid.jpg"), quality=92)
 
 # topology sheet
