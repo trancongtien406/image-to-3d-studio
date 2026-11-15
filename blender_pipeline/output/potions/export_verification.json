@@ -1,0 +1,293 @@
+{
+  "source_total_tris": 13488,
+  "formats": {
+    "glb": {
+      "file_mb": 2.8,
+      "objects": [
+        "Bottle_1_Square_Glass",
+        "Bottle_1_Square_Label",
+        "Bottle_1_Square_Liquid",
+        "Bottle_1_Square_Stopper",
+        "Bottle_2_Tall_Cork",
+        "Bottle_2_Tall_Glass",
+        "Bottle_2_Tall_Label",
+        "Bottle_2_Tall_Liquid",
+        "Bottle_3_Round_Cork",
+        "Bottle_3_Round_Glass",
+        "Bottle_3_Round_Label",
+        "Bottle_3_Round_Liquid",
+        "Bottle_4_Jar_Cork",
+        "Bottle_4_Jar_Glass",
+        "Bottle_4_Jar_Label",
+        "Bottle_4_Jar_Liquid"
+      ],
+      "tris": 13488,
+      "tris_match_source": true,
+      "bbox_m": [
+        0.297,
+        0.1753,
+        0.205
+      ],
+      "materials": [
+        "Cork",
+        "Glass_Amber",
+        "Liquid_Antidote",
+        "Liquid_Elixir",
+        "Liquid_Mana",
+        "Liquid_Tonic",
+        "Paper_Label"
+      ],
+      "images": 5,
+      "material_values": {
+        "Liquid_Mana": {
+          "base": [
+            0.1,
+            0.25,
+            0.75
+          ],
+          "metallic": 0.0,
+          "roughness": 0.02
+        },
+        "Glass_Amber": {
+          "base": [
+            0.5,
+            0.2,
+            0.035
+          ],
+          "metallic": 0.0,
+          "roughness": 0.03
+        },
+        "Liquid_Tonic": {
+          "base": [
+            0.75,
+            0.38,
+            0.06
+          ],
+          "metallic": 0.0,
+          "roughness": 0.02
+        },
+        "Liquid_Elixir": {
+          "base": [
+            0.55,
+            0.05,
+            0.03
+          ],
+          "metallic": 0.0,
+          "roughness": 0.02
+        },
+        "Cork": {
+          "base": "cork_Diffuse_1k",
+          "metallic": null,
+          "roughness": "texture"
+        },
+        "Paper_Label": {
+          "base": "labels_Diffuse_2k",
+          "metallic": null,
+          "roughness": "texture"
+        },
+        "Liquid_Antidote": {
+          "base": [
+            0.2,
+            0.42,
+            0.1
+          ],
+          "metallic": 0.0,
+          "roughness": 0.02
+        }
+      },
+      "material_problems": []
+    },
+    "obj": {
+      "file_mb": 0.98,
+      "objects": [
+        "Bottle_1_Square_Glass",
+        "Bottle_1_Square_Label",
+        "Bottle_1_Square_Liquid",
+        "Bottle_1_Square_Stopper",
+        "Bottle_2_Tall_Cork",
+        "Bottle_2_Tall_Glass",
+        "Bottle_2_Tall_Label",
+        "Bottle_2_Tall_Liquid",
+        "Bottle_3_Round_Cork",
+        "Bottle_3_Round_Glass",
+        "Bottle_3_Round_Label",
+        "Bottle_3_Round_Liquid",
+        "Bottle_4_Jar_Cork",
+        "Bottle_4_Jar_Glass",
+        "Bottle_4_Jar_Label",
+        "Bottle_4_Jar_Liquid"
+      ],
+      "tris": 13488,
+      "tris_match_source": true,
+      "bbox_m": [
+        0.297,
+        0.1753,
+        0.205
+      ],
+      "materials": [
+        "Cork",
+        "Glass_Amber",
+        "Liquid_Antidote",
+        "Liquid_Elixir",
+        "Liquid_Mana",
+        "Liquid_Tonic",
+        "Paper_Label"
+      ],
+      "images": 5,
+      "material_values": {
+        "Liquid_Elixir": {
+          "base": [
+            0.55,
+            0.05,
+            0.03
+          ],
+          "metallic": 0.0,
+          "roughness": 0.02
+        },
+        "Cork": {
+          "base": "cork_Diffuse_1k.jpg",
+          "metallic": 0.0,
+          "roughness": "texture"
+        },
+        "Paper_Label": {
+          "base": "labels_Diffuse_2k.jpg",
+          "metallic": 0.0,
+          "roughness": "texture"
+        },
+        "Liquid_Tonic": {
+          "base": [
+            0.75,
+            0.38,
+            0.06
+          ],
+          "metallic": 0.0,
+          "roughness": 0.02
+        },
+        "Liquid_Antidote": {
+          "base": [
+            0.2,
+            0.42,
+            0.1
+          ],
+          "metallic": 0.0,
+          "roughness": 0.02
+        },
+        "Liquid_Mana": {
+          "base": [
+            0.1,
+            0.25,
+            0.75
+          ],
+          "metallic": 0.0,
+          "roughness": 0.02
+        },
+        "Glass_Amber": {
+          "base": [
+            0.5,
+            0.2,
+            0.035
+          ],
+          "metallic": 0.0,
+          "roughness": 0.03
+        }
+      },
+      "material_problems": []
+    },
+    "fbx": {
+      "file_mb": 1.7,
+      "objects": [
+        "Bottle_1_Square_Glass",
+        "Bottle_1_Square_Label",
+        "Bottle_1_Square_Liquid",
+        "Bottle_1_Square_Stopper",
+        "Bottle_2_Tall_Cork",
+        "Bottle_2_Tall_Glass",
+        "Bottle_2_Tall_Label",
+        "Bottle_2_Tall_Liquid",
+        "Bottle_3_Round_Cork",
+        "Bottle_3_Round_Glass",
+        "Bottle_3_Round_Label",
+        "Bottle_3_Round_Liquid",
+        "Bottle_4_Jar_Cork",
+        "Bottle_4_Jar_Glass",
+        "Bottle_4_Jar_Label",
+        "Bottle_4_Jar_Liquid"
+      ],
+      "tris": 13488,
+      "tris_match_source": true,
+      "bbox_m": [
+        0.297,
+        0.1753,
+        0.205
+      ],
+      "materials": [
+        "Cork",
+        "Glass_Amber",
+        "Liquid_Antidote",
+        "Liquid_Elixir",
+        "Liquid_Mana",
+        "Liquid_Tonic",
+        "Paper_Label"
+      ],
+      "images": 5,
+      "material_values": {
+        "Liquid_Tonic": {
+          "base": [
+            0.75,
+            0.38,
+            0.06
+          ],
+          "metallic": 0.0,
+          "roughness": 0.02
+        },
+        "Glass_Amber": {
+          "base": [
+            0.5,
+            0.2,
+            0.035
+          ],
+          "metallic": 0.0,
+          "roughness": 0.03
+        },
+        "Paper_Label": {
+          "base": "labels_Diffuse_2k.jpg",
+          "metallic": 0.0,
+          "roughness": "texture"
+        },
+        "Liquid_Mana": {
+          "base": [
+            0.1,
+            0.25,
+            0.75
+          ],
+          "metallic": 0.0,
+          "roughness": 0.02
+        },
+        "Liquid_Elixir": {
+          "base": [
+            0.55,
+            0.05,
+            0.03
+          ],
+          "metallic": 0.0,
+          "roughness": 0.02
+        },
+        "Liquid_Antidote": {
+          "base": [
+            0.2,
+            0.42,
+            0.1
+          ],
+          "metallic": 0.0,
+          "roughness": 0.02
+        },
+        "Cork": {
+          "base": "cork_Diffuse_1k.jpg",
+          "metallic": 0.0,
+          "roughness": "texture"
+        }
+      },
+      "material_problems": []
+    }
+  }
+}

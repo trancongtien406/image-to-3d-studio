@@ -1,0 +1,165 @@
+{
+  "objects": {
+    "Bottle_1_Square_Glass": {
+      "tris": 2736,
+      "verts": 1370,
+      "materials": [
+        "Glass_Amber"
+      ],
+      "uv": true
+    },
+    "Bottle_1_Square_Liquid": {
+      "tris": 432,
+      "verts": 218,
+      "materials": [
+        "Liquid_Elixir"
+      ],
+      "uv": true
+    },
+    "Bottle_1_Square_Label": {
+      "tris": 48,
+      "verts": 50,
+      "materials": [
+        "Paper_Label"
+      ],
+      "uv": true
+    },
+    "Bottle_1_Square_Stopper": {
+      "tris": 768,
+      "verts": 386,
+      "materials": [
+        "Glass_Amber"
+      ],
+      "uv": true
+    },
+    "Bottle_2_Tall_Glass": {
+      "tris": 2688,
+      "verts": 1346,
+      "materials": [
+        "Glass_Amber"
+      ],
+      "uv": true
+    },
+    "Bottle_2_Tall_Liquid": {
+      "tris": 288,
+      "verts": 146,
+      "materials": [
+        "Liquid_Tonic"
+      ],
+      "uv": true
+    },
+    "Bottle_2_Tall_Label": {
+      "tris": 48,
+      "verts": 50,
+      "materials": [
+        "Paper_Label"
+      ],
+      "uv": true
+    },
+    "Bottle_2_Tall_Cork": {
+      "tris": 400,
+      "verts": 202,
+      "materials": [
+        "Cork"
+      ],
+      "uv": true
+    },
+    "Bottle_3_Round_Glass": {
+      "tris": 2432,
+      "verts": 1218,
+      "materials": [
+        "Glass_Amber"
+      ],
+      "uv": true
+    },
+    "Bottle_3_Round_Liquid": {
+      "tris": 288,
+      "verts": 146,
+      "materials": [
+        "Liquid_Antidote"
+      ],
+      "uv": true
+    },
+    "Bottle_3_Round_Label": {
+      "tris": 48,
+      "verts": 50,
+      "materials": [
+        "Paper_Label"
+      ],
+      "uv": true
+    },
+    "Bottle_3_Round_Cork": {
+      "tris": 400,
+      "verts": 202,
+      "materials": [
+        "Cork"
+      ],
+      "uv": true
+    },
+    "Bottle_4_Jar_Glass": {
+      "tris": 2176,
+      "verts": 1090,
+      "materials": [
+        "Glass_Amber"
+      ],
+      "uv": true
+    },
+    "Bottle_4_Jar_Liquid": {
+      "tris": 288,
+      "verts": 146,
+      "materials": [
+        "Liquid_Mana"
+      ],
+      "uv": true
+    },
+    "Bottle_4_Jar_Label": {
+      "tris": 48,
+      "verts": 50,
+      "materials": [
+        "Paper_Label"
+      ],
+      "uv": true
+    },
+    "Bottle_4_Jar_Cork": {
+      "tris": 400,
+      "verts": 202,
+      "materials": [
+        "Cork"
+      ],
+      "uv": true
+    }
+  },
+  "total_tris": 13488,
+  "bbox_m": [
+    0.297,
+    0.1753,
+    0.205
+  ],
+  "bottles": {
+    "Bottle_1_Square": [
+      "Bottle_1_Square_Glass",
+      "Bottle_1_Square_Liquid",
+      "Bottle_1_Square_Label",
+      "Bottle_1_Square_Stopper"
+    ],
+    "Bottle_2_Tall": [
+      "Bottle_2_Tall_Glass",
+      "Bottle_2_Tall_Liquid",
+      "Bottle_2_Tall_Label",
+      "Bottle_2_Tall_Cork"
+    ],
+    "Bottle_3_Round": [
+      "Bottle_3_Round_Glass",
+      "Bottle_3_Round_Liquid",
+      "Bottle_3_Round_Label",
+      "Bottle_3_Round_Cork"
+    ],
+    "Bottle_4_Jar": [
+      "Bottle_4_Jar_Glass",
+      "Bottle_4_Jar_Liquid",
+      "Bottle_4_Jar_Label",
+      "Bottle_4_Jar_Cork"
+    ]
+  },
+  "reference": "examples/models/potions/potions_reference_cc0.jpg (CC0)"
+}

@@ -1,0 +1,263 @@
+{
+  "source_total_tris": 10052,
+  "formats": {
+    "glb": {
+      "file_mb": 7.13,
+      "objects": [
+        "Lantern_Body",
+        "Lantern_Candle",
+        "Lantern_Door",
+        "Lantern_Flame",
+        "Lantern_Glass",
+        "Lantern_Grip"
+      ],
+      "tris": 10052,
+      "tris_match_source": true,
+      "bbox_m": [
+        0.1618,
+        0.1805,
+        0.3469
+      ],
+      "materials": [
+        "Brass_Cap",
+        "Candle_Wax",
+        "Flame",
+        "Glass_Clear",
+        "Iron_Enamel",
+        "Vent_Dark",
+        "Wood_Grip"
+      ],
+      "images": 6,
+      "material_values": {
+        "Glass_Clear": {
+          "base": [
+            0.92,
+            0.93,
+            0.88
+          ],
+          "metallic": 0.0,
+          "roughness": 0.04
+        },
+        "Brass_Cap": {
+          "base": [
+            0.45,
+            0.3,
+            0.12
+          ],
+          "metallic": 1.0,
+          "roughness": 0.38
+        },
+        "Flame": {
+          "base": [
+            1.0,
+            0.6,
+            0.25
+          ],
+          "metallic": 0.0,
+          "roughness": 0.5
+        },
+        "Vent_Dark": {
+          "base": [
+            0.008,
+            0.007,
+            0.006
+          ],
+          "metallic": 0.0,
+          "roughness": 0.8
+        },
+        "Iron_Enamel": {
+          "base": "iron_enamel_Diffuse_1k",
+          "metallic": null,
+          "roughness": "texture"
+        },
+        "Wood_Grip": {
+          "base": "grip_wood_Diffuse_1k",
+          "metallic": null,
+          "roughness": "texture"
+        },
+        "Candle_Wax": {
+          "base": [
+            0.86,
+            0.79,
+            0.64
+          ],
+          "metallic": 0.0,
+          "roughness": 0.45
+        }
+      },
+      "material_problems": []
+    },
+    "obj": {
+      "file_mb": 0.62,
+      "objects": [
+        "Lantern_Body",
+        "Lantern_Candle",
+        "Lantern_Door",
+        "Lantern_Flame",
+        "Lantern_Glass",
+        "Lantern_Grip"
+      ],
+      "tris": 10052,
+      "tris_match_source": true,
+      "bbox_m": [
+        0.1618,
+        0.1805,
+        0.3469
+      ],
+      "materials": [
+        "Brass_Cap",
+        "Candle_Wax",
+        "Flame",
+        "Glass_Clear",
+        "Iron_Enamel",
+        "Vent_Dark",
+        "Wood_Grip"
+      ],
+      "images": 7,
+      "material_values": {
+        "Vent_Dark": {
+          "base": [
+            0.008,
+            0.007,
+            0.006
+          ],
+          "metallic": 0.0,
+          "roughness": 0.8
+        },
+        "Glass_Clear": {
+          "base": [
+            0.92,
+            0.93,
+            0.88
+          ],
+          "metallic": 0.0,
+          "roughness": 0.04
+        },
+        "Iron_Enamel": {
+          "base": "iron_enamel_Diffuse_1k.jpg",
+          "metallic": null,
+          "roughness": "texture"
+        },
+        "Candle_Wax": {
+          "base": [
+            0.86,
+            0.79,
+            0.64
+          ],
+          "metallic": 0.0,
+          "roughness": 0.45
+        },
+        "Flame": {
+          "base": [
+            1.0,
+            0.6,
+            0.25
+          ],
+          "metallic": 0.0,
+          "roughness": 0.5
+        },
+        "Wood_Grip": {
+          "base": "grip_wood_Diffuse_1k.jpg",
+          "metallic": 0.0,
+          "roughness": "texture"
+        },
+        "Brass_Cap": {
+          "base": [
+            0.45,
+            0.3,
+            0.12
+          ],
+          "metallic": 1.0,
+          "roughness": 0.38
+        }
+      },
+      "material_problems": []
+    },
+    "fbx": {
+      "file_mb": 5.03,
+      "objects": [
+        "Lantern_Body",
+        "Lantern_Candle",
+        "Lantern_Door",
+        "Lantern_Flame",
+        "Lantern_Glass",
+        "Lantern_Grip"
+      ],
+      "tris": 10052,
+      "tris_match_source": true,
+      "bbox_m": [
+        0.1618,
+        0.1805,
+        0.3469
+      ],
+      "materials": [
+        "Brass_Cap",
+        "Candle_Wax",
+        "Flame",
+        "Glass_Clear",
+        "Iron_Enamel",
+        "Vent_Dark",
+        "Wood_Grip"
+      ],
+      "images": 7,
+      "material_values": {
+        "Candle_Wax": {
+          "base": [
+            0.86,
+            0.79,
+            0.64
+          ],
+          "metallic": 0.0,
+          "roughness": 0.45
+        },
+        "Vent_Dark": {
+          "base": [
+            0.008,
+            0.007,
+            0.006
+          ],
+          "metallic": 0.0,
+          "roughness": 0.8
+        },
+        "Wood_Grip": {
+          "base": "grip_wood_Diffuse_1k.jpg",
+          "metallic": 0.0,
+          "roughness": "texture"
+        },
+        "Glass_Clear": {
+          "base": [
+            0.92,
+            0.93,
+            0.88
+          ],
+          "metallic": 0.0,
+          "roughness": 0.04
+        },
+        "Iron_Enamel": {
+          "base": "iron_enamel_Diffuse_1k.jpg",
+          "metallic": null,
+          "roughness": "texture"
+        },
+        "Brass_Cap": {
+          "base": [
+            0.45,
+            0.3,
+            0.12
+          ],
+          "metallic": 1.0,
+          "roughness": 0.38
+        },
+        "Flame": {
+          "base": [
+            1.0,
+            0.6,
+            0.25
+          ],
+          "metallic": 0.0,
+          "roughness": 0.5
+        }
+      },
+      "material_problems": []
+    }
+  }
+}

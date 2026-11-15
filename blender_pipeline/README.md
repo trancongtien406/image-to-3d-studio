@@ -126,3 +126,19 @@ blender -b output/chest/chest.blend -P reexport_chest.py -- output/chest
 blender -b -P verify_exports.py -- output/chest      # prints MATERIAL_PROBLEMS none
 ```
 Check render: `output/chest/glb_reimport_check.png` (re-imported GLB, EEVEE; old vs new).
+
+## Prop samples from CC0 reference photos (potion set, iron lantern)
+
+```bash
+python3 make_prop_textures.py                       # cork / black-enamel iron / label atlas maps -> textures_generated/
+blender -b -P build_potions.py -- --samples 128     # -> output/potions: potions.glb/.fbx/.obj, model_stats.json, renders/
+blender -b -P build_lantern.py -- --samples 128     # -> output/lantern (Lantern_Door pivots on its hinge axis)
+blender -b -P verify_exports.py -- output/potions --name potions --expect-tex Paper_Label,Cork
+blender -b -P verify_exports.py -- output/lantern --name lantern --expect-tex Iron_Enamel,Wood_Grip
+```
+* `prop_kit.py`: lathe/loft tool with per-ring superellipse exponent (round ↔ rounded-square), real cylindrical UVs,
+  exporter-safe image materials, studio + beauty / clay / wireframe renders, GLB/FBX/OBJ export via `export_safe`.
+* Potion set: 4 bottles, 16 parts, 13,488 tris; glass has real wall thickness (outer + inner surface), separate liquid
+  volumes, labels on one 2:1 atlas; glass/liquids export with KHR_materials_transmission (+ior).
+* Lantern: 6 parts, 10,052 tris; box-projected tiling UVs on the iron (1 tile / 0.2 m), lathe UVs on round parts.
+* References and licences: see CREDITS.md (both photos CC0 1.0, Wikimedia Commons).

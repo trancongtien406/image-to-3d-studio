@@ -1,14 +1,17 @@
 """Re-import the exported GLB / OBJ / FBX in a fresh Blender scene and compare with the source model stats.
 
     blender -b -P verify_exports.py -- output/chest
+    blender -b -P verify_exports.py -- output/lantern --name lantern --expect-tex Iron_Enamel,Wood_Grip
 """
 import bpy, json, os, sys
 from mathutils import Vector
-D = sys.argv[sys.argv.index("--") + 1]
+A = sys.argv[sys.argv.index("--") + 1:]
+D = A[0]
+NAME = A[A.index("--name") + 1] if "--name" in A else "chest"
 src = json.load(open(os.path.join(D, "model_stats.json")))
 out = {"source_total_tris": src["total_tris"], "formats": {}}
-EXPECT_TEX = {"Wood_Oak_Aged", "Wood_EndGrain"}
-for fmt, fn in (("glb", "chest.glb"), ("obj", "chest.obj"), ("fbx", "chest.fbx")):
+EXPECT_TEX = set(A[A.index("--expect-tex") + 1].split(",")) if "--expect-tex" in A else {"Wood_Oak_Aged", "Wood_EndGrain"}
+for fmt, fn in (("glb", f"{NAME}.glb"), ("obj", f"{NAME}.obj"), ("fbx", f"{NAME}.fbx")):
     bpy.ops.wm.read_factory_settings(use_empty=True)
     p = os.path.join(D, fn)
     if fmt == "glb": bpy.ops.import_scene.gltf(filepath=p)

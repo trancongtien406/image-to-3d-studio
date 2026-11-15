@@ -1,0 +1,66 @@
+{
+  "objects": {
+    "Lantern_Body": {
+      "tris": 7324,
+      "verts": 3752,
+      "materials": [
+        "Iron_Enamel",
+        "Vent_Dark",
+        "Brass_Cap"
+      ],
+      "uv": true
+    },
+    "Lantern_Glass": {
+      "tris": 324,
+      "verts": 168,
+      "materials": [
+        "Glass_Clear"
+      ],
+      "uv": true
+    },
+    "Lantern_Door": {
+      "tris": 888,
+      "verts": 462,
+      "materials": [
+        "Iron_Enamel",
+        "Glass_Clear",
+        "Brass_Cap"
+      ],
+      "uv": true
+    },
+    "Lantern_Grip": {
+      "tris": 448,
+      "verts": 226,
+      "materials": [
+        "Wood_Grip"
+      ],
+      "uv": true
+    },
+    "Lantern_Candle": {
+      "tris": 908,
+      "verts": 460,
+      "materials": [
+        "Iron_Enamel",
+        "Candle_Wax",
+        "Vent_Dark"
+      ],
+      "uv": true
+    },
+    "Lantern_Flame": {
+      "tris": 160,
+      "verts": 82,
+      "materials": [
+        "Flame"
+      ],
+      "uv": true
+    }
+  },
+  "total_tris": 10052,
+  "bbox_m": [
+    0.1618,
+    0.1805,
+    0.3469
+  ],
+  "door_pivot": "Lantern_Door origin on the hinge axis; rotate -Z to open",
+  "reference": "examples/models/lantern/lantern_reference_cc0.jpg (CC0)"
+}
