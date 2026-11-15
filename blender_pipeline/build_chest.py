@@ -598,9 +598,13 @@ def sel(objs):
     bpy.context.view_layer.objects.active = objs[0]
 
 sel(model)
-bpy.ops.export_scene.gltf(filepath=os.path.join(OUT, "chest.glb"), use_selection=True, export_format="GLB", export_apply=True)
-bpy.ops.export_scene.fbx(filepath=os.path.join(OUT, "chest.fbx"), use_selection=True, apply_unit_scale=True, object_types={"MESH"}, path_mode="COPY", embed_textures=True)
-bpy.ops.wm.obj_export(filepath=os.path.join(OUT, "chest.obj"), export_selected_objects=True, export_materials=True, path_mode="COPY")
+# exporters cannot follow the procedural render shaders (brass wear, wood variation, velvet tint) -> export a
+# glTF-compatible material state (image textures linked directly, flat PBR factors for procedural brass), then restore
+from export_materials import export_safe
+with export_safe({m for o in model for m in o.data.materials if m}):
+    bpy.ops.export_scene.gltf(filepath=os.path.join(OUT, "chest.glb"), use_selection=True, export_format="GLB", export_apply=True)
+    bpy.ops.export_scene.fbx(filepath=os.path.join(OUT, "chest.fbx"), use_selection=True, apply_unit_scale=True, object_types={"MESH"}, path_mode="COPY", embed_textures=True)
+    bpy.ops.wm.obj_export(filepath=os.path.join(OUT, "chest.obj"), export_selected_objects=True, export_materials=True, path_mode="COPY")
 # print STL (DISPLAY / STATIC): closed lid + solid cores, union via voxel remesh -> one watertight shell, mm, Z up
 def print_shell(name, objs, voxel=0.0012, ratio=0.1, cutters=()):
     dup = []

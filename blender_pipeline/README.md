@@ -109,3 +109,20 @@ blender -b -P verify_exports.py -- output/chest
 python print_proof.py output/chest/chest_print_mm.stl output/chest/print_proof.json --fix --features output/chest/print_features_mm.json --scales 1,0.25,0.15
 python3 slice_preview.py --stl output/chest/chest_print_mm.stl --scale 25 --slicer /path/to/prusa-slicer --out output/chest/slice
 python3 texture_sheet.py output/chest/textures chest_texture_maps.png
+
+### Export materials fix (GLB / FBX / OBJ)
+
+The render shaders use node chains the exporters cannot follow: procedural brass wear (Pointiness/AO/Noise), per-plank
+wood variation and the velvet desaturate+tint. Before this fix `chest.glb` carried an **empty** `Brass_Aged` material
+(viewers show white metal), and FBX/OBJ lost the wood diffuse/roughness maps (flat grey).
+`export_materials.export_safe()` now rewires every material into a glTF-compatible state just for the export: image
+textures linked straight into the Principled BSDF, flat PBR factors for the procedural brass (base colour 0.42/0.30/0.12
+linear, metallic 1, roughness 0.45) and the tinted velvet. Afterwards it restores the render network, so renders are unchanged.
+`verify_exports.py` now also checks materials (default-white base colours, lost wood textures).
+
+```bash
+# re-export from the saved .blend without re-rendering, then verify
+blender -b output/chest/chest.blend -P reexport_chest.py -- output/chest
+blender -b -P verify_exports.py -- output/chest      # prints MATERIAL_PROBLEMS none
+```
+Check render: `output/chest/glb_reimport_check.png` (re-imported GLB, EEVEE; old vs new).

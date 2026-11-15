@@ -2,7 +2,7 @@
   "source_total_tris": 50500,
   "formats": {
     "glb": {
-      "file_mb": 23.66,
+      "file_mb": 20.46,
       "objects": [
         "Chest_Body_Metal",
         "Chest_Body_Wood",
@@ -29,7 +29,65 @@
         "Wood_EndGrain",
         "Wood_Oak_Aged"
       ],
-      "images": 9
+      "images": 8,
+      "material_values": {
+        "Keyhole_Dark": {
+          "base": [
+            0.02,
+            0.015,
+            0.01
+          ],
+          "metallic": 0.0,
+          "roughness": 0.8
+        },
+        "Brass_Aged": {
+          "base": [
+            0.42,
+            0.3,
+            0.12
+          ],
+          "metallic": 1.0,
+          "roughness": 0.45
+        },
+        "Wood_Oak_Aged": {
+          "base": "chest_wood_Diffuse_2k",
+          "metallic": null,
+          "roughness": "texture"
+        },
+        "Lining_Thread": {
+          "base": [
+            0.8,
+            0.62,
+            0.36
+          ],
+          "metallic": 0.0,
+          "roughness": 0.5
+        },
+        "Lining_Piping": {
+          "base": [
+            0.06,
+            0.004,
+            0.008
+          ],
+          "metallic": 0.0,
+          "roughness": 0.55
+        },
+        "Lining_Velvet": {
+          "base": [
+            0.122,
+            0.009,
+            0.015
+          ],
+          "metallic": null,
+          "roughness": "texture"
+        },
+        "Wood_EndGrain": {
+          "base": "chest_woodend_Diffuse_2k",
+          "metallic": null,
+          "roughness": "texture"
+        }
+      },
+      "material_problems": []
     },
     "obj": {
       "file_mb": 2.35,
@@ -59,10 +117,68 @@
         "Wood_EndGrain",
         "Wood_Oak_Aged"
       ],
-      "images": 3
+      "images": 8,
+      "material_values": {
+        "Keyhole_Dark": {
+          "base": [
+            0.02,
+            0.015,
+            0.01
+          ],
+          "metallic": 0.0,
+          "roughness": 0.8
+        },
+        "Lining_Thread": {
+          "base": [
+            0.8,
+            0.62,
+            0.36
+          ],
+          "metallic": 0.0,
+          "roughness": 0.5
+        },
+        "Wood_EndGrain": {
+          "base": "chest_woodend_Diffuse_2k.jpg",
+          "metallic": 0.0,
+          "roughness": "texture"
+        },
+        "Lining_Piping": {
+          "base": [
+            0.06,
+            0.004,
+            0.008
+          ],
+          "metallic": 0.0,
+          "roughness": 0.55
+        },
+        "Wood_Oak_Aged": {
+          "base": "chest_wood_Diffuse_2k.jpg",
+          "metallic": 0.0,
+          "roughness": "texture"
+        },
+        "Brass_Aged": {
+          "base": [
+            0.42,
+            0.3,
+            0.12
+          ],
+          "metallic": 1.0,
+          "roughness": 0.45
+        },
+        "Lining_Velvet": {
+          "base": [
+            0.122,
+            0.009,
+            0.015
+          ],
+          "metallic": 0.0,
+          "roughness": "texture"
+        }
+      },
+      "material_problems": []
     },
     "fbx": {
-      "file_mb": 6.76,
+      "file_mb": 14.95,
       "objects": [
         "Chest_Body_Metal",
         "Chest_Body_Wood",
@@ -89,7 +205,65 @@
         "Wood_EndGrain",
         "Wood_Oak_Aged"
       ],
-      "images": 3
+      "images": 8,
+      "material_values": {
+        "Lining_Velvet": {
+          "base": [
+            0.122,
+            0.009,
+            0.015
+          ],
+          "metallic": 0.0,
+          "roughness": "texture"
+        },
+        "Wood_EndGrain": {
+          "base": "chest_woodend_Diffuse_2k.jpg",
+          "metallic": 0.0,
+          "roughness": "texture"
+        },
+        "Lining_Thread": {
+          "base": [
+            0.8,
+            0.62,
+            0.36
+          ],
+          "metallic": 0.0,
+          "roughness": 0.5
+        },
+        "Keyhole_Dark": {
+          "base": [
+            0.02,
+            0.015,
+            0.01
+          ],
+          "metallic": 0.0,
+          "roughness": 0.8
+        },
+        "Lining_Piping": {
+          "base": [
+            0.06,
+            0.004,
+            0.008
+          ],
+          "metallic": 0.0,
+          "roughness": 0.55
+        },
+        "Brass_Aged": {
+          "base": [
+            0.42,
+            0.3,
+            0.12
+          ],
+          "metallic": 1.0,
+          "roughness": 0.45
+        },
+        "Wood_Oak_Aged": {
+          "base": "chest_wood_Diffuse_2k.jpg",
+          "metallic": 0.0,
+          "roughness": "texture"
+        }
+      },
+      "material_problems": []
     }
   }
 }
