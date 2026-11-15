@@ -8,9 +8,14 @@ material for Brass_Aged (viewer default = white metal) and FBX/OBJ lose the wood
 original render network afterwards (renders and the saved .blend are unchanged):
   * Base Color / Roughness: if an image texture feeds the chain, link that image directly;
   * procedural-only channels: flat PBR factors from EXPORT_FLAT (measured/approximated from the render shader);
-  * procedural Bump normals are unlinked (Normal Map nodes from real textures are kept).
+  * procedural Bump normals are unlinked (Normal Map nodes from real textures are kept);
+  * transmissive glass materials (name starts with "Glass") also get Alpha = GLASS_EXPORT_ALPHA + blended render method, so glTF writes
+    alphaMode BLEND (baseColor alpha < 1) next to KHR_materials_transmission; engines without transmission
+    support (e.g. Godot 4.3) then import the glass as alpha-blended instead of opaque.
 """
 import contextlib
+
+GLASS_EXPORT_ALPHA = 0.3
 
 # Flat PBR values for procedural-only channels (linear RGB). Brass: average of the aged-brass wear shader
 # (tarnish/dull/polished-edge mix) lifted slightly so the part still reads as brass without the edge highlights.
@@ -52,6 +57,7 @@ def _tinted_velvet(m, bsdf):
 @contextlib.contextmanager
 def export_safe(materials, report=None):
     saved = []   # (material, socket name, [from_sockets], default_value)
+    modes = []   # (material, surface_render_method, blend_method)
     try:
         for m in materials:
             if not m or not m.use_nodes: continue
@@ -96,6 +102,16 @@ def export_safe(materials, report=None):
             if s.is_linked and s.links[0].from_node.type == "BUMP":
                 for l in list(s.links): L.remove(l)
                 act["normal"] = "bump dropped"
+            # glass: alpha blend for engines that ignore KHR_materials_transmission
+            tw = b.inputs.get("Transmission Weight")
+            if m.name.startswith("Glass") and tw is not None and not tw.is_linked and tw.default_value > 0.5:
+                s = b.inputs["Alpha"]
+                saved.append((m, "Alpha", [l.from_socket for l in s.links], s.default_value))
+                modes.append((m, getattr(m, "surface_render_method", None), m.blend_method))
+                for l in list(s.links): L.remove(l)
+                s.default_value = GLASS_EXPORT_ALPHA
+                if hasattr(m, "surface_render_method"): m.surface_render_method = "BLENDED"
+                m.blend_method = "BLEND"; act["alpha"] = f"blend {GLASS_EXPORT_ALPHA}"
             if report is not None: report[m.name] = act
         yield
     finally:
@@ -104,3 +120,6 @@ def export_safe(materials, report=None):
             for l in list(s.links): nt.links.remove(l)
             for fs in froms: nt.links.new(fs, s)
             s.default_value = dv
+        for m, srm, bm in modes:
+            if srm is not None: m.surface_render_method = srm
+            m.blend_method = bm
